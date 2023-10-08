@@ -1,46 +1,46 @@
-import { defaultTheme, mergeTheme } from "evergreen-ui";
+import { defaultTheme, mergeTheme } from 'evergreen-ui';
 
 const theme = mergeTheme(defaultTheme, {
   components: {
     Button: {
       appearances: {
         primary: {
-          color: "black",
+          color: 'black',
           paddingX: 12,
           paddingY: 8,
           borderRadius: 5,
-          backgroundColor: "#FFD447",
+          backgroundColor: '#FFD447',
           transition:
-            "background-color 0.1s ease-out, box-shadow 0.2s ease-out",
+            'background-color 0.1s ease-out, box-shadow 0.2s ease-out',
           selectors: {
             _hover: {
-              backgroundColor: "#BFC4C2",
+              backgroundColor: '#BFC4C2'
             },
             _focus: {
-              boxShadow: "transparent",
-            },
-          },
+              boxShadow: 'transparent'
+            }
+          }
         },
         secondary: {
-          color: "black",
+          color: 'black',
           paddingX: 12,
           paddingY: 8,
           borderRadius: 5,
-          backgroundColor: "#EEEEEE",
+          backgroundColor: '#EEEEEE',
           transition:
-            "background-color 0.1s ease-out, box-shadow 0.2s ease-out",
+            'background-color 0.1s ease-out, box-shadow 0.2s ease-out',
           selectors: {
             _hover: {
-              backgroundColor: "#BFC4C2",
+              backgroundColor: '#BFC4C2'
             },
             _focus: {
-              boxShadow: "transparent",
-            },
-          },
-        },
-      },
-    },
-  },
+              boxShadow: 'transparent'
+            }
+          }
+        }
+      }
+    }
+  }
 });
 
 export default theme;

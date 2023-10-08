@@ -1,5 +1,5 @@
 .taskNodeCard {
-  width: 500px;
+  max-width: 400px;
   border-radius: 8px;
 }
 
