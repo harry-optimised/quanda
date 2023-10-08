@@ -1,0 +1,9 @@
+.taskNodeCard {
+  width: 500px;
+  border-radius: 8px;
+}
+
+.disabled {
+  opacity: 0.25;
+  pointer-events: none;
+}
