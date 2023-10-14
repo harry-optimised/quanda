@@ -1,47 +1,21 @@
 from rest_framework import viewsets, mixins
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from tasks.models import Task, Github, AWS
-from api.serializers import (
-    TaskListSerializer, 
-    CombinedTaskSerializer, 
-    GithubRepositoriesSerializer, 
-    AWSECRSerializer
-)
+from item.models import Evidence, Item, System, Tag
+from api.serializers import SystemSerializer, EvidenceSerializer, TagSerializer, ItemSerializer
 
-class TaskViewSet(viewsets.ModelViewSet):
+class SystemViewSet(viewsets.ModelViewSet):
+    queryset = System.objects.all()
+    serializer_class = SystemSerializer
 
-    queryset = Task.objects.all()
-    
-    def get_serializer_class(self):
+class EvidenceViewSet(viewsets.ModelViewSet):
+    queryset = Evidence.objects.all()
+    serializer_class = EvidenceSerializer
 
-        if self.action == 'retrieve':
-            return CombinedTaskSerializer
-        
-        return TaskListSerializer
- 
-    def perform_create(self, serializer):
+class TagViewSet(viewsets.ModelViewSet):
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
 
-        serializer.save(user=self.request.user)
-
-
-class GithubRepositoryView(APIView):
-    
-    serializer_class = GithubRepositoriesSerializer
-
-    def get(self, request, *args, **kwargs):
-
-        repositories = Github.get_repositories()
-        serializer = self.serializer_class(repositories, many=True)
-        return Response(serializer.data)
-    
-
-class AWSECRView(APIView):
-
-    serializer_class = AWSECRSerializer
-
-    def get(self, request, *args, **kwargs):
-            
-            repositories = AWS.get_repositories()
-            serializer = self.serializer_class(repositories, many=True)
-            return Response(serializer.data)
+class ItemViewSet(viewsets.ModelViewSet):
+    queryset = Item.objects.all()
+    serializer_class = ItemSerializer

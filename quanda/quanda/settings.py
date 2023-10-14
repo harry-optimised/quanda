@@ -44,8 +44,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'rest_framework',
+    'guardian',
     'user',
-    'tasks',
+    'item',
     'api'
 ]
 
@@ -143,6 +144,12 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+# Permissions
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'guardian.backends.ObjectPermissionBackend',
+)
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
@@ -207,13 +214,3 @@ LOGGING = {
         },
     }, 
 }
-  
-# Github Settings
-GITHUB_BASE_URL = 'https://api.github.com'
-GITHUB_USER = getenv('KOVAX_GITHUB_USER', '')
-GITHUB_PAT = getenv('KOVAX_GITHUB_PAT', '')
-
-# AWS Settings
-AWS_REGION = getenv('KOVAX_AWS_REGION', '')
-AWS_ACCESS_KEY_ID = getenv('KOVAX_AWS_ACCESS_KEY_ID', '')
-AWS_SECRET_ACCESS_KEY = getenv('KOVAX_AWS_SECRET_ACCESS_KEY', '')

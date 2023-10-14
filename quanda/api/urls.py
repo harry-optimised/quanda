@@ -1,12 +1,13 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from api.views import TaskViewSet, GithubRepositoryView, AWSECRView
+from api import views
 
 router = DefaultRouter()
-router.register(r'tasks', TaskViewSet)
+router.register(r'systems', views.SystemViewSet)
+router.register(r'evidences', views.EvidenceViewSet)
+router.register(r'tags', views.TagViewSet)
+router.register(r'items', views.ItemViewSet)
 
 urlpatterns = [
-    path('', include(router.urls)),
-    path('repositories/', GithubRepositoryView.as_view(), name='repositories'),
-    path('ecr/', AWSECRView.as_view(), name='ecr')
+    path('', include(router.urls))
 ]
