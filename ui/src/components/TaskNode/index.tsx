@@ -39,7 +39,6 @@ export default function ItemNode({ data }: ItemNodeProps) {
 
   const project = 1;
 
-  console.log(item);
   if (!managedItem) {
     return null;
   }

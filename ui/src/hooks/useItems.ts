@@ -12,26 +12,36 @@ export type Item = {
   system: number;
 };
 
-export type ItemAPIResponse = Item;
+export type ItemAPIDetailResponse = Item;
+export type ItemAPIListResponse = Item[];
 
 type UseItemsProps = {
-  items: Item[] | null;
+  items: Item[];
   isLoading: boolean;
   error: Error | null;
 };
 
-const useItems = (id: number): UseItemsProps => {
-  const [items, setItems] = useState<Item[] | null>(null);
+const URL = 'http://localhost:8000/api/items';
+
+const useItems = (id?: number): UseItemsProps => {
+  const [items, setItems] = useState<Item[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/api/items/${id}/`);
-        const data = (await response.json()) as ItemAPIResponse;
-        setItems([data]);
-        setIsLoading(false);
+        if (id) {
+          const response = await fetch(`${URL}/${id}/`);
+          const data = (await response.json()) as ItemAPIDetailResponse;
+          setItems([data]);
+          setIsLoading(false);
+        } else {
+          const response = await fetch(`${URL}/`);
+          const data = (await response.json()) as ItemAPIListResponse;
+          setItems(data);
+          setIsLoading(false);
+        }
       } catch (err) {
         setError(err as Error);
         setIsLoading(false);

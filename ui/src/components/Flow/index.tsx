@@ -45,7 +45,6 @@ export default function Flow({ primary }: { primary: number }) {
         fitView
       >
         <Background color="#999" gap={16} />
-        <Controls />
       </ReactFlow>
     </div>
   );

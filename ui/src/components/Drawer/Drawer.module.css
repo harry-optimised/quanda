@@ -1,0 +1,31 @@
+/* Drawer.module.css */
+.sidesheetContainer {
+  transition: transform 0.3s ease-in-out;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh; /* Fill the full height */
+  width: 400px;
+  overflow-y: hidden; /* Hide scrollbar */
+  z-index: 10000;
+}
+
+.sidesheetHidden {
+  transform: translateX(-100%);
+}
+
+.sidesheetShown {
+  transform: translateX(0);
+}
+/* Drawer.module.css */
+.drawerButton {
+  transition: transform 0.3s ease-in-out;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10001;
+}
+
+.drawerButtonShown {
+  transform: translateX(400px); /* Same as the width of your sidesheet */
+}
