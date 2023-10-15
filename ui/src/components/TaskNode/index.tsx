@@ -20,7 +20,7 @@ import {
 } from 'evergreen-ui';
 import { Item } from '../../hooks/useItems';
 
-import ConfidenceBar from '../Confidencebar';
+import Confidence from '../Confidencebar';
 import FreezeButton from '../freezeButton';
 import useSystems, { System } from '../../hooks/useSystems';
 import useTags from '../../hooks/useTags';
@@ -103,6 +103,13 @@ export default function ItemNode({ data }: ItemNodeProps) {
     [managedItem, onSave]
   );
 
+  const onSaveConfidence = useCallback(
+    (confidence: number) => {
+      onSave({ ...managedItem, confidence: confidence });
+    },
+    [managedItem, onSave]
+  );
+
   return (
     <Pane>
       <Pane display="flex" marginBottom={majorScale(1)}>
@@ -156,7 +163,7 @@ export default function ItemNode({ data }: ItemNodeProps) {
               </Popover>
             </Pane>
             <Pane width="50%" cursor="pointer">
-              <ConfidenceBar confidence={confidence} />
+              <Confidence confidence={confidence} onSave={onSaveConfidence} />
             </Pane>
           </Pane>
           <Pane marginTop={majorScale(1)}>
