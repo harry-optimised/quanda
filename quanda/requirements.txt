@@ -9,4 +9,4 @@ django-filter
 requests ~= 2.31
 django-redis==5.3.0
 django-guardian==2.4.0
-
+graphene-django==3.1.5

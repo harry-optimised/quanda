@@ -10,7 +10,7 @@ function App() {
   return (
     <ThemeProvider value={theme}>
       <div className="App" style={{ width: '100%', height: '100vh' }}>
-        <Flow primary={4} />
+        <Flow primary={3} />
         <BottomBar />
       </div>
     </ThemeProvider>

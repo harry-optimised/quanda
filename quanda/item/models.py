@@ -1,12 +1,23 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 from guardian.shortcuts import get_perms, assign_perm
 
-URGENCY_CHOICES = [
-        ('CW', 'Can Wait'),
-        ('AS', 'Answer Soon'),
-        ('B', 'Blocking'),
-    ]
 
+class UrgencyChoices(models.TextChoices):
+    CAN_WAIT = 'CW'
+    ANSWER_SOON = 'AS'
+    BLOCKING = 'B'
+
+class ColourChoices(models.TextChoices):
+    NEUTRAL = 'neutral'
+    GREEN = 'green'
+    BLUE = 'blue'
+    RED = 'red'
+    ORANGE = 'orange'
+    PURPLE = 'purple'
+    YELLOW = 'yellow'
+    TEAL = 'teal'
+    
 class Project(models.Model):
     """Project Model."""
 
@@ -55,9 +66,32 @@ class Tag(ProjectMixin, models.Model):
 
     name = models.CharField(max_length=100)
     description = models.TextField()
+    colour = models.CharField(max_length=10, choices=ColourChoices.choices)
 
     def __str__(self):
         return self.name
+    
+    class Meta(ProjectMixin.Meta):
+        unique_together = ('project', 'colour')
+
+    def save(self, *args, **kwargs):
+
+        # Check if there are already 8 tags in the project
+        existing_tags_count = Tag.objects.filter(project=self.project).count()
+        if existing_tags_count >= 8:
+            raise ValidationError("Maximum of 8 tags allowed per project.")
+
+        # Get the set of colours already used in the project
+        used_colours = set(Tag.objects.filter(project=self.project).values_list('colour', flat=True))
+
+        # Find an unused colour
+        available_colours = set(ColourChoices.values) - used_colours
+        if available_colours:
+            self.colour = available_colours.pop()  # Take any colour from the available set
+        else:
+            raise ValidationError("No available colours left.")
+
+        super().save(*args, **kwargs)
 
 
 class Item(ProjectMixin, models.Model):
@@ -67,7 +101,7 @@ class Item(ProjectMixin, models.Model):
     secondary = models.TextField()    
     confidence = models.FloatField()
     frozen = models.BooleanField(default=False)    
-    urgency = models.CharField(max_length=2, choices=URGENCY_CHOICES)
+    urgency = models.CharField(max_length=2, choices=UrgencyChoices.choices)
 
     system = models.ForeignKey(System, on_delete=models.SET_NULL, null=True)
     evidence = models.ManyToManyField(Evidence, blank=True)

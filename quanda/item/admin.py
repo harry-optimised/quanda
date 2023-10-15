@@ -16,7 +16,7 @@ class EvidenceAdmin(admin.ModelAdmin):
 
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
-    list_display = ['name', 'description']
+    list_display = ['name', 'colour', 'description']
     search_fields = ['name']
 
 @admin.register(Item)

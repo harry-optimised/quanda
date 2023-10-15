@@ -93,14 +93,6 @@ DATABASES = {
         'PASSWORD': 'password123',
         'HOST': 'db',   # this will be the name of the docker-compose service for postgres
         'PORT': '5432',
-    },
-    'mongo': {
-        'ENGINE': 'djongo',
-        'NAME': 'quandamongo',
-        'CLIENT': {
-            'host': 'mongo',  # this will be the name of the docker-compose service for mongo
-            'port': 27017,
-        }
     }
 }
 

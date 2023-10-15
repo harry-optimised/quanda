@@ -1,29 +1,18 @@
 import { useState, useEffect } from 'react';
 
-export type Link = {
-  name: string;
-  url: string;
-};
-
-export type Tag = {
-  name: string;
-  color: 'blue' | 'green' | 'red';
-};
-
 export type Item = {
   id: number;
-  header: string;
-  body: string;
+  primary: string;
+  secondary: string;
   confidence: number;
-  tags: Tag[];
-  links: Link[];
+  tags: number[];
+  evidence: number[];
   frozen: boolean;
-  priority: boolean;
-  edges: number[];
-  system: string;
+  urgency: string;
+  system: number;
 };
 
-export type ItemAPIResponse = Item[];
+export type ItemAPIResponse = Item;
 
 type UseItemsProps = {
   items: Item[] | null;
@@ -31,7 +20,7 @@ type UseItemsProps = {
   error: Error | null;
 };
 
-const useItems = (primary: number): UseItemsProps => {
+const useItems = (id: number): UseItemsProps => {
   const [items, setItems] = useState<Item[] | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
@@ -39,37 +28,9 @@ const useItems = (primary: number): UseItemsProps => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // const response = await fetch(`http://localhost:8000/api/tasks/${primary}/`);
-        //const data = (await response.json()) as ItemAPIResponse;
-        const data = [
-          {
-            id: 1,
-            header:
-              'Should we have the concept of a system which represents a design/solution?',
-            body: `User could tie requirements (or QA/statements) to the system which is an 
-            organising element. Like tags but deliberately structured. The user can then compose 
-            hierarchies of systems. I feel like if that information is captured, Quanda could do 
-            some intelligent work like capture requirement risk. Especially using the 'Implements' 
-            relation.`,
-            confidence: 80,
-            tags: [
-              { name: 'hunch', color: 'blue' } as Tag,
-              { name: 'mvp', color: 'red' } as Tag
-            ],
-            links: [
-              {
-                name: 'Some link',
-                url: 'https://www.google.com'
-              }
-            ],
-            frozen: false,
-            priority: false,
-            edges: [],
-            system: 'product'
-          }
-        ];
-
-        setItems(data);
+        const response = await fetch(`http://localhost:8000/api/items/${id}/`);
+        const data = (await response.json()) as ItemAPIResponse;
+        setItems([data]);
         setIsLoading(false);
       } catch (err) {
         setError(err as Error);
@@ -78,7 +39,7 @@ const useItems = (primary: number): UseItemsProps => {
     };
 
     fetchData();
-  }, [primary]);
+  }, [id]);
 
   return { items, isLoading, error };
 };

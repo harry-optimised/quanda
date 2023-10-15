@@ -6,8 +6,7 @@ interface ConfidenceBarProps {
 }
 
 const ConfidenceBar: React.FC<ConfidenceBarProps> = ({ confidence }) => {
-  const filledWidth = `${confidence}%`;
-
+  const filledWidth = `${confidence * 100}%`;
   return (
     <div className={styles.progressBarContainer}>
       <div

@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from item.models import Evidence, Item, System, Tag
-import json
 
 
 class SystemSerializer(serializers.ModelSerializer):
@@ -19,9 +18,6 @@ class TagSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ItemSerializer(serializers.ModelSerializer):
-    system = SystemSerializer()
-    evidence = EvidenceSerializer(many=True)
-    tags = TagSerializer(many=True)
 
     class Meta:
         model = Item

@@ -25,8 +25,16 @@ class Command(BaseCommand):
         assign_perm('change_project', team_ravonic, project_carecrow)
 
         self.stdout.write(self.style.HTTP_INFO("Creating Tags..."))
-        tag_hunch, _ = Tag.objects.get_or_create(name="Hunch", description="Just a guess at this point in time.", project=project_carecrow)
-        tag_mvp, _ = Tag.objects.get_or_create(name="MVP", description="Required for first release.", project=project_carecrow)
+        tag_hunch, _ = Tag.objects.get_or_create(
+            name="Hunch", 
+            description="Just a guess at this point in time.", 
+            project=project_carecrow
+            )
+        tag_mvp, _ = Tag.objects.get_or_create(
+            name="MVP", 
+            description="Required for first release.", 
+            project=project_carecrow
+        )
 
         self.stdout.write(self.style.HTTP_INFO("Creating Evidence..."))
         evidence_interview, _ = Evidence.objects.get_or_create(name="User Interview (Sarah)", description="No description", link="https://example.com/user-interview", project=project_carecrow)
