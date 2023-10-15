@@ -20,13 +20,13 @@ export type Tag = {
 export type TagAPIResponse = Tag[];
 
 type UseTagsResponse = {
-  tags: Tag[] | null;
+  tags: Tag[];
   isLoading: boolean;
   error: Error | null;
 };
 
 const useTags = (): UseTagsResponse => {
-  const [tags, setTags] = useState<Tag[] | null>(null);
+  const [tags, setTags] = useState<Tag[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
 

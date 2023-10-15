@@ -14,7 +14,7 @@ import {
   Badge,
   LinkIcon,
   HighPriorityIcon,
-  SnowflakeIcon,
+  TagInput,
   CaretDownIcon,
   toaster
 } from 'evergreen-ui';
@@ -24,6 +24,7 @@ import ConfidenceBar from '../Confidencebar';
 import FreezeButton from '../freezeButton';
 import useSystems, { System } from '../../hooks/useSystems';
 import useTags from '../../hooks/useTags';
+import TagBar from '../TagBar';
 
 interface ItemNodeProps {
   data: {
@@ -35,7 +36,6 @@ export default function ItemNode({ data }: ItemNodeProps) {
   const { item } = data;
   const [managedItem, setManagedItem] = useState<Item>(item);
   const { systems, error: sysError, isLoading: sysLoading } = useSystems();
-  const { tags, error: tagsError, isLoading: tagsLoading } = useTags();
 
   const project = 1;
 
@@ -97,20 +97,17 @@ export default function ItemNode({ data }: ItemNodeProps) {
     [managedItem, onSave]
   );
 
+  const onSaveTags = useCallback(
+    (tags: number[]) => {
+      onSave({ ...managedItem, tags: tags });
+    },
+    [managedItem, onSave]
+  );
+
   return (
     <Pane>
       <Pane display="flex" marginBottom={majorScale(1)}>
-        {managedItem.tags.map((tagID, _) => {
-          const tag = tags?.find((tag) => tag.id === tagID);
-          if (!tag) {
-            return null;
-          }
-          return (
-            <Badge color={tag.colour} marginRight={majorScale(1)} key={tag.id}>
-              {tag.name}
-            </Badge>
-          );
-        })}
+        <TagBar tags={managedItem.tags} onSave={onSaveTags} />
       </Pane>
       <Pane display="flex">
         <Card
