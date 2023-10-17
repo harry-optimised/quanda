@@ -2,12 +2,6 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from guardian.shortcuts import get_perms, assign_perm
 
-
-class UrgencyChoices(models.TextChoices):
-    CAN_WAIT = 'CW'
-    ANSWER_SOON = 'AS'
-    BLOCKING = 'B'
-
 class ColourChoices(models.TextChoices):
     NEUTRAL = 'neutral'
     GREEN = 'green'
@@ -101,7 +95,7 @@ class Item(ProjectMixin, models.Model):
     secondary = models.TextField()    
     confidence = models.FloatField()
     frozen = models.BooleanField(default=False)    
-    urgency = models.CharField(max_length=2, choices=UrgencyChoices.choices)
+    priority = models.BooleanField(default=False)
 
     system = models.ForeignKey(System, on_delete=models.SET_NULL, null=True)
     evidence = models.ManyToManyField(Evidence, blank=True)

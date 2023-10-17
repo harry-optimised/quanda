@@ -8,7 +8,7 @@ export type Item = {
   tags: number[];
   evidence: number[];
   frozen: boolean;
-  urgency: string;
+  priority: boolean;
   system: number;
 };
 

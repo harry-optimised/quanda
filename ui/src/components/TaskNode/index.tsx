@@ -22,6 +22,9 @@ import { Item } from '../../hooks/useItems';
 
 import Confidence from '../Confidencebar';
 import FreezeButton from '../freezeButton';
+import PriorityButton from '../priorityButton';
+import PrimaryField from '../primaryField';
+import SecondaryField from '../secondaryField';
 import useSystems, { System } from '../../hooks/useSystems';
 import useTags from '../../hooks/useTags';
 import TagBar from '../TagBar';
@@ -71,10 +74,6 @@ export default function ItemNode({ data }: ItemNodeProps) {
         body: JSON.stringify(updatedItemWithProject)
       })
         .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          toaster.success('Item saved.');
-        })
         .catch((error) => {
           toaster.danger(`Error: ${error}.`);
         });
@@ -96,6 +95,13 @@ export default function ItemNode({ data }: ItemNodeProps) {
     [managedItem, onSave]
   );
 
+  const onSavePriority = useCallback(
+    (priority: boolean) => {
+      onSave({ ...managedItem, priority: priority });
+    },
+    [managedItem, onSave]
+  );
+
   const onSaveTags = useCallback(
     (tags: number[]) => {
       onSave({ ...managedItem, tags: tags });
@@ -110,6 +116,20 @@ export default function ItemNode({ data }: ItemNodeProps) {
     [managedItem, onSave]
   );
 
+  const onSavePrimary = useCallback(
+    (primary: string) => {
+      onSave({ ...managedItem, primary: primary });
+    },
+    [managedItem, onSave]
+  );
+
+  const onSaveSecondary = useCallback(
+    (secondary: string) => {
+      onSave({ ...managedItem, secondary: secondary });
+    },
+    [managedItem, onSave]
+  );
+
   return (
     <Pane>
       <Pane display="flex" marginBottom={majorScale(1)}>
@@ -117,11 +137,12 @@ export default function ItemNode({ data }: ItemNodeProps) {
       </Pane>
       <Pane display="flex">
         <Card
-          elevation={2}
-          maxWidth="600px"
-          borderRadius="16px"
+          elevation={0}
+          width="600px"
+          borderRadius="4px"
           background={cardColor}
           padding={majorScale(2)}
+          border="1px solid #DDDDEE"
         >
           <Pane
             display="flex"
@@ -167,17 +188,24 @@ export default function ItemNode({ data }: ItemNodeProps) {
             </Pane>
           </Pane>
           <Pane marginTop={majorScale(1)}>
-            <Paragraph textAlign="left">{managedItem.primary}</Paragraph>
+            <PrimaryField
+              primary={managedItem.primary}
+              onSave={onSavePrimary}
+            />
           </Pane>
           <Pane marginTop={majorScale(1)}>
-            <Paragraph textAlign="left" size="300" color="muted">
-              {managedItem.secondary}
-            </Paragraph>
+            <SecondaryField
+              secondary={managedItem.secondary}
+              onSave={onSaveSecondary}
+            />
           </Pane>
         </Card>
         <Pane marginLeft={majorScale(1)} display="flex" flexDirection="column">
           <IconButton icon={LinkIcon} />
-          <IconButton icon={HighPriorityIcon} marginTop={majorScale(1)} />
+          <PriorityButton
+            onSave={onSavePriority}
+            priority={managedItem.priority}
+          />
           <FreezeButton onSave={onSaveFrozen} frozen={managedItem.frozen} />
         </Pane>
       </Pane>

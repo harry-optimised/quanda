@@ -21,9 +21,9 @@ class TagAdmin(admin.ModelAdmin):
 
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ['primary', 'secondary', 'confidence', 'frozen', 'urgency']
+    list_display = ['primary', 'secondary', 'confidence', 'frozen', 'priority']
     search_fields = ['primary', 'secondary']
-    list_filter = ['urgency', 'frozen']
+    list_filter = ['priority', 'frozen']
 
 class TeamInline(admin.TabularInline):
     model = Team

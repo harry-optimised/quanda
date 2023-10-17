@@ -48,11 +48,7 @@ const FreezeButton: React.FC<FreezeButtonProps> = ({
         />
       </Dialog>
 
-      <IconButton
-        icon={SnowflakeIcon}
-        marginTop={16} // Replace with your spacing scale
-        onClick={onToggleFrozen}
-      />
+      <IconButton icon={SnowflakeIcon} marginTop={8} onClick={onToggleFrozen} />
     </Pane>
   );
 };
