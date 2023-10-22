@@ -1,19 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactFlow, { Background, Edge } from 'reactflow';
 import 'reactflow/dist/style.css';
 import ItemNode from '../TaskNode';
 import LinkNode from '../LinkNode';
-import useItems from '../../hooks/useItems';
-import { Item, Link } from '../../hooks/useItems';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../state/store';
+import { Item, Link } from '../../types';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
+import { useFetchItem } from '../../state/hooks';
+import PNG from '../SVG';
 
 const nodeTypes = { itemNode: ItemNode, linkNode: LinkNode };
+
+type Position = {
+  x: number;
+  y: number;
+};
 
 type ItemNode = {
   id: string;
   type: 'itemNode';
   position: { x: number; y: number };
-  data: { item: Item };
+  data: { item: Item; position: Position };
 };
 
 type LinkNode = {
@@ -23,74 +31,79 @@ type LinkNode = {
   data: { link: Link };
 };
 
-export default function Flow({ primary }: { primary: number }) {
-  const { item, error, isLoading } = useItems(primary);
-  const { height, width } = useWindowDimensions();
+const positions: Record<number, Position> = {};
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-
-  if (isLoading || !item) {
-    return <div>Loading...</div>;
-  }
-
-  // Screen center point.
+const getPosition = (id: number, width: number, height: number): Position => {
   const centerX = width / 2;
   const centerY = height / 2;
 
+  if (positions[id]) {
+    return positions[id];
+  }
+
+  // If positions has no entries yet, put in center of screen
+  if (Object.keys(positions).length === 0) {
+    positions[id] = { x: centerX, y: centerY };
+  } else {
+    // Randomise position.
+    const x = Math.random() * width;
+    const y = Math.random() * height;
+    positions[id] = { x, y };
+  }
+
+  return positions[id];
+};
+
+export default function Flow() {
+  const item = useSelector((state: RootState) => state.item.item);
+  const fetchItem = useFetchItem();
+  const { height, width } = useWindowDimensions();
+
+  useEffect(() => {
+    fetchItem(3);
+  }, []);
+
+  const position = getPosition(item.id, width, height);
   const itemNode: ItemNode = {
     id: `item-${item.id}`,
     type: 'itemNode',
-    position: { x: centerX - 300, y: centerY - 100 },
-    data: { item }
+    position: position,
+    data: { item, position }
   };
 
   // Create linked nodes and edges
   const linkNodes: LinkNode[] = [];
   const edges: Edge[] = [];
 
-  const relatesToLinks = item.links
-    .filter((link) => link.relation_type == 'relates_to')
-    .slice(0, 6);
-
-  const verticalPush = [3, 4].includes(relatesToLinks.length) ? 50 : 0;
-  const relatesToPositions = [
-    { x: centerX - 300 - 800, y: centerY + verticalPush },
-    { x: centerX - 300 + 800, y: centerY + verticalPush },
-    { x: centerX - 300 - 800, y: centerY - 200 + verticalPush },
-    { x: centerX - 300 + 800, y: centerY - 200 + verticalPush },
-    { x: centerX - 300 - 800, y: centerY + 200 + verticalPush },
-    { x: centerX - 300 + 800, y: centerY + 200 + verticalPush }
-  ];
-
-  relatesToLinks.forEach((link, index) => {
+  item.links.forEach((link: Link, index: number) => {
     linkNodes.push({
       id: `link-${index}`,
       type: 'linkNode',
-      position: relatesToPositions[index],
+      position: getPosition(link.target, width, height),
       data: { link }
     });
-
-    const targetPosition =
-      relatesToPositions[index].x < centerX ? 'left' : 'right';
-    const sourceHandle =
-      targetPosition == 'left' ? `${item.id}-left` : `${item.id}-right`;
-    const targetHandle =
-      targetPosition == 'left'
-        ? `${link.to_item}-right`
-        : `${link.to_item}-left`;
 
     edges.push({
       id: `edge-${index}`,
       source: `item-${item.id}`,
-      sourceHandle: sourceHandle,
+      sourceHandle: `${item.id}-right`,
       target: `link-${index}`,
-      targetHandle: targetHandle,
+      targetHandle: `${link.target}-left`,
       className: 'normal-edge',
       label: 'relates to'
     });
   });
+
+  if (item.id === -1) {
+    return (
+      <div style={{ height: '100%' }}>
+        <PNG x={width / 2} y={height - 350} file="get_started" opacity={0.5} />
+        <ReactFlow>
+          <Background color="#999" gap={16} />
+        </ReactFlow>
+      </div>
+    );
+  }
 
   return (
     <div style={{ height: '100%' }}>

@@ -1,36 +1,11 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import 'reactflow/dist/style.css';
-import {
-  Card,
-  Paragraph,
-  Text,
-  Pane,
-  Popover,
-  Menu,
-  IconButton,
-  Position,
-  Button,
-  majorScale,
-  Badge,
-  LinkIcon,
-  HighPriorityIcon,
-  TagInput,
-  CaretDownIcon,
-  toaster
-} from 'evergreen-ui';
-import { Item, Link } from '../../hooks/useItems';
+import { Card, Paragraph, Pane, majorScale, Text } from 'evergreen-ui';
+import { Link } from '../../types';
 
-import Confidence from '../Confidencebar';
-import FreezeButton from '../freezeButton';
-import PriorityButton from '../priorityButton';
-import PrimaryField from '../primaryField';
-import SecondaryField from '../secondaryField';
-import LinkButton from '../linkButton';
-
-import useSystems, { System } from '../../hooks/useSystems';
-import useTags from '../../hooks/useTags';
 import TagBar from '../TagBar';
 import { Handle, Position as ReactFlowPosition } from 'reactflow';
+import { useFetchItem } from '../../state/hooks';
 
 interface LinkNodeProps {
   data: { link: Link };
@@ -38,6 +13,7 @@ interface LinkNodeProps {
 
 export default function LinkNode({ data }: LinkNodeProps) {
   const { link } = data;
+  const fetchItem = useFetchItem();
 
   if (!link) {
     return null;
@@ -48,7 +24,7 @@ export default function LinkNode({ data }: LinkNodeProps) {
   }, []);
 
   return (
-    <Pane>
+    <Pane opacity={0.5} onClick={() => fetchItem(link.target)}>
       <Pane display="flex" marginBottom={majorScale(1)}>
         <TagBar tags={link.tags || []} onSave={() => null} frozen={true} />
       </Pane>
@@ -61,6 +37,7 @@ export default function LinkNode({ data }: LinkNodeProps) {
           padding={majorScale(2)}
           border="1px solid #DDDDEE"
         >
+          <Text>{link.target}</Text>
           <Pane>
             <Paragraph cursor="pointer" textAlign="left">
               {link.primary}
@@ -76,13 +53,13 @@ export default function LinkNode({ data }: LinkNodeProps) {
       <Handle
         type="target"
         position={ReactFlowPosition.Right}
-        id={`${link.to_item}-right`}
+        id={`${link.target}-right`}
         style={{ opacity: 0, right: -20 }}
       />
       <Handle
         type="target"
         position={ReactFlowPosition.Left}
-        id={`${link.to_item}-left`}
+        id={`${link.target}-left`}
         style={{ opacity: 0, left: -20 }}
       />
     </Pane>

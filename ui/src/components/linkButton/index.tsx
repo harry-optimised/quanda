@@ -19,10 +19,10 @@ import {
 } from 'evergreen-ui';
 import { set } from 'lodash';
 
-import { Link } from '../../hooks/useItems';
+import { SetLink } from '../../types';
 
 interface LinkButtonProps {
-  onSave: (link: Link) => void;
+  onSave: (link: SetLink) => void;
 }
 
 type BasicItem = {

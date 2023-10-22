@@ -1,7 +1,7 @@
 from django.contrib import admin
 from guardian.admin import GuardedModelAdmin
 from guardian.shortcuts import get_groups_with_perms
-from item.models import Evidence, Item, System, Tag, Project
+from item.models import Evidence, Item, System, Tag, Project, ItemRelation, RelationType
 from user.models import Team
 
 @admin.register(System)
@@ -19,11 +19,26 @@ class TagAdmin(admin.ModelAdmin):
     list_display = ['name', 'colour', 'description']
     search_fields = ['name']
 
+@admin.register(ItemRelation)
+class ItemRelationAdmin(admin.ModelAdmin):
+    list_display = ['from_item', 'to_item', 'relation_type']
+    search_fields = ['from_item', 'to_item']
+    list_filter = ['relation_type']
+
+class ItemRelationInline(admin.TabularInline):
+    model = ItemRelation
+    fk_name = 'from_item'
+    extra = 1  # Number of empty forms displayed
+    verbose_name = 'Linked Item'
+    verbose_name_plural = 'Linked Items'
+    fields = ['to_item', 'relation_type']
+
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
     list_display = ['primary', 'secondary', 'confidence', 'frozen', 'priority']
     search_fields = ['primary', 'secondary']
     list_filter = ['priority', 'frozen']
+    inlines = [ItemRelationInline]
 
 class TeamInline(admin.TabularInline):
     model = Team

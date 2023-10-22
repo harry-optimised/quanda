@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import 'reactflow/dist/style.css';
 import {
   Card,
@@ -16,9 +16,10 @@ import {
   HighPriorityIcon,
   TagInput,
   CaretDownIcon,
-  toaster
+  toaster,
+  LocateIcon
 } from 'evergreen-ui';
-import { Item, Link } from '../../hooks/useItems';
+import { Item, SetLink } from '../../types';
 
 import Confidence from '../Confidencebar';
 import FreezeButton from '../freezeButton';
@@ -31,23 +32,33 @@ import { Handle, Position as ReactFlowPosition } from 'reactflow';
 import useSystems, { System } from '../../hooks/useSystems';
 import useTags from '../../hooks/useTags';
 import TagBar from '../TagBar';
+import { useReactFlow } from 'reactflow';
 
 interface ItemNodeProps {
   data: {
     item: Item;
+    position: { x: number; y: number };
   };
 }
 
 export default function ItemNode({ data }: ItemNodeProps) {
-  const { item } = data;
+  const { item, position } = data;
   const [managedItem, setManagedItem] = useState<Item>(item);
   const { systems, error: sysError, isLoading: sysLoading } = useSystems();
+  const { setCenter } = useReactFlow();
 
   const project = 1;
 
   if (!managedItem) {
     return null;
   }
+
+  const focus = useCallback(() => {
+    setCenter(position.x + 300, position.y + 200, {
+      zoom: 1.0,
+      duration: 500
+    });
+  }, [position, setCenter]);
 
   const capitalize = (s: string) => {
     if (typeof s !== 'string') return '';
@@ -138,7 +149,7 @@ export default function ItemNode({ data }: ItemNodeProps) {
   );
 
   const onSaveLink = useCallback(
-    (link: Link) => {
+    (link: SetLink) => {
       fetch(`http://localhost:8000/api/items/${managedItem.id}/add_link/`, {
         method: 'POST',
         headers: {
@@ -177,6 +188,7 @@ export default function ItemNode({ data }: ItemNodeProps) {
             alignItems="center"
             justifyContent="space-between"
           >
+            <Text>{managedItem.id}</Text>
             <Pane>
               <Popover
                 position={Position.BOTTOM_LEFT}
@@ -236,6 +248,11 @@ export default function ItemNode({ data }: ItemNodeProps) {
             priority={managedItem.priority}
           />
           <FreezeButton onSave={onSaveFrozen} frozen={managedItem.frozen} />
+          <IconButton
+            marginTop={majorScale(1)}
+            icon={LocateIcon}
+            onClick={focus}
+          />
         </Pane>
       </Pane>
       <Handle

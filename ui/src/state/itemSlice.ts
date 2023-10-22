@@ -6,8 +6,15 @@ import { Item } from '../types';
 
 const defaultItem: Item = {
   id: -1,
-  name: 'Default',
-  description: 'Default Description'
+  primary: '',
+  secondary: '',
+  confidence: 0,
+  tags: [],
+  evidence: [],
+  frozen: false,
+  priority: false,
+  system: -1,
+  links: []
 };
 
 const initialState = {
@@ -50,6 +57,7 @@ const itemSlice = createSlice({
     builder.addCase(
       fetchItem.fulfilled,
       (state, action: PayloadAction<Item>) => {
+        console.log(action.payload);
         state.item = action.payload;
       }
     );
@@ -57,19 +65,3 @@ const itemSlice = createSlice({
 });
 
 export default itemSlice;
-
-export const useFetchItem = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  return (id: number) => dispatch(fetchItem(id));
-};
-
-export const useUpdateItem = () => {
-  const dispatch = useDispatch();
-  return (item: Item) => dispatch(itemSlice.actions.updateItem(item));
-};
-
-export const useCreateItem = () => {
-  const dispatch = useDispatch();
-  return (item: Omit<Item, 'id'>) =>
-    dispatch(itemSlice.actions.createItem(item));
-};

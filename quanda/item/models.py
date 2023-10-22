@@ -101,9 +101,25 @@ class Item(ProjectMixin, models.Model):
     evidence = models.ManyToManyField(Evidence, blank=True)
     tags = models.ManyToManyField(Tag, blank=True)
 
+    links = models.ManyToManyField('self', through='ItemRelation', symmetrical=True)
+
     def __str__(self):
         return self.primary
     
+class RelationType(models.TextChoices):
+    RELATES_TO = 'relates_to', 'relates_to'
+    SUPPORTS = 'supports', 'supports'
+
+
+class ItemRelation(models.Model):
+    from_item = models.ForeignKey(Item, related_name='from_items', on_delete=models.SET_NULL, null=True)
+    to_item = models.ForeignKey(Item, related_name='to_items', on_delete=models.SET_NULL, null=True)
+    relation_type = models.CharField(
+        max_length=16,
+        choices=RelationType.choices,
+        default=RelationType.RELATES_TO,
+    )
+
 
 # Guardian Optimisations
 

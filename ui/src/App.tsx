@@ -6,8 +6,10 @@ import { ThemeProvider } from 'evergreen-ui';
 import Flow from './components/Flow';
 import BottomBar from './components/BottomBar';
 import Drawer from './components/Drawer';
-import { Item } from './hooks/useItems';
+import { Item } from './types';
 import { toaster } from 'evergreen-ui';
+import { store } from './state/store';
+import { Provider } from 'react-redux';
 
 // export type Item = {
 //   id: number;
@@ -49,13 +51,15 @@ function App() {
   }, []);
 
   return (
-    <ThemeProvider value={theme}>
-      <div className="App" style={{ width: '100%', height: '100vh' }}>
-        <Flow primary={item} />
-        <Drawer />
-        <BottomBar onSave={onAddItem} />
-      </div>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider value={theme}>
+        <div className="App" style={{ width: '100%', height: '100vh' }}>
+          <Flow />
+          <Drawer />
+          <BottomBar onSave={onAddItem} />
+        </div>
+      </ThemeProvider>
+    </Provider>
   );
 }
 

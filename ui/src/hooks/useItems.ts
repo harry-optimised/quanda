@@ -1,26 +1,5 @@
 import { useState, useEffect } from 'react';
-
-export type Link = {
-  relation_type: string;
-  to_item: number;
-  primary?: string;
-  secondary?: string;
-  tags?: number[];
-};
-
-export type Item = {
-  id: number;
-  primary: string;
-  secondary: string;
-  confidence: number;
-  tags: number[];
-  evidence: number[];
-  frozen: boolean;
-  priority: boolean;
-  system: number;
-  links: Link[];
-};
-
+import { Item } from '../types';
 export type ItemAPIDetailResponse = Item;
 
 type UseItemsProps = {
