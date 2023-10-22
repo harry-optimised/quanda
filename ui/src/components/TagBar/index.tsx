@@ -5,9 +5,10 @@ import useTags from '../../hooks/useTags';
 interface TagBarProps {
   tags: number[];
   onSave: (tags: number[]) => void;
+  frozen?: boolean;
 }
 
-const TagBar = ({ tags, onSave }: TagBarProps) => {
+const TagBar = ({ tags, onSave, frozen = false }: TagBarProps) => {
   const { tags: allTags, error: tagError, isLoading: tagLoading } = useTags();
 
   const values: string[] = React.useMemo(() => {
@@ -61,7 +62,7 @@ const TagBar = ({ tags, onSave }: TagBarProps) => {
     return allValues.filter((i) => !values.includes(i));
   }, [allValues, values]);
 
-  return (
+  const editableUI = (
     <TagInput
       width="100%"
       inputProps={{ placeholder: 'Enter something...' }}
@@ -71,6 +72,17 @@ const TagBar = ({ tags, onSave }: TagBarProps) => {
       tagProps={(value: string) => getTagProps(value)}
     />
   );
+
+  const frozenUI = (
+    <TagInput
+      width="100%"
+      values={values}
+      disabled={true}
+      tagProps={(value: string) => getTagProps(value)}
+    />
+  );
+
+  return frozen ? frozenUI : editableUI;
 };
 
 export default TagBar;

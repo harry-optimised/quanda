@@ -1,5 +1,13 @@
 import { useState, useEffect } from 'react';
 
+export type Link = {
+  relation_type: string;
+  to_item: number;
+  primary?: string;
+  secondary?: string;
+  tags?: number[];
+};
+
 export type Item = {
   id: number;
   primary: string;
@@ -10,38 +18,31 @@ export type Item = {
   frozen: boolean;
   priority: boolean;
   system: number;
+  links: Link[];
 };
 
 export type ItemAPIDetailResponse = Item;
-export type ItemAPIListResponse = Item[];
 
 type UseItemsProps = {
-  items: Item[];
+  item: Item | null;
   isLoading: boolean;
   error: Error | null;
 };
 
 const URL = 'http://localhost:8000/api/items';
 
-const useItems = (id?: number): UseItemsProps => {
-  const [items, setItems] = useState<Item[]>([]);
+const useItems = (id: number): UseItemsProps => {
+  const [item, setItems] = useState<Item | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (id) {
-          const response = await fetch(`${URL}/${id}/`);
-          const data = (await response.json()) as ItemAPIDetailResponse;
-          setItems([data]);
-          setIsLoading(false);
-        } else {
-          const response = await fetch(`${URL}/`);
-          const data = (await response.json()) as ItemAPIListResponse;
-          setItems(data);
-          setIsLoading(false);
-        }
+        const response = await fetch(`${URL}/${id}/`);
+        const data = (await response.json()) as ItemAPIDetailResponse;
+        setItems(data);
+        setIsLoading(false);
       } catch (err) {
         setError(err as Error);
         setIsLoading(false);
@@ -51,7 +52,7 @@ const useItems = (id?: number): UseItemsProps => {
     fetchData();
   }, [id]);
 
-  return { items, isLoading, error };
+  return { item, isLoading, error };
 };
 
 export default useItems;

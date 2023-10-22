@@ -18,13 +18,16 @@ import {
   CaretDownIcon,
   toaster
 } from 'evergreen-ui';
-import { Item } from '../../hooks/useItems';
+import { Item, Link } from '../../hooks/useItems';
 
 import Confidence from '../Confidencebar';
 import FreezeButton from '../freezeButton';
 import PriorityButton from '../priorityButton';
 import PrimaryField from '../primaryField';
 import SecondaryField from '../secondaryField';
+import LinkButton from '../linkButton';
+import { Handle, Position as ReactFlowPosition } from 'reactflow';
+
 import useSystems, { System } from '../../hooks/useSystems';
 import useTags from '../../hooks/useTags';
 import TagBar from '../TagBar';
@@ -66,12 +69,16 @@ export default function ItemNode({ data }: ItemNodeProps) {
     (updatedItem: Item) => {
       setManagedItem(updatedItem);
       const updatedItemWithProject = { ...updatedItem, project: project };
-      fetch(`http://localhost:8000/api/items/${updatedItemWithProject.id}/`, {
+      const UpdateItemWithLinks = {
+        ...updatedItemWithProject,
+        set_links: updatedItemWithProject.links
+      };
+      fetch(`http://localhost:8000/api/items/${UpdateItemWithLinks.id}/`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(updatedItemWithProject)
+        body: JSON.stringify(UpdateItemWithLinks)
       })
         .then((response) => response.json())
         .catch((error) => {
@@ -130,6 +137,27 @@ export default function ItemNode({ data }: ItemNodeProps) {
     [managedItem, onSave]
   );
 
+  const onSaveLink = useCallback(
+    (link: Link) => {
+      fetch(`http://localhost:8000/api/items/${managedItem.id}/add_link/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(link)
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log({ ...managedItem, links: [...managedItem.links, data] });
+          onSave({ ...managedItem, links: [...managedItem.links, data] });
+        })
+        .catch((error) => {
+          toaster.danger(`Error: ${error}.`);
+        });
+    },
+    [managedItem, onSave]
+  );
+
   return (
     <Pane>
       <Pane display="flex" marginBottom={majorScale(1)}>
@@ -157,6 +185,7 @@ export default function ItemNode({ data }: ItemNodeProps) {
                     <Menu.Group>
                       {systems?.map((system, _) => (
                         <Menu.Item
+                          key={system.id}
                           onSelect={() => {
                             close();
                             onChangeSystem(system.id);
@@ -201,7 +230,7 @@ export default function ItemNode({ data }: ItemNodeProps) {
           </Pane>
         </Card>
         <Pane marginLeft={majorScale(1)} display="flex" flexDirection="column">
-          <IconButton icon={LinkIcon} />
+          <LinkButton onSave={onSaveLink} />
           <PriorityButton
             onSave={onSavePriority}
             priority={managedItem.priority}
@@ -209,6 +238,18 @@ export default function ItemNode({ data }: ItemNodeProps) {
           <FreezeButton onSave={onSaveFrozen} frozen={managedItem.frozen} />
         </Pane>
       </Pane>
+      <Handle
+        type="source"
+        position={ReactFlowPosition.Left}
+        id={`${managedItem.id}-left`}
+        style={{ opacity: 0, left: -20 }}
+      />
+      <Handle
+        type="source"
+        position={ReactFlowPosition.Right}
+        id={`${managedItem.id}-right`}
+        style={{ opacity: 0, right: -20 }}
+      />
     </Pane>
   );
 }

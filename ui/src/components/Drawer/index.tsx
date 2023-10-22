@@ -17,13 +17,10 @@ const Drawer: React.FC = () => {
   const [isShown, setIsShown] = useState(true);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [tabs] = React.useState(['Items', 'Systems', 'Tags']);
-  const { items, isLoading, error } = useItems();
 
   const toggleDrawer = () => {
     setIsShown(!isShown);
   };
-
-  console.log(items);
 
   return (
     <>
