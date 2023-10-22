@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import 'reactflow/dist/style.css';
 import theme from './theme';
 import { ThemeProvider } from 'evergreen-ui';
@@ -11,20 +11,18 @@ import { toaster } from 'evergreen-ui';
 import { store } from './state/store';
 import { Provider } from 'react-redux';
 
-// export type Item = {
-//   id: number;
-//   primary: string;
-//   secondary: string;
-//   confidence: number;
-//   tags: number[];
-//   evidence: number[];
-//   frozen: boolean;
-//   priority: boolean;
-//   system: number;
-// };
+import { useFetchSystems } from './state/hooks';
+import { useFetchTags } from './state/hooks';
 
-function App() {
+function ReduxApp() {
   const [item, setItem] = React.useState(3);
+  const fetchSystems = useFetchSystems();
+  const fetchTags = useFetchTags();
+
+  useEffect(() => {
+    fetchSystems();
+    fetchTags();
+  }, []);
 
   const onAddItem = useCallback((primary: string) => {
     const newItem = {
@@ -51,14 +49,20 @@ function App() {
   }, []);
 
   return (
+    <ThemeProvider value={theme}>
+      <div className="App" style={{ width: '100%', height: '100vh' }}>
+        <Flow />
+        <Drawer />
+        <BottomBar onSave={onAddItem} />
+      </div>
+    </ThemeProvider>
+  );
+}
+
+function App() {
+  return (
     <Provider store={store}>
-      <ThemeProvider value={theme}>
-        <div className="App" style={{ width: '100%', height: '100vh' }}>
-          <Flow />
-          <Drawer />
-          <BottomBar onSave={onAddItem} />
-        </div>
-      </ThemeProvider>
+      <ReduxApp />
     </Provider>
   );
 }

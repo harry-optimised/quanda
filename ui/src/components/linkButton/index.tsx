@@ -120,7 +120,6 @@ const LinkButton: React.FC<LinkButtonProps> = ({ onSave }) => {
         backgroundColor="white"
         border="1px solid #DDDDEE"
         borderRadius={4}
-        zIndex={1}
       >
         <Paragraph size={300} color="gray700" textAlign="left">
           Create link of type:

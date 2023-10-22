@@ -2,7 +2,6 @@ import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { Paragraph, TextInput, Pane } from 'evergreen-ui';
 import { SnowflakeIcon } from 'evergreen-ui';
 import { set } from 'lodash';
-import styles from './BottomBar.module.css';
 
 interface BottomBarProps {
   onSave: (text: string) => void;
@@ -26,8 +25,14 @@ const BottomBar: React.FC<BottomBarProps> = ({ onSave }: BottomBarProps) => {
   return (
     <Pane display="flex" alignItems="center" justifyContent="center">
       <TextInput
-        width="100%"
-        className={styles.textInput}
+        position="fixed"
+        bottom={50}
+        left="50%"
+        transform="translateX(-50%)"
+        z-index={9999}
+        height={50}
+        width="50%"
+        borderRadius={4}
         value={text}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           onChange(e.target.value)

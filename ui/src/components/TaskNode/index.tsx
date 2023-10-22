@@ -27,10 +27,10 @@ import PriorityButton from '../priorityButton';
 import PrimaryField from '../primaryField';
 import SecondaryField from '../secondaryField';
 import LinkButton from '../linkButton';
+import SystemSelect from '../SystemSelect';
 import { Handle, Position as ReactFlowPosition } from 'reactflow';
 
-import useSystems, { System } from '../../hooks/useSystems';
-import useTags from '../../hooks/useTags';
+import { useUpdateItem } from '../../state/hooks';
 import TagBar from '../TagBar';
 import { useReactFlow } from 'reactflow';
 
@@ -43,8 +43,8 @@ interface ItemNodeProps {
 
 export default function ItemNode({ data }: ItemNodeProps) {
   const { item, position } = data;
+  const updateItem = useUpdateItem();
   const [managedItem, setManagedItem] = useState<Item>(item);
-  const { systems, error: sysError, isLoading: sysLoading } = useSystems();
   const { setCenter } = useReactFlow();
 
   const project = 1;
@@ -53,17 +53,19 @@ export default function ItemNode({ data }: ItemNodeProps) {
     return null;
   }
 
+  useEffect(() => {
+    setCenter(position.x + 300, position.y + 200, {
+      zoom: 1.0,
+      duration: 1000
+    });
+  }, []);
+
   const focus = useCallback(() => {
     setCenter(position.x + 300, position.y + 200, {
       zoom: 1.0,
       duration: 500
     });
   }, [position, setCenter]);
-
-  const capitalize = (s: string) => {
-    if (typeof s !== 'string') return '';
-    return s.charAt(0).toUpperCase() + s.slice(1);
-  };
 
   const confidence = useMemo(() => {
     return managedItem.frozen ? 1.0 : managedItem.confidence;
@@ -80,30 +82,9 @@ export default function ItemNode({ data }: ItemNodeProps) {
     (updatedItem: Item) => {
       setManagedItem(updatedItem);
       const updatedItemWithProject = { ...updatedItem, project: project };
-      const UpdateItemWithLinks = {
-        ...updatedItemWithProject,
-        set_links: updatedItemWithProject.links
-      };
-      fetch(`http://localhost:8000/api/items/${UpdateItemWithLinks.id}/`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(UpdateItemWithLinks)
-      })
-        .then((response) => response.json())
-        .catch((error) => {
-          toaster.danger(`Error: ${error}.`);
-        });
+      updateItem(updatedItemWithProject);
     },
     [project]
-  );
-
-  const onChangeSystem = useCallback(
-    (systemID: number) => {
-      onSave({ ...managedItem, system: systemID });
-    },
-    [managedItem, onSave]
   );
 
   const onSaveFrozen = useCallback(
@@ -148,6 +129,13 @@ export default function ItemNode({ data }: ItemNodeProps) {
     [managedItem, onSave]
   );
 
+  const onSaveSystemSelect = useCallback(
+    (system: number) => {
+      onSave({ ...managedItem, system: system });
+    },
+    [managedItem, onSave]
+  );
+
   const onSaveLink = useCallback(
     (link: SetLink) => {
       fetch(`http://localhost:8000/api/items/${managedItem.id}/add_link/`, {
@@ -188,41 +176,8 @@ export default function ItemNode({ data }: ItemNodeProps) {
             alignItems="center"
             justifyContent="space-between"
           >
-            <Text>{managedItem.id}</Text>
             <Pane>
-              <Popover
-                position={Position.BOTTOM_LEFT}
-                content={({ close }) => (
-                  <Menu>
-                    <Menu.Group>
-                      {systems?.map((system, _) => (
-                        <Menu.Item
-                          key={system.id}
-                          onSelect={() => {
-                            close();
-                            onChangeSystem(system.id);
-                          }}
-                        >
-                          {capitalize(system.name)}
-                        </Menu.Item>
-                      ))}
-                    </Menu.Group>
-                  </Menu>
-                )}
-              >
-                <Button
-                  appearance="secondary"
-                  size="small"
-                  iconAfter={CaretDownIcon}
-                  backgroundColor={cardColor}
-                  border="1px solid #333333"
-                >
-                  {capitalize(
-                    systems?.find((system) => system.id === managedItem.system)
-                      ?.name || 'No System'
-                  )}
-                </Button>
-              </Popover>
+              <SystemSelect onSave={onSaveSystemSelect} system={item.system} />
             </Pane>
             <Pane width="50%" cursor="pointer">
               <Confidence confidence={confidence} onSave={onSaveConfidence} />
@@ -255,17 +210,31 @@ export default function ItemNode({ data }: ItemNodeProps) {
           />
         </Pane>
       </Pane>
+
+      {/* Anchor points */}
       <Handle
         type="source"
         position={ReactFlowPosition.Left}
         id={`${managedItem.id}-left`}
-        style={{ opacity: 0, left: -20 }}
+        style={{ opacity: 0.5, left: -20 }}
       />
       <Handle
         type="source"
         position={ReactFlowPosition.Right}
         id={`${managedItem.id}-right`}
-        style={{ opacity: 0, right: -20 }}
+        style={{ opacity: 0.5, right: -20 }}
+      />
+      <Handle
+        type="source"
+        position={ReactFlowPosition.Top}
+        id={`${managedItem.id}-top`}
+        style={{ opacity: 0.5, top: -20 }}
+      />
+      <Handle
+        type="source"
+        position={ReactFlowPosition.Bottom}
+        id={`${managedItem.id}-bottom`}
+        style={{ opacity: 0.5, bottom: -20 }}
       />
     </Pane>
   );

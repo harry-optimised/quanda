@@ -1,21 +1,17 @@
 import React, { useEffect } from 'react';
-import ReactFlow, { Background, Edge } from 'reactflow';
+import ReactFlow, { Background, Edge, BackgroundVariant } from 'reactflow';
 import 'reactflow/dist/style.css';
 import ItemNode from '../TaskNode';
 import LinkNode from '../LinkNode';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../state/store';
-import { Item, Link } from '../../types';
+import { Item, Link, Position } from '../../types';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
 import { useFetchItem } from '../../state/hooks';
+import useNodePosition from '../../hooks/useNodePosition';
 import PNG from '../SVG';
 
 const nodeTypes = { itemNode: ItemNode, linkNode: LinkNode };
-
-type Position = {
-  x: number;
-  y: number;
-};
 
 type ItemNode = {
   id: string;
@@ -31,44 +27,22 @@ type LinkNode = {
   data: { link: Link };
 };
 
-const positions: Record<number, Position> = {};
-
-const getPosition = (id: number, width: number, height: number): Position => {
-  const centerX = width / 2;
-  const centerY = height / 2;
-
-  if (positions[id]) {
-    return positions[id];
-  }
-
-  // If positions has no entries yet, put in center of screen
-  if (Object.keys(positions).length === 0) {
-    positions[id] = { x: centerX, y: centerY };
-  } else {
-    // Randomise position.
-    const x = Math.random() * width;
-    const y = Math.random() * height;
-    positions[id] = { x, y };
-  }
-
-  return positions[id];
-};
-
 export default function Flow() {
   const item = useSelector((state: RootState) => state.item.item);
   const fetchItem = useFetchItem();
+  const getPosition = useNodePosition();
   const { height, width } = useWindowDimensions();
 
   useEffect(() => {
     fetchItem(3);
   }, []);
 
-  const position = getPosition(item.id, width, height);
+  const itemPosition = getPosition(item.id);
   const itemNode: ItemNode = {
     id: `item-${item.id}`,
     type: 'itemNode',
-    position: position,
-    data: { item, position }
+    position: itemPosition,
+    data: { item, position: itemPosition }
   };
 
   // Create linked nodes and edges
@@ -76,19 +50,23 @@ export default function Flow() {
   const edges: Edge[] = [];
 
   item.links.forEach((link: Link, index: number) => {
+    const targetPosition = getPosition(link.target.id, link.type);
+    const sourceHandle = targetPosition.x > itemPosition.x ? 'right' : 'left';
+    const targetHandle = sourceHandle === 'right' ? 'left' : 'right';
+
     linkNodes.push({
       id: `link-${index}`,
       type: 'linkNode',
-      position: getPosition(link.target, width, height),
+      position: targetPosition,
       data: { link }
     });
 
     edges.push({
       id: `edge-${index}`,
       source: `item-${item.id}`,
-      sourceHandle: `${item.id}-right`,
+      sourceHandle: `${item.id}-${sourceHandle}`,
       target: `link-${index}`,
-      targetHandle: `${link.target}-left`,
+      targetHandle: `${link.target.id}-${targetHandle}`,
       className: 'normal-edge',
       label: 'relates to'
     });
@@ -106,7 +84,7 @@ export default function Flow() {
   }
 
   return (
-    <div style={{ height: '100%' }}>
+    <div style={{ height: '100%', backgroundColor: '#003b49' }}>
       <ReactFlow
         nodes={[itemNode, ...linkNodes]}
         edges={edges}
@@ -114,7 +92,19 @@ export default function Flow() {
         nodesDraggable={false}
         nodesConnectable={false}
       >
-        <Background color="#999" gap={16} />
+        <Background
+          id="1"
+          gap={10}
+          color="#005266"
+          variant={BackgroundVariant.Lines}
+        />
+        <Background
+          id="2"
+          gap={100}
+          offset={1}
+          color="#00627A"
+          variant={BackgroundVariant.Lines}
+        />
       </ReactFlow>
     </div>
   );

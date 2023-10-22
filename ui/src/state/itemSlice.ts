@@ -34,7 +34,7 @@ const itemSlice = createSlice({
   reducers: {
     updateItem(state, action: PayloadAction<Item>) {
       state.item = action.payload;
-      fetch(`https://api.example.com/items/${action.payload.id}`, {
+      fetch(`${BASE_URL}/${action.payload.id}/`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -44,7 +44,7 @@ const itemSlice = createSlice({
     },
     createItem(state, action: PayloadAction<Omit<Item, 'id'>>) {
       state.item = { ...action.payload, id: -1 };
-      fetch(`https://api.example.com/items`, {
+      fetch(`${BASE_URL}/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -57,7 +57,6 @@ const itemSlice = createSlice({
     builder.addCase(
       fetchItem.fulfilled,
       (state, action: PayloadAction<Item>) => {
-        console.log(action.payload);
         state.item = action.payload;
       }
     );

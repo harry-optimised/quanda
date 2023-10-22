@@ -1,6 +1,7 @@
 import { TagInput, toaster } from 'evergreen-ui';
 import React, { useCallback, useMemo } from 'react';
-import useTags from '../../hooks/useTags';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../state/store';
 
 interface TagBarProps {
   tags: number[];
@@ -9,7 +10,7 @@ interface TagBarProps {
 }
 
 const TagBar = ({ tags, onSave, frozen = false }: TagBarProps) => {
-  const { tags: allTags, error: tagError, isLoading: tagLoading } = useTags();
+  const allTags = useSelector((state: RootState) => state.tags);
 
   const values: string[] = React.useMemo(() => {
     return tags.map((tag) => {

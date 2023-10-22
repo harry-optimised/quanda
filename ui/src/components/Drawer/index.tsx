@@ -11,10 +11,9 @@ import {
 } from 'evergreen-ui';
 import { MenuIcon } from 'evergreen-ui';
 import styles from './Drawer.module.css';
-import useItems from '../../hooks/useItems';
 
 const Drawer: React.FC = () => {
-  const [isShown, setIsShown] = useState(true);
+  const [isShown, setIsShown] = useState(false);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [tabs] = React.useState(['Items', 'Systems', 'Tags']);
 
