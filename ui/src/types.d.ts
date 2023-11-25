@@ -23,6 +23,7 @@ export type LightItem = {
 
 export type Item = {
   id: number;
+  position: Position;
   primary: string;
   secondary: string;
   confidence: number;

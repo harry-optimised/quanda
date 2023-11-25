@@ -1,7 +1,14 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
-import { Paragraph, TextInput, Pane } from 'evergreen-ui';
+import {
+  Paragraph,
+  TextInput,
+  Pane,
+  Button,
+  NewObjectIcon
+} from 'evergreen-ui';
 import { SnowflakeIcon } from 'evergreen-ui';
 import { set } from 'lodash';
+import { useHotkeys } from 'react-hotkeys-hook';
 
 interface BottomBarProps {
   onSave: (text: string) => void;
@@ -9,6 +16,7 @@ interface BottomBarProps {
 
 const BottomBar: React.FC<BottomBarProps> = ({ onSave }: BottomBarProps) => {
   const [text, setText] = useState('');
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const onLocalSave = useCallback(() => {
     setText('');
@@ -22,18 +30,18 @@ const BottomBar: React.FC<BottomBarProps> = ({ onSave }: BottomBarProps) => {
     [text]
   );
 
+  useHotkeys('ctrl+i', () => {
+    inputRef.current?.focus();
+  });
+
   return (
-    <Pane display="flex" alignItems="center" justifyContent="center">
+    <Pane display="flex" flexDirection="column">
       <TextInput
-        position="fixed"
-        bottom={50}
-        left="50%"
-        transform="translateX(-50%)"
-        z-index={9999}
-        height={50}
-        width="50%"
-        borderRadius={4}
+        height={40}
+        width="100%"
+        placeholder="Ctrl + I to create a new item"
         value={text}
+        ref={inputRef}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           onChange(e.target.value)
         }
@@ -44,6 +52,14 @@ const BottomBar: React.FC<BottomBarProps> = ({ onSave }: BottomBarProps) => {
           }
         }}
       />
+      <Button
+        marginTop={16}
+        appearance="primary"
+        iconBefore={NewObjectIcon}
+        onClick={onLocalSave}
+      >
+        Create
+      </Button>
     </Pane>
   );
 };

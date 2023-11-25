@@ -7,10 +7,10 @@ from rest_framework.pagination import PageNumberPagination
 
 
 from item.models import Evidence, Item, System, Tag, ItemRelation
-from api.serializers import SystemSerializer, EvidenceSerializer, TagSerializer, ItemSerializer, AddLinkSerializer, ForwardLinkSerializer
+from api.serializers import SystemSerializer, EvidenceSerializer, TagSerializer, ItemSerializer, AddLinkSerializer
 
 class CustomPageNumberPagination(PageNumberPagination):
-    page_size = 10
+    page_size = 12
 
 class SystemViewSet(viewsets.ModelViewSet):
     queryset = System.objects.all()
@@ -54,5 +54,4 @@ class ItemViewSet(viewsets.ModelViewSet):
             relation_type=link_serializer.validated_data['relation_type']
         )
 
-        response = ForwardLinkSerializer(relation)
-        return Response(data=response.data, status=status.HTTP_201_CREATED)
+        return Response(status=status.HTTP_201_CREATED)

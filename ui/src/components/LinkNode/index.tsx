@@ -17,7 +17,7 @@ import TagBar from '../TagBar';
 import SystemSelect from '../SystemSelect';
 import Confidence from '../Confidencebar';
 import { Handle, Position as ReactFlowPosition } from 'reactflow';
-import { useFetchItem } from '../../state/hooks';
+import { useRefreshItems } from '../../state/hooks';
 
 interface LinkNodeProps {
   data: { link: Link };
@@ -26,7 +26,7 @@ interface LinkNodeProps {
 export default function LinkNode({ data }: LinkNodeProps) {
   const { link } = data;
   const [bgColor, setBgColor] = useState('rgba(0, 59, 73, 0.6)');
-  const fetchItem = useFetchItem();
+  const fetchItem = useRefreshItems();
 
   if (!link) {
     return null;
@@ -37,7 +37,7 @@ export default function LinkNode({ data }: LinkNodeProps) {
   }, []);
 
   return (
-    <Pane onClick={() => fetchItem(link.target.id)}>
+    <Pane>
       <Pane display="flex" marginBottom={majorScale(1)}>
         <TagBar
           tags={link.target.tags || []}

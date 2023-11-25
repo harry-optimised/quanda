@@ -1,7 +1,16 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
-import { Paragraph, TextInput } from 'evergreen-ui';
+import {
+  Heading,
+  Paragraph,
+  TextInput,
+  Pane,
+  Icon,
+  EditIcon,
+  Label
+} from 'evergreen-ui';
 import { SnowflakeIcon } from 'evergreen-ui';
 import { set } from 'lodash';
+import theme from '../../theme';
 
 interface PrimaryFieldProps {
   onSave: (primary: string) => void;
@@ -25,10 +34,12 @@ const PrimaryField: React.FC<PrimaryFieldProps> = ({
 
   const onEnterEdit = useCallback(() => {
     setEditMode(true);
+    setHover(false);
   }, []);
 
   const onSave = useCallback(() => {
     setEditMode(false);
+    setHover(false);
     parentOnSave(editablePrimary);
   }, [editablePrimary]);
 
@@ -40,16 +51,37 @@ const PrimaryField: React.FC<PrimaryFieldProps> = ({
   );
 
   const viewUI = (
-    <Paragraph
+    <Pane
       cursor="pointer"
       textAlign="left"
       onClick={onEnterEdit}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      color={hover ? 'muted' : 'default'}
+      style={{ display: 'flex', alignItems: 'center' }}
     >
-      {primary}
-    </Paragraph>
+      <Heading size={900} color={theme.colors.tint6}>
+        {primary}
+      </Heading>
+      <Icon
+        icon={EditIcon}
+        size={24}
+        style={{
+          marginLeft: 16,
+          transition: 'color 0.1s ease-in-out',
+          color: hover ? theme.colors.tint6 : theme.colors.tint5
+        }}
+      />
+      <Label
+        style={{
+          marginLeft: 8,
+          cursor: 'pointer',
+          transition: 'color 0.1s ease-in-out',
+          color: hover ? theme.colors.tint5 : theme.colors.background
+        }}
+      >
+        edit
+      </Label>
+    </Pane>
   );
 
   const editUI = (
@@ -57,6 +89,9 @@ const PrimaryField: React.FC<PrimaryFieldProps> = ({
       width="100%"
       ref={inputRef}
       value={editablePrimary}
+      fontSize={32}
+      fontWeight={900}
+      color={theme.colors.tint6}
       onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
         onChangePrimary(e.target.value)
       }

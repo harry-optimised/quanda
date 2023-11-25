@@ -30,42 +30,57 @@ import LinkButton from '../linkButton';
 import SystemSelect from '../SystemSelect';
 import { Handle, Position as ReactFlowPosition } from 'reactflow';
 
-import { useUpdateItem } from '../../state/hooks';
+//import { useUpdateItem } from '../../state/hooks';
 import TagBar from '../TagBar';
 import { useReactFlow } from 'reactflow';
+import { useSelector } from 'react-redux';
+import { selectActiveItem } from '../../state/store';
 
 interface ItemNodeProps {
   data: {
     item: Item;
-    position: { x: number; y: number };
   };
 }
 
 export default function ItemNode({ data }: ItemNodeProps) {
-  const { item, position } = data;
-  const updateItem = useUpdateItem();
+  const { item } = data;
   const [managedItem, setManagedItem] = useState<Item>(item);
-  const { setCenter } = useReactFlow();
-
-  const project = 1;
+  const activeItemId = useSelector(selectActiveItem);
 
   if (!managedItem) {
     return null;
   }
 
-  useEffect(() => {
-    setCenter(position.x + 300, position.y + 200, {
-      zoom: 1.0,
-      duration: 1000
-    });
-  }, []);
+  if (managedItem.id !== activeItemId) {
+    return (
+      <Pane width="600px" height="400px">
+        <Pane display="flex">
+          <Card
+            elevation={0}
+            width="600px"
+            borderRadius="4px"
+            background={'white'}
+            padding={majorScale(2)}
+            border="1px solid #DDDDEE"
+          >
+            <Pane
+              display="flex"
+              alignItems="start"
+              justifyContent="space-between"
+            ></Pane>
+            <Pane marginTop={majorScale(1)}>
+              <Paragraph textAlign="left">{managedItem.primary}</Paragraph>
+            </Pane>
+            <Pane marginTop={majorScale(1)}>
+              <Paragraph textAlign="left">{managedItem.secondary}</Paragraph>
+            </Pane>
+          </Card>
+        </Pane>
+      </Pane>
+    );
+  }
 
-  const focus = useCallback(() => {
-    setCenter(position.x + 300, position.y + 200, {
-      zoom: 1.0,
-      duration: 500
-    });
-  }, [position, setCenter]);
+  const project = 1;
 
   const confidence = useMemo(() => {
     return managedItem.frozen ? 1.0 : managedItem.confidence;
@@ -82,7 +97,7 @@ export default function ItemNode({ data }: ItemNodeProps) {
     (updatedItem: Item) => {
       setManagedItem(updatedItem);
       const updatedItemWithProject = { ...updatedItem, project: project };
-      updateItem(updatedItemWithProject);
+      //updateItem(updatedItemWithProject);
     },
     [project]
   );
@@ -158,7 +173,7 @@ export default function ItemNode({ data }: ItemNodeProps) {
   );
 
   return (
-    <Pane>
+    <Pane width="600px" maxHeight="400px">
       <Pane display="flex" marginBottom={majorScale(1)}>
         <TagBar tags={managedItem.tags} onSave={onSaveTags} />
       </Pane>
@@ -210,32 +225,6 @@ export default function ItemNode({ data }: ItemNodeProps) {
           />
         </Pane>
       </Pane>
-
-      {/* Anchor points */}
-      <Handle
-        type="source"
-        position={ReactFlowPosition.Left}
-        id={`${managedItem.id}-left`}
-        style={{ opacity: 0.5, left: -20 }}
-      />
-      <Handle
-        type="source"
-        position={ReactFlowPosition.Right}
-        id={`${managedItem.id}-right`}
-        style={{ opacity: 0.5, right: -20 }}
-      />
-      <Handle
-        type="source"
-        position={ReactFlowPosition.Top}
-        id={`${managedItem.id}-top`}
-        style={{ opacity: 0.5, top: -20 }}
-      />
-      <Handle
-        type="source"
-        position={ReactFlowPosition.Bottom}
-        id={`${managedItem.id}-bottom`}
-        style={{ opacity: 0.5, bottom: -20 }}
-      />
     </Pane>
   );
 }
