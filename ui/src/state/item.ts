@@ -26,6 +26,13 @@ const itemSlice = createSlice({
   reducers: {
     setItem: (state, action: PayloadAction<Item | null>) => {
       state.item = action.payload;
+      fetch(`${BASE_URL}/${action.payload?.id}/`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(action.payload)
+      });
     }
   }
 });

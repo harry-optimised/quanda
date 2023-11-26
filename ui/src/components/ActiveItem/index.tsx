@@ -2,17 +2,9 @@ import '../../App.css';
 import React, { useCallback, useEffect, useState } from 'react';
 import 'reactflow/dist/style.css';
 import theme from '../../theme';
-import {
-  ExchangeIcon,
-  Heading,
-  Icon,
-  IconButton,
-  Paragraph,
-  Spinner,
-  TrashIcon
-} from 'evergreen-ui';
+import { IconButton, Spinner, Strong, TrashIcon } from 'evergreen-ui';
 import { Item, LinkType, SetLink } from '../../types';
-import { Pane, Card, Text, Tab, Tablist } from 'evergreen-ui';
+import { Pane, Card } from 'evergreen-ui';
 import { AppDispatch, selectItem } from '../../state/store';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHotkeys } from 'react-hotkeys-hook';
@@ -23,33 +15,24 @@ import SecondaryField from '../../components/SecondaryField';
 
 import { setItem } from '../../state/item';
 import DeleteButton from '../../components/DeleteButton';
-import {
-  refreshItems,
-  removeItem,
-  selectAllItems,
-  updateItem
-} from '../../state/navigator';
+import { removeItem, updateItem } from '../../state/navigator';
 import BrowseableItem from '../../components/BrowseableItem';
-import Logo from '../Logo';
+
 import LinkButton from '../LinkButton';
-import { set } from 'lodash';
+
 import LinkIcon from '../LinkIcon';
 
 function ActiveItem() {
   const activeItem = useSelector(selectItem);
-  const [managedItem, setManagedItem] = useState<Item | null>(null);
+  const [tab, setTab] = useState<'links' | 'insights'>('links');
+
   const dispatch = useDispatch<AppDispatch>();
   const project = 1;
-
-  useEffect(() => {
-    setManagedItem(activeItem);
-  }, [activeItem]);
 
   const onSave = useCallback(
     (updatedItem: Item) => {
       // Update the UI optimistically.
       // TODO: Can we remove managedItem and work from state directly?
-      setManagedItem(updatedItem);
       dispatch(setItem(updatedItem));
 
       // Update item in search bar.
@@ -60,29 +43,30 @@ function ActiveItem() {
 
   const onSaveTags = useCallback(
     (tags: number[]) => {
-      if (managedItem) onSave({ ...managedItem, tags: tags });
+      if (activeItem) onSave({ ...activeItem, tags: tags });
     },
-    [managedItem, onSave]
+    [activeItem]
   );
 
   const onSavePrimary = useCallback(
     (primary: string) => {
-      if (managedItem) onSave({ ...managedItem, primary: primary });
+      console.log(primary);
+      if (activeItem) onSave({ ...activeItem, primary: primary });
     },
-    [managedItem, onSave]
+    [activeItem]
   );
 
   const onSaveSecondary = useCallback(
     (secondary: string) => {
-      if (managedItem) onSave({ ...managedItem, secondary: secondary });
+      if (activeItem) onSave({ ...activeItem, secondary: secondary });
     },
-    [managedItem, onSave]
+    [activeItem]
   );
 
   const onSaveLink = useCallback(
     (link: SetLink) => {
-      if (!managedItem) return;
-      fetch(`http://localhost:8000/api/items/${managedItem.id}/add_link/`, {
+      if (!activeItem) return;
+      fetch(`http://localhost:8000/api/items/${activeItem.id}/add_link/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -93,11 +77,11 @@ function ActiveItem() {
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
-          if (managedItem)
+          if (activeItem)
             onSave({
-              ...managedItem,
+              ...activeItem,
               links: [
-                ...managedItem.links,
+                ...activeItem.links,
                 { target: data, type: link.relation_type as LinkType }
               ]
             });
@@ -107,13 +91,13 @@ function ActiveItem() {
           console.log(data);
         });
     },
-    [managedItem, onSave]
+    [activeItem]
   );
 
   const onRemoveLink = useCallback(
     (link: SetLink) => {
-      if (!managedItem) return;
-      fetch(`http://localhost:8000/api/items/${managedItem.id}/remove_link/`, {
+      if (!activeItem) return;
+      fetch(`http://localhost:8000/api/items/${activeItem.id}/remove_link/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -122,16 +106,16 @@ function ActiveItem() {
       })
         .then((response) => response.json())
         .then((data) => {
-          if (managedItem)
+          if (activeItem)
             onSave({
-              ...managedItem,
-              links: managedItem.links.filter(
+              ...activeItem,
+              links: activeItem.links.filter(
                 (link) => link.target.id !== data.id
               )
             });
         });
     },
-    [managedItem, onSave]
+    [activeItem]
   );
 
   const onClickLink = useCallback((targetID: number) => {
@@ -143,15 +127,15 @@ function ActiveItem() {
   }, []);
 
   const onDelete = useCallback(() => {
-    if (managedItem) {
-      fetch(`http://localhost:8000/api/items/${managedItem.id}/`, {
+    if (activeItem) {
+      fetch(`http://localhost:8000/api/items/${activeItem.id}/`, {
         method: 'DELETE'
       }).then(() => {
-        dispatch(removeItem(managedItem.id));
+        dispatch(removeItem(activeItem.id));
         dispatch(setItem(null));
       });
     }
-  }, [managedItem]);
+  }, [activeItem]);
 
   const tagBarReference = React.useRef<HTMLInputElement>(null);
   useHotkeys(
@@ -163,9 +147,7 @@ function ActiveItem() {
     [tagBarReference]
   );
 
-  console.log(activeItem);
-
-  if (!managedItem) {
+  if (!activeItem) {
     return (
       <Pane
         style={{
@@ -186,7 +168,7 @@ function ActiveItem() {
     <Card
       style={{
         width: '100%',
-        height: '100%',
+        height: '100vh',
         borderRadius: 0,
         backgroundColor: theme.colors.background,
         display: 'flex',
@@ -195,11 +177,17 @@ function ActiveItem() {
         justifyContent: 'space-between'
       }}
     >
-      <Pane width="60%" padding={32}>
+      <Pane
+        width="60%"
+        padding={32}
+        height="100%"
+        display="flex"
+        flexDirection="column"
+      >
         <Pane style={{ paddingBottom: 16, width: '100%' }} display="flex">
           <TagBar
             ref={tagBarReference}
-            tags={managedItem.tags}
+            tags={activeItem.tags}
             onSave={onSaveTags}
           />
         </Pane>
@@ -213,20 +201,13 @@ function ActiveItem() {
             justifyContent: 'space-between'
           }}
         >
-          <PrimaryField primary={managedItem.primary} onSave={onSavePrimary} />
-          <DeleteButton onDelete={onDelete} primary={managedItem.primary} />
+          <PrimaryField primary={activeItem.primary} onSave={onSavePrimary} />
+          <DeleteButton onDelete={onDelete} primary={activeItem.primary} />
         </Pane>
 
-        <Pane
-          style={{
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-start'
-          }}
-        >
+        <Pane width="100%">
           <SecondaryField
-            secondary={managedItem.secondary}
+            secondary={activeItem.secondary}
             onSave={onSaveSecondary}
           />
         </Pane>
@@ -235,58 +216,123 @@ function ActiveItem() {
         style={{
           width: '40%',
           height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
           borderLeft: `1px solid ${theme.colors.border.default}`
         }}
       >
         <Pane
           flex="1"
           style={{
-            height: '80%',
             userSelect: 'none',
-            padding: 32,
-            borderTop: `1px solid ${theme.colors.border.default}`
+            padding: 32
           }}
         >
+          {tab === 'links' ? (
+            <Pane
+              style={{
+                display: 'flex',
+                height: '100%',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                justifyContent: 'space-between'
+              }}
+            >
+              <LinkButton onSave={onSaveLink} />
+              <Pane
+                className="browseBodyNoScrollbar"
+                marginTop={16}
+                borderRadius={4}
+                width="100%"
+                height="100%"
+                overflowY="scroll"
+              >
+                {activeItem.links &&
+                  activeItem.links.map((link) => (
+                    <Pane display="flex" alignItems="center">
+                      <LinkIcon type={link.type as string} />
+                      <BrowseableItem
+                        item={link.target}
+                        selected={false}
+                        onSelect={() => onClickLink(link.target.id)}
+                      />
+                      <IconButton
+                        icon={TrashIcon}
+                        appearance="minimal"
+                        onClick={() => {
+                          onRemoveLink({
+                            to_item: link.target.id,
+                            relation_type: link.type
+                          });
+                        }}
+                      />
+                    </Pane>
+                  ))}
+              </Pane>
+            </Pane>
+          ) : null}
+        </Pane>
+        <Pane
+          backgroundColor={theme.colors.tint5}
+          height={48}
+          display="flex"
+          flexDirection="row"
+        >
           <Pane
-            style={{
-              display: 'flex',
-              height: '100%',
-              flexDirection: 'column',
-              alignItems: 'flex-start',
-              justifyContent: 'space-between'
+            height="100%"
+            flexGrow={1}
+            backgroundColor={
+              tab === 'links' ? theme.colors.tint6 : theme.colors.tint5
+            }
+            display="flex"
+            flexDirection="row"
+            alignItems="center"
+            justifyContent="center"
+            cursor="pointer"
+            userSelect="none"
+            style={{ transition: 'opacity 0.1s', cursor: 'pointer' }}
+            onMouseEnter={(e: React.MouseEvent<HTMLDivElement>) => {
+              e.currentTarget.style.opacity = '1.0';
+              if (tab === 'insights') e.currentTarget.style.opacity = '0.6';
+            }}
+            onMouseLeave={(e: React.MouseEvent<HTMLDivElement>) => {
+              e.currentTarget.style.opacity = '1.0';
+              if (tab === 'insights') e.currentTarget.style.opacity = '1';
+            }}
+            onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+              e.currentTarget.style.opacity = '1.0';
+              setTab('links');
             }}
           >
-            <LinkButton onSave={onSaveLink} />
-            <Pane
-              className="browseBodyNoScrollbar"
-              marginTop={16}
-              borderRadius={4}
-              width="100%"
-              height="100%"
-              overflowY="scroll"
-            >
-              {managedItem.links &&
-                managedItem.links.map((link) => (
-                  <Pane display="flex" alignItems="center">
-                    <LinkIcon type={link.type as string} />
-                    <BrowseableItem
-                      item={link.target}
-                      selected={false}
-                      onSelect={() => onClickLink(link.target.id)}
-                    />
-                    <IconButton
-                      icon={TrashIcon}
-                      appearance="minimal"
-                      onClick={() => {
-                        onRemoveLink({
-                          to_item: link.target.id,
-                          relation_type: link.type
-                        });
-                      }}
-                    />
-                  </Pane>
-                ))}
-            </Pane>
+            <Strong color={theme.colors.background}>Links</Strong>
+          </Pane>
+          <Pane
+            height="100%"
+            flexGrow={1}
+            backgroundColor={
+              tab === 'insights' ? theme.colors.tint6 : theme.colors.tint5
+            }
+            display="flex"
+            flexDirection="row"
+            alignItems="center"
+            justifyContent="center"
+            cursor="pointer"
+            userSelect="none"
+            style={{ transition: 'opacity 0.1s', cursor: 'pointer' }}
+            onMouseEnter={(e: React.MouseEvent<HTMLDivElement>) => {
+              e.currentTarget.style.opacity = '1.0';
+              if (tab === 'links') e.currentTarget.style.opacity = '0.6';
+            }}
+            onMouseLeave={(e: React.MouseEvent<HTMLDivElement>) => {
+              e.currentTarget.style.opacity = '1.0';
+              if (tab === 'links') e.currentTarget.style.opacity = '1';
+            }}
+            onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+              e.currentTarget.style.opacity = '1.0';
+              setTab('insights');
+            }}
+          >
+            <Strong color={theme.colors.background}>Insights</Strong>
           </Pane>
         </Pane>
       </Pane>
