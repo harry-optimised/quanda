@@ -112,8 +112,8 @@ class RelationType(models.TextChoices):
 
 
 class ItemRelation(models.Model):
-    from_item = models.ForeignKey(Item, related_name='from_items', on_delete=models.SET_NULL, null=True)
-    to_item = models.ForeignKey(Item, related_name='to_items', on_delete=models.SET_NULL, null=True)
+    from_item = models.ForeignKey(Item, related_name='from_items', on_delete=models.CASCADE, null=True)
+    to_item = models.ForeignKey(Item, related_name='to_items', on_delete=models.CASCADE, null=True)
     relation_type = models.CharField(
         max_length=16,
         choices=RelationType.choices,

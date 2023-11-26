@@ -39,7 +39,7 @@ const DeleteButton: React.FC<DeleteButtonProps> = ({ onDelete, primary }) => {
         <Strong>{primary}</Strong>
       </Dialog>
       <Button iconBefore={TrashIcon} onClick={() => setIsShown(true)}>
-        Delete
+        Delete Item
       </Button>
     </>
   );

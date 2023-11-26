@@ -12,13 +12,16 @@ interface BrowseableItemProps {
 }
 
 function BrowseableItem({ item, selected, onSelect }: BrowseableItemProps) {
+  const [hover, setHover] = React.useState<boolean>(false);
   const secondary = useMemo(() => {
+    if (!item.secondary) return '';
     return item.secondary.length > 70
       ? item.secondary.slice(0, 70) + '...'
       : item.secondary;
   }, [item.secondary]);
 
   const backgroundColor = selected ? theme.colors.tint4 : `transparent`;
+  const opacity = hover && !selected ? 0.6 : 1;
 
   return (
     <Card
@@ -31,10 +34,13 @@ function BrowseableItem({ item, selected, onSelect }: BrowseableItemProps) {
       width="100%"
       cursor="pointer"
       userSelect="none"
+      opacity={opacity}
       onClick={() => onSelect(item.id)}
-      style={{ backgroundColor: backgroundColor }}
+      style={{ backgroundColor: backgroundColor, transition: 'opacity 0.1s' }}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
     >
-      {item.tags.length > 0 && (
+      {item.tags && item.tags.length > 0 && (
         <Pane style={{ marginBottom: 4 }}>
           <TagBar tags={item.tags} onSave={() => null} frozen={true} />
         </Pane>

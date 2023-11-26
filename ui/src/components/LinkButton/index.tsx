@@ -15,11 +15,15 @@ import {
   Button,
   SelectMenu,
   Tooltip,
-  EditIcon
+  EditIcon,
+  Strong,
+  SearchInput
 } from 'evergreen-ui';
 import { set } from 'lodash';
 
-import { SetLink } from '../../types';
+import { LightItem, SetLink } from '../../types';
+import theme from '../../theme';
+import BrowseableItem from '../BrowseableItem';
 
 interface LinkButtonProps {
   onSave: (link: SetLink) => void;
@@ -28,6 +32,7 @@ interface LinkButtonProps {
 type BasicItem = {
   id: number;
   primary: string;
+  secondary: string;
 };
 
 type SearchAPIResponse = {
@@ -72,6 +77,11 @@ const LinkButton: React.FC<LinkButtonProps> = ({ onSave }) => {
     fetchItems(searchTerm);
   }, [searchTerm]);
 
+  const openSearch = useCallback(() => {
+    fetchItems(searchTerm);
+    setEditMode(true);
+  }, []);
+
   const onSearchTermChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setSearchTerm(event.target.value);
@@ -88,9 +98,9 @@ const LinkButton: React.FC<LinkButtonProps> = ({ onSave }) => {
     setSelectedItem(items.find((i) => i.primary === searchTerm) || null);
   }, [items, searchTerm]);
 
-  const shorten = (s: string) => {
-    if (s.length > 40) {
-      return s.slice(0, 40) + '...';
+  const shorten = (s: string, length: number) => {
+    if (s.length > length) {
+      return s.slice(0, length) + '...';
     }
     return s;
   };
@@ -107,46 +117,47 @@ const LinkButton: React.FC<LinkButtonProps> = ({ onSave }) => {
     }
   }, [selectedItem]);
 
-  const content = (
-    <>
-      <Pane
-        marginLeft={40}
-        display="flex"
-        width={300}
-        padding={8}
-        alignItems="start"
-        flexDirection="column"
-        position="absolute"
-        backgroundColor="white"
-        border="1px solid #DDDDEE"
-        borderRadius={4}
-      >
-        <Paragraph size={300} color="gray700" textAlign="left">
-          Create link of type:
-        </Paragraph>
+  return (
+    <Pane
+      display="flex"
+      flexDirection="row"
+      alignItems="center"
+      width="100%"
+      justifyContent="flex-end"
+    >
+      <Pane>
         <Select
           value={linkType}
-          height={24}
           onChange={(event) => setLinkType(event.target.value as LinkType)}
         >
           <option value="relates_to">relates_to</option>
           <option value="supports">supports</option>
         </Select>
+      </Pane>
+      <Pane marginLeft={16}>
         <Pane>
-          <Pane marginTop={8} height={32}>
-            <TextInput
-              placeholder="No item selected..."
-              value={searchTerm}
-              onChange={onSearchTermChange}
-              onFocus={() => setEditMode(true)}
-              onBlur={() => setTimeout(() => setEditMode(false), 200)}
-            />
-          </Pane>
-          {!isLoading && !error && editMode && (
+          <SearchInput
+            placeholder="Search item"
+            value={searchTerm}
+            onChange={onSearchTermChange}
+            onFocus={openSearch}
+            onBlur={() => setTimeout(() => setEditMode(false), 100)}
+          />
+        </Pane>
+
+        <Popover
+          isShown={!isLoading && editMode}
+          minWidth={500}
+          minHeight={400}
+          position={Position.BOTTOM}
+          content={
             <Pane
-              width="100%"
-              backgroundColor="white"
-              border="1px solid #edeff5"
+              width={500}
+              height={400}
+              backgroundColor={theme.colors.tint3}
+              borderRadius={4}
+              overflowY="scroll"
+              className="browseBodyNoScrollbar"
             >
               <Pane display="flex" flexDirection="column" alignItems="start">
                 {items.map((item, index) => (
@@ -154,69 +165,47 @@ const LinkButton: React.FC<LinkButtonProps> = ({ onSave }) => {
                     key={index}
                     width="100%"
                     paddingLeft={4}
-                    paddingRight={4}
-                    style={{ transition: 'background 0.2s', cursor: 'pointer' }}
+                    marginTop={4}
+                    style={{ transition: 'opacity 0.1s', cursor: 'pointer' }}
                     onMouseEnter={(e: React.MouseEvent<HTMLDivElement>) => {
-                      e.currentTarget.style.backgroundColor = 'lightgray';
+                      e.currentTarget.style.opacity = '0.6';
                     }}
-                    onMouseOut={(e: React.MouseEvent<HTMLDivElement>) => {
-                      e.currentTarget.style.backgroundColor = 'white';
+                    onMouseLeave={(e: React.MouseEvent<HTMLDivElement>) => {
+                      e.currentTarget.style.opacity = '1';
                     }}
                     onClick={() => onSelectItem(item.primary)}
                   >
-                    <Tooltip content={item.primary} showDelay={1000}>
-                      <Paragraph size={300} textAlign="left">
-                        {shorten(item.primary)}
-                      </Paragraph>
-                    </Tooltip>
+                    <BrowseableItem
+                      item={item as LightItem}
+                      selected={false}
+                      onSelect={() => null}
+                    />
                   </Pane>
                 ))}
               </Pane>
             </Pane>
-          )}
-        </Pane>
-        {!selectedItem && (
-          <Pane marginTop={8}>
-            <Paragraph size={300} color="gray700" textAlign="left">
+          }
+        >
+          <Text></Text>
+        </Popover>
+      </Pane>
+      {/* {!selectedItem && (
+          <Pane>
+            <Paragraph size={300} color="gray700" textAlign="center">
               Not a valid item.
             </Paragraph>
           </Pane>
-        )}
-        <Pane
-          marginTop={8}
-          width="100%"
-          display="flex"
-          flexDirection="row"
-          justifyContent="space-between"
-        >
-          <Button
-            appearance="primary"
-            onClick={onLocalSave}
-            iconBefore={LinkIcon}
-            disabled={selectedItem === null}
-          >
-            Create Link
-          </Button>
-        </Pane>
-      </Pane>
-      <CaretLeftIcon
-        position="absolute"
-        marginLeft={28}
-        marginTop={6}
-        size={20}
-        color="gray500"
-      />
-    </>
-  );
+        )} */}
 
-  return (
-    <Pane display="flex">
-      <IconButton
-        icon={LinkIcon}
-        onClick={() => setOpen((prev) => !prev)}
-        intent={open ? 'success' : 'none'}
-      />
-      {open && content}
+      <Button
+        marginLeft={16}
+        appearance="primary"
+        onClick={onLocalSave}
+        iconBefore={LinkIcon}
+        disabled={selectedItem === null}
+      >
+        Create Link
+      </Button>
     </Pane>
   );
 };

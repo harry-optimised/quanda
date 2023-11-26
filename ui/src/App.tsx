@@ -23,7 +23,7 @@ function ReduxApp() {
   const activeItem = useSelector(selectItem);
 
   useEffect(() => {
-    dispatch(refreshItems());
+    dispatch(refreshItems(false));
     fetchTags();
   }, []);
 

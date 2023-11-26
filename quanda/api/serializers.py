@@ -71,4 +71,4 @@ class ItemSerializer(serializers.ModelSerializer):
 
 class AddLinkSerializer(serializers.Serializer):
     to_item = serializers.IntegerField(required=True)
-    relation_type = serializers.ChoiceField(choices=['supported', 'relates_to'], required=True)
+    relation_type = serializers.ChoiceField(choices=['supports', 'relates_to'], required=True)

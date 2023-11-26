@@ -31,7 +31,7 @@ function Navigator() {
 
   const debouncedRefreshItems = useCallback(
     debounce(() => {
-      dispatch(refreshItems());
+      dispatch(refreshItems(false));
     }, 250),
     []
   );
@@ -111,6 +111,7 @@ function Navigator() {
       .then((response) => response.json())
       .then((data) => {
         dispatch(setItem(data));
+        dispatch(refreshItems(false));
       });
   }, []);
 

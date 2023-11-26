@@ -14,6 +14,7 @@ const TagBar = React.forwardRef(
     const allTags = useSelector((state: RootState) => state.tags);
 
     const values: string[] = React.useMemo(() => {
+      if (!tags) return [];
       return tags.map((tag) => {
         const tagObj = allTags.find((t) => t.id === tag);
         if (tagObj) {

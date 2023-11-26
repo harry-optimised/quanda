@@ -17,6 +17,11 @@ type ItemAPIResponse = {
   results: Item[];
 };
 
+type RefreshItemsResponse = {
+  items: Item[];
+  resetItem: boolean;
+};
+
 type NavigatorState = {
   searchTerm: string;
   items: ReturnType<typeof itemsAdapter.getInitialState>;
@@ -24,13 +29,13 @@ type NavigatorState = {
 
 export const refreshItems = createAsyncThunk(
   'navigator/refreshItems',
-  async (_, { getState }) => {
+  async (resetItem: boolean, { getState }) => {
     const state = getState() as RootState;
-    console.log(state.navigator);
     const response = await fetch(
       `${BASE_URL}/?search=${state.navigator.searchTerm}`
     );
-    return (await response.json()) as ItemAPIResponse;
+    const data = (await response.json()) as ItemAPIResponse;
+    return { items: data.results, resetItem };
   }
 );
 
@@ -59,13 +64,16 @@ const navigatorState = createSlice({
     updateSearchTerm: (state, action: PayloadAction<string>) => {
       console.log('updateSearchTerm');
       state.searchTerm = action.payload;
+    },
+    removeItem: (state, action: PayloadAction<number>) => {
+      itemsAdapter.removeOne(state.items, action.payload);
     }
   },
   extraReducers: (builder) => {
     builder.addCase(
       refreshItems.fulfilled,
-      (state, action: PayloadAction<ItemAPIResponse>) => {
-        const positionedItems = action.payload.results.map((item) => ({
+      (state, action: PayloadAction<RefreshItemsResponse>) => {
+        const positionedItems = action.payload.items.map((item) => ({
           ...item,
           position: { x: Math.random() * 1000, y: Math.random() * 500 }
         }));
@@ -82,5 +90,6 @@ export const { selectAll: selectAllItems } = itemsAdapter.getSelectors(
 export const selectSearchTerm = (state: RootState) =>
   state.navigator.searchTerm;
 
-export const { updateItem, updateSearchTerm } = navigatorState.actions;
+export const { updateItem, updateSearchTerm, removeItem } =
+  navigatorState.actions;
 export default navigatorState;

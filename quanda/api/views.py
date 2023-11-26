@@ -48,10 +48,35 @@ class ItemViewSet(viewsets.ModelViewSet):
         except Item.DoesNotExist:
             return Response({'error': 'Item to link to does not exist'}, status=status.HTTP_404_NOT_FOUND)
 
-        relation = ItemRelation.objects.create(
+        ItemRelation.objects.create(
             from_item=item,
             to_item=to_item,
             relation_type=link_serializer.validated_data['relation_type']
         )
+        
+        return Response(ItemSerializer(to_item).data, status=status.HTTP_201_CREATED)
 
-        return Response(status=status.HTTP_201_CREATED)
+    @action(detail=True, methods=['POST'])
+    def remove_link(self, request, pk=None):
+        item = self.get_object()
+        link_serializer = AddLinkSerializer(data=request.data)
+        link_serializer.is_valid(raise_exception=True)
+
+        try:
+            to_item = Item.objects.get(pk=link_serializer.validated_data['to_item'])
+        except Item.DoesNotExist:
+            return Response({'error': 'Item to link to does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
+        try:
+            relations = ItemRelation.objects.filter(
+                from_item=item,
+                to_item=to_item,
+                relation_type=link_serializer.validated_data['relation_type']
+            )
+        except ItemRelation.DoesNotExist:
+            return Response({'error': 'Link does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
+        for relation in relations:
+            relation.delete()
+        
+        return Response(ItemSerializer(to_item).data, status=status.HTTP_200_OK)

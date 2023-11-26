@@ -36,6 +36,21 @@ const theme = mergeTheme(defaultTheme, {
         }
       }
     },
+    Select: {
+      appearances: {
+        default: {
+          backgroundColor: BACKGROUND,
+          borderRadius: 4,
+          borderWidth: 0,
+          boxShadow: `0 0 1px 1px ${TINT5}`,
+          selectors: {
+            _focus: {
+              boxShadow: `0 0 2px 2px ${TINT6}`
+            }
+          }
+        }
+      }
+    },
     Card: {
       baseStyle: {
         borderRadius: 4
@@ -56,8 +71,16 @@ const theme = mergeTheme(defaultTheme, {
       }
     },
     Tab: {
+      baseStyle: {
+        color: TINT6,
+        fontWeight: '600',
+        padding: 8,
+        borderRadius: 4,
+        marginRight: 8,
+        userSelect: 'none'
+      },
       appearances: {
-        secondary: {
+        custom: {
           selectors: {
             _current: {
               color: BACKGROUND,

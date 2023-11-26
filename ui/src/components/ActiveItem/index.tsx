@@ -2,8 +2,16 @@ import '../../App.css';
 import React, { useCallback, useEffect, useState } from 'react';
 import 'reactflow/dist/style.css';
 import theme from '../../theme';
-import { ExchangeIcon, Heading, Icon, Paragraph, Spinner } from 'evergreen-ui';
-import { Item } from '../../types';
+import {
+  ExchangeIcon,
+  Heading,
+  Icon,
+  IconButton,
+  Paragraph,
+  Spinner,
+  TrashIcon
+} from 'evergreen-ui';
+import { Item, LinkType, SetLink } from '../../types';
 import { Pane, Card, Text, Tab, Tablist } from 'evergreen-ui';
 import { AppDispatch, selectItem } from '../../state/store';
 import { useSelector, useDispatch } from 'react-redux';
@@ -15,8 +23,17 @@ import SecondaryField from '../../components/SecondaryField';
 
 import { setItem } from '../../state/item';
 import DeleteButton from '../../components/DeleteButton';
-import { refreshItems, updateItem } from '../../state/navigator';
+import {
+  refreshItems,
+  removeItem,
+  selectAllItems,
+  updateItem
+} from '../../state/navigator';
 import BrowseableItem from '../../components/BrowseableItem';
+import Logo from '../Logo';
+import LinkButton from '../LinkButton';
+import { set } from 'lodash';
+import LinkIcon from '../LinkIcon';
 
 function ActiveItem() {
   const activeItem = useSelector(selectItem);
@@ -62,6 +79,61 @@ function ActiveItem() {
     [managedItem, onSave]
   );
 
+  const onSaveLink = useCallback(
+    (link: SetLink) => {
+      if (!managedItem) return;
+      fetch(`http://localhost:8000/api/items/${managedItem.id}/add_link/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(link)
+      })
+        .then((response) => (response.ok ? response : Promise.reject(response)))
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          if (managedItem)
+            onSave({
+              ...managedItem,
+              links: [
+                ...managedItem.links,
+                { target: data, type: link.relation_type as LinkType }
+              ]
+            });
+        })
+        .catch((error) => error.json())
+        .then((data) => {
+          console.log(data);
+        });
+    },
+    [managedItem, onSave]
+  );
+
+  const onRemoveLink = useCallback(
+    (link: SetLink) => {
+      if (!managedItem) return;
+      fetch(`http://localhost:8000/api/items/${managedItem.id}/remove_link/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(link)
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (managedItem)
+            onSave({
+              ...managedItem,
+              links: managedItem.links.filter(
+                (link) => link.target.id !== data.id
+              )
+            });
+        });
+    },
+    [managedItem, onSave]
+  );
+
   const onClickLink = useCallback((targetID: number) => {
     fetch(`http://localhost:8000/api/items/${targetID}/`)
       .then((response) => response.json())
@@ -75,8 +147,8 @@ function ActiveItem() {
       fetch(`http://localhost:8000/api/items/${managedItem.id}/`, {
         method: 'DELETE'
       }).then(() => {
+        dispatch(removeItem(managedItem.id));
         dispatch(setItem(null));
-        dispatch(refreshItems());
       });
     }
   }, [managedItem]);
@@ -132,30 +204,7 @@ function ActiveItem() {
             tags={managedItem.tags}
             onSave={onSaveTags}
           />
-          <Pane
-            padding={4}
-            display="flex"
-            marginLeft={30}
-            borderRadius={4}
-            backgroundColor={theme.colors.tint6}
-          >
-            <Heading padding={4} paddingRight={0} color={theme.colors.accent}>
-              Qu
-            </Heading>
-            <Heading
-              padding={4}
-              paddingLeft={0}
-              paddingRight={0}
-              color={theme.colors.background}
-            >
-              anda
-            </Heading>
-            <Heading
-              padding={4}
-              paddingLeft={0}
-              color={theme.colors.background}
-            ></Heading>
-          </Pane>
+          <Logo />
         </Pane>
         <Pane
           style={{
@@ -196,23 +245,33 @@ function ActiveItem() {
       >
         <Pane
           style={{
-            textAlign: 'left'
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between'
           }}
         >
-          <Tablist flexBasis={0}>
-            {tabs.map((tab, index) => (
-              <Tab
-                aria-controls={`panel-${tab}`}
-                isSelected={index === tabIndex}
-                key={tab}
-                onSelect={() => setTabIndex(index)}
-              >
-                {tab === 'links' ? 'Linked Items' : 'AI Insights'}
-              </Tab>
-            ))}
-          </Tablist>
+          <Pane style={{ textAlign: 'left' }} width="50%">
+            <Tablist flexBasis={0}>
+              {tabs.map((tab, index) => (
+                <Tab
+                  aria-controls={`panel-${tab}`}
+                  isSelected={index === tabIndex}
+                  key={tab}
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  // @ts-ignore
+                  appearance="custom"
+                  onSelect={() => setTabIndex(index)}
+                >
+                  {tab === 'links' ? 'Linked Items' : 'AI Insights'}
+                </Tab>
+              ))}
+            </Tablist>
+          </Pane>
+          {tabIndex === 0 && <LinkButton onSave={onSaveLink} />}
         </Pane>
-        <Pane paddingTop={16} flex="1" style={{ height: '100%' }}>
+        <Pane flex="1" style={{ height: '100%', userSelect: 'none' }}>
           {tabs.map((tab, index) => (
             <Pane
               aria-labelledby={tab}
@@ -229,36 +288,47 @@ function ActiveItem() {
                 <Pane
                   style={{
                     display: 'flex',
+                    height: '100%',
                     flexDirection: 'column',
-                    alignItems: 'flex-start'
+                    alignItems: 'flex-start',
+                    justifyContent: 'space-between'
                   }}
                 >
-                  {managedItem.links.map((link) => (
-                    <Pane display="flex" alignItems="center">
-                      <Pane
-                        display="flex"
-                        flexDirection="column"
-                        justifyContent="center"
-                        alignItems="center"
-                        width={80}
-                        marginRight={16}
-                      >
-                        <Icon
-                          icon={ExchangeIcon}
-                          size={32}
-                          color={theme.colors.tint5}
-                        />
-                        <Text size={300} color={theme.colors.tint5}>
-                          Related to
-                        </Text>
-                      </Pane>
-                      <BrowseableItem
-                        item={link.target}
-                        selected={false}
-                        onSelect={() => onClickLink(link.target.id)}
-                      />
-                    </Pane>
-                  ))}
+                  <Pane
+                    className="browseBodyNoScrollbar"
+                    marginTop={16}
+                    borderRadius={4}
+                    width="100%"
+                    height="100%"
+                    overflowY="scroll"
+                  >
+                    {managedItem.links &&
+                      managedItem.links.map(
+                        (link) => (
+                          console.log(link),
+                          (
+                            <Pane display="flex" alignItems="center">
+                              <LinkIcon type={link.type as string} />
+                              <BrowseableItem
+                                item={link.target}
+                                selected={false}
+                                onSelect={() => onClickLink(link.target.id)}
+                              />
+                              <IconButton
+                                icon={TrashIcon}
+                                appearance="minimal"
+                                onClick={() => {
+                                  onRemoveLink({
+                                    to_item: link.target.id,
+                                    relation_type: link.type
+                                  });
+                                }}
+                              />
+                            </Pane>
+                          )
+                        )
+                      )}
+                  </Pane>
                 </Pane>
               ) : (
                 <Pane>
