@@ -1,12 +1,13 @@
 import { defaultTheme, mergeTheme } from 'evergreen-ui';
 import { Background } from 'reactflow';
+import PrimaryField from './components/PrimaryField';
 
 const BACKGROUND = '#FFFFFF';
 const TINT3 = '#F2F5F8';
 const TINT4 = '#D7E1EA';
 const TINT5 = '#AABBC9';
 const TINT6 = '#38546B';
-const ACCENT = '#FFC547';
+const ACCENT = '#FFBF47';
 const DANGER = '#F67E7D';
 
 const theme = mergeTheme(defaultTheme, {
@@ -14,8 +15,9 @@ const theme = mergeTheme(defaultTheme, {
     Button: {
       appearances: {
         primary: {
-          backgroundColor: ACCENT,
-          color: TINT6
+          backgroundColor: TINT6,
+          color: BACKGROUND,
+          fontWeight: '600'
         }
       }
     },
@@ -59,11 +61,16 @@ const theme = mergeTheme(defaultTheme, {
           selectors: {
             _current: {
               color: BACKGROUND,
-              backgroundColor: TINT5,
+              backgroundColor: TINT6,
               userSelect: 'none'
             },
             _focus: {
               boxShadow: `none`
+            },
+            _before: {
+              color: BACKGROUND,
+              backgroundColor: TINT6,
+              userSelect: 'none'
             }
           }
         }

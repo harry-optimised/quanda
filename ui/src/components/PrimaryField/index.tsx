@@ -32,6 +32,10 @@ const PrimaryField: React.FC<PrimaryFieldProps> = ({
     }
   }, [editMode]);
 
+  useEffect(() => {
+    setEditablePrimary(primary);
+  }, [primary]);
+
   const onEnterEdit = useCallback(() => {
     setEditMode(true);
     setHover(false);

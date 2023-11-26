@@ -57,7 +57,7 @@ const SecondaryField: React.FC<SecondaryFieldProps> = ({
       color={theme.colors.tint6}
       backgroundColor={theme.colors.tint3}
       width="100%"
-      height={200}
+      height="100%"
       padding={8}
       paddingLeft={12}
       marginTop={4}
@@ -73,7 +73,6 @@ const SecondaryField: React.FC<SecondaryFieldProps> = ({
       width="100%"
       ref={inputRef}
       value={editablePrimary}
-      inputHeight={200}
       borderRadius={4}
       onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
         onChangePrimary(e.target.value)
