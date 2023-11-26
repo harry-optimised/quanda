@@ -31,9 +31,14 @@ export const refreshItems = createAsyncThunk(
   'navigator/refreshItems',
   async (resetItem: boolean, { getState }) => {
     const state = getState() as RootState;
-    const response = await fetch(
-      `${BASE_URL}/?search=${state.navigator.searchTerm}`
-    );
+
+    // Construct URL
+    const url = BASE_URL;
+    const params = new URLSearchParams();
+    if (state.navigator.searchTerm !== '')
+      params.set('search', state.navigator.searchTerm);
+
+    const response = await fetch(`${url}?${params.toString()}`);
     const data = (await response.json()) as ItemAPIResponse;
     return { items: data.results, resetItem };
   }

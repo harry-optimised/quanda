@@ -98,13 +98,6 @@ const LinkButton: React.FC<LinkButtonProps> = ({ onSave }) => {
     setSelectedItem(items.find((i) => i.primary === searchTerm) || null);
   }, [items, searchTerm]);
 
-  const shorten = (s: string, length: number) => {
-    if (s.length > length) {
-      return s.slice(0, length) + '...';
-    }
-    return s;
-  };
-
   const onLocalSave = useCallback(() => {
     if (selectedItem) {
       setOpen(false);
@@ -134,11 +127,12 @@ const LinkButton: React.FC<LinkButtonProps> = ({ onSave }) => {
           <option value="supports">supports</option>
         </Select>
       </Pane>
-      <Pane marginLeft={16}>
+      <Pane marginLeft={16} flexGrow={1}>
         <Pane>
           <SearchInput
-            placeholder="Search item"
+            placeholder="Search item to link"
             value={searchTerm}
+            width="100%"
             onChange={onSearchTermChange}
             onFocus={openSearch}
             onBlur={() => setTimeout(() => setEditMode(false), 100)}
@@ -148,12 +142,12 @@ const LinkButton: React.FC<LinkButtonProps> = ({ onSave }) => {
         <Popover
           isShown={!isLoading && editMode}
           minWidth={500}
-          minHeight={400}
+          minHeight="70vh"
           position={Position.BOTTOM}
           content={
             <Pane
               width={500}
-              height={400}
+              height="70vh"
               backgroundColor={theme.colors.tint3}
               borderRadius={4}
               overflowY="scroll"

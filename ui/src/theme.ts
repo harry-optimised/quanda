@@ -72,7 +72,7 @@ const theme = mergeTheme(defaultTheme, {
     },
     Tab: {
       baseStyle: {
-        color: TINT6,
+        color: BACKGROUND,
         fontWeight: '600',
         padding: 8,
         borderRadius: 4,
@@ -83,17 +83,12 @@ const theme = mergeTheme(defaultTheme, {
         custom: {
           selectors: {
             _current: {
-              color: BACKGROUND,
-              backgroundColor: TINT6,
+              color: TINT6,
+              backgroundColor: BACKGROUND,
               userSelect: 'none'
             },
             _focus: {
               boxShadow: `none`
-            },
-            _before: {
-              color: BACKGROUND,
-              backgroundColor: TINT6,
-              userSelect: 'none'
             }
           }
         }

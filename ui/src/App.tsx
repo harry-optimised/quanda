@@ -43,7 +43,7 @@ function ReduxApp() {
         backgroundColor={theme.colors.tint3}
       >
         <Pane
-          width="30%"
+          width="25%"
           height="100%"
           display="flex"
           flexDirection="column"
@@ -51,7 +51,7 @@ function ReduxApp() {
         >
           <Navigator />
         </Pane>
-        <Pane width="70%" height="100%" padding={0}>
+        <Pane width="75%" height="100%" padding={0}>
           <ActiveItem />
         </Pane>
       </Pane>

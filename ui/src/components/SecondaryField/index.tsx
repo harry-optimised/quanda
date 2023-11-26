@@ -6,10 +6,12 @@ import {
   Icon,
   Label,
   Heading,
-  TextareaField
+  TextareaField,
+  Button
 } from 'evergreen-ui';
 import { EditIcon } from 'evergreen-ui';
 import { set } from 'lodash';
+import MDEditor from '@uiw/react-md-editor';
 import theme from '../../theme';
 
 interface SecondaryFieldProps {
@@ -51,21 +53,18 @@ const SecondaryField: React.FC<SecondaryFieldProps> = ({
   );
 
   const viewUI = (
-    <Paragraph
-      cursor="pointer"
-      textAlign="left"
-      color={theme.colors.tint6}
-      backgroundColor={theme.colors.tint3}
-      width="100%"
-      height="100%"
-      padding={8}
-      paddingLeft={12}
-      marginTop={4}
-      borderRadius={4}
-      userSelect="none"
-    >
-      {secondary}
-    </Paragraph>
+    <MDEditor.Markdown
+      source={secondary}
+      style={{
+        whiteSpace: 'pre-wrap',
+        textAlign: 'left',
+        userSelect: 'none',
+        color: theme.colors.tint6,
+        width: '100%',
+        height: '100%',
+        borderRadius: 4
+      }}
+    />
   );
 
   const editUI = (
@@ -78,11 +77,6 @@ const SecondaryField: React.FC<SecondaryFieldProps> = ({
         onChangePrimary(e.target.value)
       }
       onBlur={onSave}
-      onKeyDown={(e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-        if (e.key === 'Enter') {
-          onSave();
-        }
-      }}
     />
   );
 
@@ -110,26 +104,42 @@ const SecondaryField: React.FC<SecondaryFieldProps> = ({
         <Heading size={600} style={{ cursor: 'pointer' }}>
           Body
         </Heading>
-        <Icon
-          icon={EditIcon}
-          size={16}
-          style={{
-            cursor: 'pointer',
-            marginLeft: 16,
-            transition: 'color 0.1s ease-in-out',
-            color: hover ? theme.colors.tint6 : theme.colors.tint5
-          }}
-        />
-        <Label
-          style={{
-            marginLeft: 8,
-            cursor: 'pointer',
-            transition: 'color 0.1s ease-in-out',
-            color: hover ? theme.colors.tint5 : theme.colors.background
-          }}
-        >
-          edit
-        </Label>
+
+        {!editMode && (
+          <>
+            <Icon
+              icon={EditIcon}
+              size={16}
+              style={{
+                cursor: 'pointer',
+                marginLeft: 16,
+                transition: 'color 0.1s ease-in-out',
+                color: hover ? theme.colors.tint6 : theme.colors.tint5
+              }}
+            />
+            <Label
+              style={{
+                marginLeft: 8,
+                cursor: 'pointer',
+                transition: 'color 0.1s ease-in-out',
+                color: hover ? theme.colors.tint5 : theme.colors.background
+              }}
+            >
+              edit
+            </Label>
+          </>
+        )}
+        {editMode && (
+          <Button
+            marginLeft={16}
+            size="small"
+            appearance="primary"
+            onClick={onSave}
+            style={{ cursor: 'pointer' }}
+          >
+            Save
+          </Button>
+        )}
       </Pane>
       {editMode ? editUI : viewUI}
     </Pane>

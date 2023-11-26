@@ -153,9 +153,6 @@ function ActiveItem() {
     }
   }, [managedItem]);
 
-  const tabs = ['links', 'insights'];
-  const [tabIndex, setTabIndex] = useState(0);
-
   const tagBarReference = React.useRef<HTMLInputElement>(null);
   useHotkeys(
     'ctrl+l',
@@ -165,6 +162,8 @@ function ActiveItem() {
     },
     [tagBarReference]
   );
+
+  console.log(activeItem);
 
   if (!managedItem) {
     return (
@@ -190,21 +189,19 @@ function ActiveItem() {
         height: '100%',
         borderRadius: 0,
         backgroundColor: theme.colors.background,
-        padding: 32,
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: 'row',
         alignItems: 'flex-start',
         justifyContent: 'space-between'
       }}
     >
-      <Pane width="100%">
+      <Pane width="60%" padding={32}>
         <Pane style={{ paddingBottom: 16, width: '100%' }} display="flex">
           <TagBar
             ref={tagBarReference}
             tags={managedItem.tags}
             onSave={onSaveTags}
           />
-          <Logo />
         </Pane>
         <Pane
           style={{
@@ -236,112 +233,61 @@ function ActiveItem() {
       </Pane>
       <Pane
         style={{
-          width: '100%',
-          height: '50%',
-          marginBottom: 32,
-          paddingTop: 16,
-          borderTop: `1px solid ${theme.colors.tint4}`
+          width: '40%',
+          height: '100%',
+          borderLeft: `1px solid ${theme.colors.border.default}`
         }}
       >
         <Pane
+          flex="1"
           style={{
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between'
+            height: '80%',
+            userSelect: 'none',
+            padding: 32,
+            borderTop: `1px solid ${theme.colors.border.default}`
           }}
         >
-          <Pane style={{ textAlign: 'left' }} width="50%">
-            <Tablist flexBasis={0}>
-              {tabs.map((tab, index) => (
-                <Tab
-                  aria-controls={`panel-${tab}`}
-                  isSelected={index === tabIndex}
-                  key={tab}
-                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                  // @ts-ignore
-                  appearance="custom"
-                  onSelect={() => setTabIndex(index)}
-                >
-                  {tab === 'links' ? 'Linked Items' : 'AI Insights'}
-                </Tab>
-              ))}
-            </Tablist>
-          </Pane>
-          {tabIndex === 0 && <LinkButton onSave={onSaveLink} />}
-        </Pane>
-        <Pane flex="1" style={{ height: '100%', userSelect: 'none' }}>
-          {tabs.map((tab, index) => (
+          <Pane
+            style={{
+              display: 'flex',
+              height: '100%',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              justifyContent: 'space-between'
+            }}
+          >
+            <LinkButton onSave={onSaveLink} />
             <Pane
-              aria-labelledby={tab}
-              aria-hidden={index !== tabIndex}
-              display={index === tabIndex ? 'block' : 'none'}
-              style={{
-                width: '100%',
-                height: '100%'
-              }}
-              key={tab}
-              role="tabpanel"
+              className="browseBodyNoScrollbar"
+              marginTop={16}
+              borderRadius={4}
+              width="100%"
+              height="100%"
+              overflowY="scroll"
             >
-              {tab === 'links' ? (
-                <Pane
-                  style={{
-                    display: 'flex',
-                    height: '100%',
-                    flexDirection: 'column',
-                    alignItems: 'flex-start',
-                    justifyContent: 'space-between'
-                  }}
-                >
-                  <Pane
-                    className="browseBodyNoScrollbar"
-                    marginTop={16}
-                    borderRadius={4}
-                    width="100%"
-                    height="100%"
-                    overflowY="scroll"
-                  >
-                    {managedItem.links &&
-                      managedItem.links.map(
-                        (link) => (
-                          console.log(link),
-                          (
-                            <Pane display="flex" alignItems="center">
-                              <LinkIcon type={link.type as string} />
-                              <BrowseableItem
-                                item={link.target}
-                                selected={false}
-                                onSelect={() => onClickLink(link.target.id)}
-                              />
-                              <IconButton
-                                icon={TrashIcon}
-                                appearance="minimal"
-                                onClick={() => {
-                                  onRemoveLink({
-                                    to_item: link.target.id,
-                                    relation_type: link.type
-                                  });
-                                }}
-                              />
-                            </Pane>
-                          )
-                        )
-                      )}
+              {managedItem.links &&
+                managedItem.links.map((link) => (
+                  <Pane display="flex" alignItems="center">
+                    <LinkIcon type={link.type as string} />
+                    <BrowseableItem
+                      item={link.target}
+                      selected={false}
+                      onSelect={() => onClickLink(link.target.id)}
+                    />
+                    <IconButton
+                      icon={TrashIcon}
+                      appearance="minimal"
+                      onClick={() => {
+                        onRemoveLink({
+                          to_item: link.target.id,
+                          relation_type: link.type
+                        });
+                      }}
+                    />
                   </Pane>
-                </Pane>
-              ) : (
-                <Pane>
-                  <Pane>
-                    <Heading size={600}>Insights</Heading>
-                  </Pane>
-                  <Pane>
-                    <Paragraph>TODO</Paragraph>
-                  </Pane>
-                </Pane>
-              )}
+                ))}
             </Pane>
-          ))}
+          </Pane>
         </Pane>
       </Pane>
     </Card>

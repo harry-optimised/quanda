@@ -45,7 +45,7 @@ const BottomBar: React.FC<BottomBarProps> = ({ onSave }: BottomBarProps) => {
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           onChange(e.target.value)
         }
-        onBlur={onLocalSave}
+        onBlur={() => setText('')}
         onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
           if (e.key === 'Enter') {
             onLocalSave();
