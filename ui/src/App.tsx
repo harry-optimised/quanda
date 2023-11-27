@@ -2,7 +2,19 @@ import './App.css';
 import React, { useEffect } from 'react';
 import 'reactflow/dist/style.css';
 import theme from './theme';
-import { ThemeProvider } from 'evergreen-ui';
+import {
+  ApplicationIcon,
+  BoxIcon,
+  GridViewIcon,
+  Icon,
+  MenuIcon,
+  PersonIcon,
+  ProjectsIcon,
+  RocketSlantIcon,
+  Strong,
+  TagIcon,
+  ThemeProvider
+} from 'evergreen-ui';
 
 import { Pane } from 'evergreen-ui';
 import { store, AppDispatch, selectItem } from './state/store';
@@ -29,16 +41,90 @@ function ReduxApp() {
 
   useEffect(() => {
     if (!activeItem && items.length > 0) {
-      dispatch(setItem(items[0]));
+      dispatch(setItem({ item: items[0], updateBackend: false }));
     }
   }, [items, activeItem]);
 
   return (
     <ThemeProvider value={theme}>
       <Pane
+        width="100%"
+        height={48}
+        backgroundColor={theme.colors.tint6}
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+      >
+        <Pane display="flex" flexDirection="row" paddingLeft={16}></Pane>
+        <Pane
+          display="flex"
+          flexDirection="row"
+          backgroundColor={theme.colors.tint6}
+          height={48}
+          paddingRight={16}
+        >
+          <Pane
+            display="flex"
+            flexDirection="row"
+            alignItems="center"
+            marginLeft={32}
+          >
+            <Icon
+              icon={TagIcon}
+              color={theme.colors.background}
+              size={16}
+              marginRight={8}
+            />
+            <Strong color={theme.colors.background}>Tags</Strong>
+          </Pane>
+          <Pane
+            display="flex"
+            flexDirection="row"
+            alignItems="center"
+            marginLeft={32}
+          >
+            <Icon
+              icon={RocketSlantIcon}
+              color={theme.colors.background}
+              size={16}
+              marginRight={8}
+            />
+            <Strong color={theme.colors.background}>AI Settings</Strong>
+          </Pane>
+          <Pane
+            display="flex"
+            flexDirection="row"
+            alignItems="center"
+            marginLeft={32}
+          >
+            <Icon
+              icon={ProjectsIcon}
+              color={theme.colors.background}
+              size={16}
+              marginRight={8}
+            />
+            <Strong color={theme.colors.background}>CareCrow</Strong>
+          </Pane>
+          <Pane
+            display="flex"
+            flexDirection="row"
+            alignItems="center"
+            marginLeft={32}
+          >
+            <Icon
+              icon={PersonIcon}
+              color={theme.colors.background}
+              size={16}
+              marginRight={8}
+            />
+            <Strong color={theme.colors.background}>Henry Turner</Strong>
+          </Pane>
+        </Pane>
+      </Pane>
+      <Pane
         className="App"
         width="100%"
-        height="100vh"
+        height="calc(100vh - 48px)"
         display="flex"
         backgroundColor={theme.colors.tint3}
       >
@@ -51,7 +137,7 @@ function ReduxApp() {
         >
           <Navigator />
         </Pane>
-        <Pane width="75%" height="100%" padding={0}>
+        <Pane width="75%" padding={0}>
           <ActiveItem />
         </Pane>
       </Pane>

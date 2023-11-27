@@ -27,8 +27,8 @@ function LinkIcon({ type }: { type: string }) {
       minWidth={80}
       marginRight={16}
     >
-      <Icon icon={icon} size={32} color={theme.colors.tint5} />
-      <Text size={300} color={theme.colors.tint5}>
+      <Icon icon={icon} size={32} color={theme.colors.tint6} />
+      <Text size={300} color={theme.colors.tint6}>
         {text}
       </Text>
     </Pane>

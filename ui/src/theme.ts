@@ -3,11 +3,13 @@ import { Background } from 'reactflow';
 import PrimaryField from './components/PrimaryField';
 
 const BACKGROUND = '#FFFFFF';
-const TINT3 = '#F2F5F8';
-const TINT4 = '#D7E1EA';
-const TINT5 = '#AABBC9';
-const TINT6 = '#38546B';
-const ACCENT = '#FFBF47';
+const GRAY = '#C5C5C5';
+const TINT3 = '#D9E8E7';
+const TINT4 = '#8CBAB7';
+const TINT5 = '#4D807D';
+const TINT6 = '#26403E';
+const ACCENT = '#888888';
+const HIGHLIGHT = '#F2F2F2';
 const DANGER = '#F67E7D';
 
 const theme = mergeTheme(defaultTheme, {
@@ -15,22 +17,42 @@ const theme = mergeTheme(defaultTheme, {
     Button: {
       appearances: {
         primary: {
-          backgroundColor: TINT6,
+          backgroundColor: TINT5,
           color: BACKGROUND,
-          fontWeight: '600'
+          fontWeight: '600',
+          selectors: {
+            _disabled: {
+              backgroundColor: GRAY
+            },
+            _hover: {
+              opacity: 0.9,
+              transition: 'opacity 0.1s ease-in-out'
+            },
+            _active: {
+              boxShadow: `none`
+            }
+          }
         }
       }
     },
     Input: {
+      baseStyle: {
+        backgroundColor: BACKGROUND,
+        borderRadius: 4,
+        borderWidth: 0,
+        border: `none`
+      },
       appearances: {
         default: {
           backgroundColor: BACKGROUND,
           borderRadius: 4,
           borderWidth: 0,
-          boxShadow: `0 0 1px 1px ${TINT5}`,
+          border: `1px solid ${GRAY}`,
+          boxShadow: 'none',
           selectors: {
             _focus: {
-              boxShadow: `0 0 2px 2px ${TINT6}`
+              border: `1px solid ${GRAY}`,
+              boxShadow: `0 0 2px 2px ${TINT5}`
             }
           }
         }
@@ -42,10 +64,12 @@ const theme = mergeTheme(defaultTheme, {
           backgroundColor: BACKGROUND,
           borderRadius: 4,
           borderWidth: 0,
-          boxShadow: `0 0 1px 1px ${TINT5}`,
+          border: `1px solid ${GRAY}`,
+          boxShadow: 'none',
           selectors: {
             _focus: {
-              boxShadow: `0 0 2px 2px ${TINT6}`
+              border: `1px solid ${GRAY}`,
+              boxShadow: `0 0 2px 2px ${TINT5}`
             }
           }
         }
@@ -67,7 +91,22 @@ const theme = mergeTheme(defaultTheme, {
         borderRadius: 4,
         borderWidth: 0,
         width: '100%',
-        selectors: {}
+        border: 'none'
+      },
+      appearances: {
+        default: {
+          backgroundColor: BACKGROUND,
+          borderRadius: 4,
+          borderWidth: 0,
+          border: `1px solid ${GRAY}`,
+          boxShadow: 'none',
+          selectors: {
+            _focused: {
+              border: `1px solid ${GRAY}`,
+              boxShadow: `0 0 2px 2px ${TINT5}`
+            }
+          }
+        }
       }
     },
     Tab: {

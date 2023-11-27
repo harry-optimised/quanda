@@ -2,7 +2,15 @@ import '../../App.css';
 import React, { useCallback, useEffect, useState } from 'react';
 import 'reactflow/dist/style.css';
 import theme from '../../theme';
-import { IconButton, Spinner, Strong, TrashIcon } from 'evergreen-ui';
+import {
+  Button,
+  Group,
+  Heading,
+  IconButton,
+  Spinner,
+  Strong,
+  TrashIcon
+} from 'evergreen-ui';
 import { Item, LinkType, SetLink } from '../../types';
 import { Pane, Card } from 'evergreen-ui';
 import { AppDispatch, selectItem } from '../../state/store';
@@ -24,7 +32,6 @@ import LinkIcon from '../LinkIcon';
 
 function ActiveItem() {
   const activeItem = useSelector(selectItem);
-  const [tab, setTab] = useState<'links' | 'insights'>('links');
 
   const dispatch = useDispatch<AppDispatch>();
   const project = 1;
@@ -32,8 +39,7 @@ function ActiveItem() {
   const onSave = useCallback(
     (updatedItem: Item) => {
       // Update the UI optimistically.
-      // TODO: Can we remove managedItem and work from state directly?
-      dispatch(setItem(updatedItem));
+      dispatch(setItem({ item: updatedItem, updateBackend: true }));
 
       // Update item in search bar.
       dispatch(updateItem(updatedItem));
@@ -132,7 +138,7 @@ function ActiveItem() {
         method: 'DELETE'
       }).then(() => {
         dispatch(removeItem(activeItem.id));
-        dispatch(setItem(null));
+        dispatch(setItem({ item: null, updateBackend: false }));
       });
     }
   }, [activeItem]);
@@ -147,12 +153,23 @@ function ActiveItem() {
     [tagBarReference]
   );
 
+  const options = React.useMemo(
+    () => [
+      { label: 'Links', value: 'links' },
+      { label: 'Insights', value: 'insights' },
+      { label: 'Evidence', value: 'evidence' },
+      { label: 'Graph', value: 'graph' }
+    ],
+    []
+  );
+  const [tab, setTab] = React.useState('links');
+
   if (!activeItem) {
     return (
       <Pane
         style={{
           width: '100%',
-          height: '100vh',
+          height: 'calc(100vh - 48px)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -168,7 +185,7 @@ function ActiveItem() {
     <Card
       style={{
         width: '100%',
-        height: '100vh',
+        height: 'calc(100vh - 48px)',
         borderRadius: 0,
         backgroundColor: theme.colors.background,
         display: 'flex',
@@ -228,7 +245,7 @@ function ActiveItem() {
             padding: 32
           }}
         >
-          {tab === 'links' ? (
+          {tab === 'links' && (
             <Pane
               style={{
                 display: 'flex',
@@ -238,6 +255,9 @@ function ActiveItem() {
                 justifyContent: 'space-between'
               }}
             >
+              <Heading size={800} color={theme.colors.tint6} paddingBottom={16}>
+                Links
+              </Heading>
               <LinkButton onSave={onSaveLink} />
               <Pane
                 className="browseBodyNoScrollbar"
@@ -270,70 +290,100 @@ function ActiveItem() {
                   ))}
               </Pane>
             </Pane>
-          ) : null}
+          )}
+          {tab === 'insights' && (
+            <Pane
+              style={{
+                display: 'flex',
+                height: '100%',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                justifyContent: 'space-between'
+              }}
+            >
+              <Heading size={800} color={theme.colors.tint6} paddingBottom={16}>
+                Insights
+              </Heading>
+            </Pane>
+          )}
+          {tab === 'evidence' && (
+            <Pane
+              style={{
+                display: 'flex',
+                height: '100%',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                justifyContent: 'space-between'
+              }}
+            >
+              <Heading size={800} color={theme.colors.tint6} paddingBottom={16}>
+                Evidence
+              </Heading>
+            </Pane>
+          )}
+          {tab === 'graph' && (
+            <Pane
+              style={{
+                display: 'flex',
+                height: '100%',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                justifyContent: 'space-between'
+              }}
+            >
+              <Heading size={800} color={theme.colors.tint6} paddingBottom={16}>
+                Graph
+              </Heading>
+            </Pane>
+          )}
         </Pane>
         <Pane
-          backgroundColor={theme.colors.tint5}
-          height={48}
           display="flex"
           flexDirection="row"
+          width="100%"
+          paddingLeft={32}
+          marginBottom={32}
+          justifyContent="center"
         >
-          <Pane
-            height="100%"
-            flexGrow={1}
+          {/* <Button
+            appearance="primary"
             backgroundColor={
               tab === 'links' ? theme.colors.tint6 : theme.colors.tint5
             }
-            display="flex"
-            flexDirection="row"
-            alignItems="center"
-            justifyContent="center"
-            cursor="pointer"
-            userSelect="none"
-            style={{ transition: 'opacity 0.1s', cursor: 'pointer' }}
-            onMouseEnter={(e: React.MouseEvent<HTMLDivElement>) => {
-              e.currentTarget.style.opacity = '1.0';
-              if (tab === 'insights') e.currentTarget.style.opacity = '0.6';
-            }}
-            onMouseLeave={(e: React.MouseEvent<HTMLDivElement>) => {
-              e.currentTarget.style.opacity = '1.0';
-              if (tab === 'insights') e.currentTarget.style.opacity = '1';
-            }}
-            onClick={(e: React.MouseEvent<HTMLDivElement>) => {
-              e.currentTarget.style.opacity = '1.0';
+            onClick={() => {
               setTab('links');
             }}
+            marginRight={16}
           >
-            <Strong color={theme.colors.background}>Links</Strong>
-          </Pane>
-          <Pane
-            height="100%"
-            flexGrow={1}
+            Links
+          </Button>
+          <Button
+            appearance="primary"
             backgroundColor={
               tab === 'insights' ? theme.colors.tint6 : theme.colors.tint5
             }
-            display="flex"
-            flexDirection="row"
-            alignItems="center"
-            justifyContent="center"
-            cursor="pointer"
-            userSelect="none"
-            style={{ transition: 'opacity 0.1s', cursor: 'pointer' }}
-            onMouseEnter={(e: React.MouseEvent<HTMLDivElement>) => {
-              e.currentTarget.style.opacity = '1.0';
-              if (tab === 'links') e.currentTarget.style.opacity = '0.6';
-            }}
-            onMouseLeave={(e: React.MouseEvent<HTMLDivElement>) => {
-              e.currentTarget.style.opacity = '1.0';
-              if (tab === 'links') e.currentTarget.style.opacity = '1';
-            }}
-            onClick={(e: React.MouseEvent<HTMLDivElement>) => {
-              e.currentTarget.style.opacity = '1.0';
+            onClick={() => {
               setTab('insights');
             }}
+            marginRight={16}
           >
-            <Strong color={theme.colors.background}>Insights</Strong>
-          </Pane>
+            Insights
+          </Button> */}
+          <Group size="large">
+            {options.map(({ label, value }) => (
+              <Button
+                appearance="primary"
+                key={label}
+                isActive={tab === value}
+                onClick={() => setTab(value)}
+                backgroundColor={
+                  tab === value ? theme.colors.tint5 : theme.colors.tint4
+                }
+              >
+                {label}
+              </Button>
+            ))}
+          </Group>
         </Pane>
       </Pane>
     </Card>

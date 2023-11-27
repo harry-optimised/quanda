@@ -39,7 +39,7 @@ const SecondaryField: React.FC<SecondaryFieldProps> = ({
       onChange={onChangeContent}
       preview="edit"
       autoFocus={true}
-      height="calc(100vh - 170px)"
+      height="calc(100vh - 170px - 48px)"
       visibleDragbar={true}
       textareaProps={{ style: { overflowY: 'scroll' } }}
     />

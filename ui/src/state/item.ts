@@ -16,6 +16,11 @@ type ItemState = {
   item: Item | null;
 };
 
+interface SetItemPayload {
+  item: Item | null;
+  updateBackend: boolean;
+}
+
 const initialState: ItemState = {
   item: null
 };
@@ -24,15 +29,18 @@ const itemSlice = createSlice({
   name: 'items',
   initialState,
   reducers: {
-    setItem: (state, action: PayloadAction<Item | null>) => {
-      state.item = action.payload;
-      fetch(`${BASE_URL}/${action.payload?.id}/`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(action.payload)
-      });
+    setItem: (state, action: PayloadAction<SetItemPayload>) => {
+      const { item, updateBackend } = action.payload;
+      state.item = item;
+      if (updateBackend) {
+        fetch(`${BASE_URL}/${item?.id}/`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(item)
+        });
+      }
     }
   }
 });

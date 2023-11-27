@@ -2,7 +2,15 @@ import '../../App.css';
 import React, { useCallback } from 'react';
 import 'reactflow/dist/style.css';
 import theme from '../../theme';
-import { SearchInput } from 'evergreen-ui';
+import {
+  ApplicationIcon,
+  GridIcon,
+  GridViewIcon,
+  Icon,
+  IconButton,
+  MenuIcon,
+  SearchInput
+} from 'evergreen-ui';
 
 import { Pane } from 'evergreen-ui';
 import { AppDispatch, selectItem } from '../../state/store';
@@ -84,7 +92,7 @@ function Navigator() {
       fetch(`http://localhost:8000/api/items/${id}/`)
         .then((response) => response.json())
         .then((data) => {
-          dispatch(setItem(data));
+          dispatch(setItem({ item: data, updateBackend: false }));
         });
     },
     [dispatch]
@@ -119,6 +127,9 @@ function Navigator() {
     <>
       <Pane
         id="browseHeader"
+        display="flex"
+        flexDirection="row"
+        alignItems="center"
         style={{
           width: '100%',
           padding: 32,
@@ -158,7 +169,7 @@ function Navigator() {
       <Pane
         style={{
           padding: 32,
-          backgroundColor: theme.colors.tint5
+          backgroundColor: 'transparent'
         }}
       >
         <BottomBar onSave={onAddItem} />
