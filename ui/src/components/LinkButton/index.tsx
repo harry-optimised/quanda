@@ -3,23 +3,14 @@ import debounce from 'lodash.debounce';
 
 import {
   Pane,
-  IconButton,
-  TextInput,
   Popover,
   Select,
   Position,
   Text,
-  Paragraph,
   LinkIcon,
-  CaretLeftIcon,
   Button,
-  SelectMenu,
-  Tooltip,
-  EditIcon,
-  Strong,
   SearchInput
 } from 'evergreen-ui';
-import { set } from 'lodash';
 
 import { LightItem, SetLink } from '../../types';
 import theme from '../../theme';
@@ -48,12 +39,10 @@ type LinkType = 'relates_to' | 'supports';
 const URL = 'http://localhost:8000/api/items';
 
 const LinkButton: React.FC<LinkButtonProps> = ({ onSave }) => {
-  const [open, setOpen] = useState<boolean>(false);
   const [linkType, setLinkType] = useState<LinkType>('relates_to');
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [items, setItems] = useState<BasicItem[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<Error | null>(null);
   const [selectedItem, setSelectedItem] = useState<BasicItem | null>();
   const [editMode, setEditMode] = useState<boolean>(false);
   const { getAccessTokenSilently } = useAuth0();
@@ -71,7 +60,6 @@ const LinkButton: React.FC<LinkButtonProps> = ({ onSave }) => {
         setItems(items);
         setIsLoading(false);
       } catch (err) {
-        setError(err as Error);
         setIsLoading(false);
       }
     }, 500),
@@ -105,7 +93,6 @@ const LinkButton: React.FC<LinkButtonProps> = ({ onSave }) => {
 
   const onLocalSave = useCallback(() => {
     if (selectedItem) {
-      setOpen(false);
       onSave({
         relation_type: linkType,
         to_item: selectedItem.id

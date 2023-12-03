@@ -1,5 +1,3 @@
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from './store';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
 import { System } from '../types';

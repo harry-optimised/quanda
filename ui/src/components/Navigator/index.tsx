@@ -1,16 +1,7 @@
 import '../../App.css';
 import React, { useCallback } from 'react';
 import 'reactflow/dist/style.css';
-import theme from '../../theme';
-import {
-  ApplicationIcon,
-  GridIcon,
-  GridViewIcon,
-  Icon,
-  IconButton,
-  MenuIcon,
-  SearchInput
-} from 'evergreen-ui';
+import { SearchInput } from 'evergreen-ui';
 
 import { Pane } from 'evergreen-ui';
 import { AppDispatch, selectItem } from '../../state/store';

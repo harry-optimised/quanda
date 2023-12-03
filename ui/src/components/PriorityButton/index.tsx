@@ -1,13 +1,5 @@
-import React, { useState, useCallback } from 'react';
-import {
-  Pane,
-  Dialog,
-  TextInput,
-  IconButton,
-  HighPriorityIcon
-} from 'evergreen-ui';
-import { SnowflakeIcon } from 'evergreen-ui';
-import { set } from 'lodash';
+import React, { useCallback } from 'react';
+import { IconButton, HighPriorityIcon } from 'evergreen-ui';
 
 interface PriorityButtonProps {
   onSave: (priority: boolean) => void;

@@ -1,15 +1,5 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
-import {
-  Heading,
-  Paragraph,
-  TextInput,
-  Pane,
-  Icon,
-  EditIcon,
-  Label
-} from 'evergreen-ui';
-import { SnowflakeIcon } from 'evergreen-ui';
-import { set } from 'lodash';
+import { Heading, TextInput, Pane, Icon, EditIcon, Label } from 'evergreen-ui';
 import theme from '../../theme';
 
 interface PrimaryFieldProps {

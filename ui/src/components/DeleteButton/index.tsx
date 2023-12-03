@@ -1,18 +1,5 @@
-import React, { useState, useCallback } from 'react';
-import {
-  Pane,
-  Dialog,
-  TextInput,
-  IconButton,
-  HighPriorityIcon,
-  Button,
-  TrashIcon,
-  Text,
-  Paragraph,
-  Strong
-} from 'evergreen-ui';
-import { SnowflakeIcon } from 'evergreen-ui';
-import { set } from 'lodash';
+import React, { useState } from 'react';
+import { Dialog, Button, TrashIcon, Paragraph, Strong } from 'evergreen-ui';
 
 interface DeleteButtonProps {
   onDelete: () => void;

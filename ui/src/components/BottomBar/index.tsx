@@ -1,13 +1,5 @@
-import React, { useState, useCallback, useRef, useEffect } from 'react';
-import {
-  Paragraph,
-  TextInput,
-  Pane,
-  Button,
-  NewObjectIcon
-} from 'evergreen-ui';
-import { SnowflakeIcon } from 'evergreen-ui';
-import { set } from 'lodash';
+import React, { useState, useCallback, useRef } from 'react';
+import { Pane, Button, NewObjectIcon, TextInput } from 'evergreen-ui';
 import { useHotkeys } from 'react-hotkeys-hook';
 
 interface BottomBarProps {

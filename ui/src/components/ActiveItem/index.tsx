@@ -1,5 +1,5 @@
 import '../../App.css';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback } from 'react';
 import 'reactflow/dist/style.css';
 import theme from '../../theme';
 import {
@@ -9,8 +9,6 @@ import {
   Heading,
   Icon,
   IconButton,
-  Spinner,
-  Strong,
   TrashIcon
 } from 'evergreen-ui';
 import { Item, LinkType, SetLink } from '../../types';

@@ -3,14 +3,9 @@ import React, { useEffect } from 'react';
 import 'reactflow/dist/style.css';
 import theme from './theme';
 import {
-  ApplicationIcon,
-  BoxIcon,
   Button,
   Dialog,
-  GridViewIcon,
-  Heading,
   Icon,
-  MenuIcon,
   PersonIcon,
   ProjectsIcon,
   RocketSlantIcon,
@@ -31,7 +26,7 @@ import { setItem } from './state/item';
 
 import ActiveItem from './components/ActiveItem';
 import Navigator from './components/Navigator';
-import { get } from 'lodash';
+
 import { setToken } from './state/profile';
 
 function ProjectManager() {

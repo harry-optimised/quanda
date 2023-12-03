@@ -1,6 +1,4 @@
 import { defaultTheme, mergeTheme } from 'evergreen-ui';
-import { Background } from 'reactflow';
-import PrimaryField from './components/PrimaryField';
 
 const BACKGROUND = '#FFFFFF';
 const GRAY = '#C5C5C5';
@@ -141,7 +139,8 @@ const theme = mergeTheme(defaultTheme, {
     tint5: TINT5,
     tint6: TINT6,
     accent: ACCENT,
-    danger: DANGER
+    danger: DANGER,
+    highlight: HIGHLIGHT
   }
 });
 
