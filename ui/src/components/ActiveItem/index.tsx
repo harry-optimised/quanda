@@ -1,6 +1,5 @@
 import '../../App.css';
 import React, { useCallback } from 'react';
-import 'reactflow/dist/style.css';
 import theme from '../../theme';
 import {
   Button,

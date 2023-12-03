@@ -1,6 +1,5 @@
 import '../../App.css';
 import React, { useCallback } from 'react';
-import 'reactflow/dist/style.css';
 import { SearchInput } from 'evergreen-ui';
 
 import { Pane } from 'evergreen-ui';

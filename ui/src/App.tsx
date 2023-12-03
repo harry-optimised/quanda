@@ -1,6 +1,5 @@
 import './App.css';
 import React, { useEffect } from 'react';
-import 'reactflow/dist/style.css';
 import theme from './theme';
 import {
   Button,

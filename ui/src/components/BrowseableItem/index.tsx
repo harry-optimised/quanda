@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import 'reactflow/dist/style.css';
 import theme from '../../theme';
 import { Item, LightItem } from '../../types';
 import { Pane, Card, Text, Strong } from 'evergreen-ui';
