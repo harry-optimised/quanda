@@ -29,6 +29,7 @@ import BrowseableItem from '../../components/BrowseableItem';
 
 // Utilities
 import { debounce } from 'lodash';
+import { useAuth0 } from '@auth0/auth0-react';
 
 function Navigator() {
   const dispatch = useDispatch<AppDispatch>();
@@ -36,6 +37,7 @@ function Navigator() {
   const activeItem = useSelector(selectItem);
   const searchTerm = useSelector(selectSearchTerm);
   const searchBoxRef = React.useRef<HTMLInputElement>(null);
+  const { getAccessTokenSilently } = useAuth0();
 
   const debouncedRefreshItems = useCallback(
     debounce(() => {
@@ -65,11 +67,15 @@ function Navigator() {
     const nextIndex = currentIndex + 1;
     if (nextIndex < items.length) {
       const id = items[nextIndex].id;
-      fetch(`http://localhost:8000/api/items/${id}/`)
-        .then((response) => response.json())
-        .then((data) => {
-          dispatch(setItem(data));
-        });
+      getAccessTokenSilently().then((accessToken) => {
+        fetch(`http://localhost:8000/api/items/${id}/`, {
+          headers: { Authorization: `Bearer ${accessToken}` }
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            dispatch(setItem(data));
+          });
+      });
     }
   });
 
@@ -79,21 +85,29 @@ function Navigator() {
     const nextIndex = currentIndex - 1;
     if (nextIndex >= 0) {
       const id = items[nextIndex].id;
-      fetch(`http://localhost:8000/api/items/${id}/`)
-        .then((response) => response.json())
-        .then((data) => {
-          dispatch(setItem(data));
-        });
+      getAccessTokenSilently().then((accessToken) => {
+        fetch(`http://localhost:8000/api/items/${id}/`, {
+          headers: { Authorization: `Bearer ${accessToken}` }
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            dispatch(setItem(data));
+          });
+      });
     }
   });
 
   const onItemSelect = useCallback(
     (id: number) => {
-      fetch(`http://localhost:8000/api/items/${id}/`)
-        .then((response) => response.json())
-        .then((data) => {
-          dispatch(setItem({ item: data, updateBackend: false }));
-        });
+      getAccessTokenSilently().then((accessToken) => {
+        fetch(`http://localhost:8000/api/items/${id}/`, {
+          headers: { Authorization: `Bearer ${accessToken}` }
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            dispatch(setItem({ item: data, updateBackend: false }));
+          });
+      });
     },
     [dispatch]
   );
@@ -109,18 +123,21 @@ function Navigator() {
       priority: false,
       project: 1
     };
-    fetch(`http://localhost:8000/api/items/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(newItem)
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        dispatch(setItem(data));
-        dispatch(refreshItems(false));
-      });
+    getAccessTokenSilently().then((accessToken) => {
+      fetch(`http://localhost:8000/api/items/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`
+        },
+        body: JSON.stringify(newItem)
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          dispatch(setItem(data));
+          dispatch(refreshItems(false));
+        });
+    });
   }, []);
 
   return (

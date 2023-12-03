@@ -5,7 +5,10 @@ import theme from './theme';
 import {
   ApplicationIcon,
   BoxIcon,
+  Button,
+  Dialog,
   GridViewIcon,
+  Heading,
   Icon,
   MenuIcon,
   PersonIcon,
@@ -20,6 +23,7 @@ import { Pane } from 'evergreen-ui';
 import { store, AppDispatch, selectItem } from './state/store';
 import { refreshItems, selectAllItems } from './state/navigator';
 import { Provider, useSelector, useDispatch } from 'react-redux';
+import { Auth0Provider, useAuth0 } from '@auth0/auth0-react';
 
 import { useFetchTags } from './state/hooks';
 
@@ -27,16 +31,78 @@ import { setItem } from './state/item';
 
 import ActiveItem from './components/ActiveItem';
 import Navigator from './components/Navigator';
+import { get } from 'lodash';
+import { setToken } from './state/profile';
 
-function ReduxApp() {
+function ProjectManager() {
+  const [isShown, setIsShown] = React.useState(false);
+  const [hover, setHover] = React.useState(false);
+  const { getAccessTokenSilently } = useAuth0();
+
+  useEffect(() => {
+    if (!isShown) return;
+    getAccessTokenSilently()
+      .then((accessToken) => {
+        fetch('http://localhost:8000/api/projects/', {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        })
+          .then((response) => response.json())
+          .then((data) => console.log(data));
+      })
+      .catch((err) => console.error(err));
+  }, [isShown]);
+
+  return (
+    <>
+      <Dialog
+        isShown={isShown}
+        title="Projects"
+        onCloseComplete={() => setIsShown(false)}
+        confirmLabel="Custom Label"
+      >
+        Dialog content
+      </Dialog>
+
+      <Pane
+        display="flex"
+        flexDirection="row"
+        alignItems="center"
+        height="100%"
+        paddingLeft={16}
+        paddingRight={16}
+        style={{ cursor: 'pointer', transition: 'background-color 0.1s' }}
+        backgroundColor={hover ? theme.colors.tint5 : 'transparent'}
+        onClick={() => setIsShown(true)}
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+      >
+        <Icon
+          icon={ProjectsIcon}
+          color={theme.colors.background}
+          size={16}
+          marginRight={8}
+        />
+        <Strong color={theme.colors.background}>CareCrow</Strong>
+      </Pane>
+    </>
+  );
+}
+
+function AuthenticatedApp() {
   const fetchTags = useFetchTags();
   const dispatch = useDispatch<AppDispatch>();
   const items = useSelector(selectAllItems);
   const activeItem = useSelector(selectItem);
+  const { user, getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
-    dispatch(refreshItems(false));
-    fetchTags();
+    getAccessTokenSilently().then((accessToken) => {
+      dispatch(setToken(accessToken));
+      dispatch(refreshItems(false));
+      fetchTags();
+    });
   }, []);
 
   useEffect(() => {
@@ -46,7 +112,7 @@ function ReduxApp() {
   }, [items, activeItem]);
 
   return (
-    <ThemeProvider value={theme}>
+    <>
       <Pane
         width="100%"
         height={48}
@@ -91,19 +157,8 @@ function ReduxApp() {
             />
             <Strong color={theme.colors.background}>AI Settings</Strong>
           </Pane>
-          <Pane
-            display="flex"
-            flexDirection="row"
-            alignItems="center"
-            marginLeft={32}
-          >
-            <Icon
-              icon={ProjectsIcon}
-              color={theme.colors.background}
-              size={16}
-              marginRight={8}
-            />
-            <Strong color={theme.colors.background}>CareCrow</Strong>
+          <Pane marginLeft={32}>
+            <ProjectManager />
           </Pane>
           <Pane
             display="flex"
@@ -117,7 +172,7 @@ function ReduxApp() {
               size={16}
               marginRight={8}
             />
-            <Strong color={theme.colors.background}>Henry Turner</Strong>
+            <Strong color={theme.colors.background}>{user?.email}</Strong>
           </Pane>
         </Pane>
       </Pane>
@@ -141,15 +196,66 @@ function ReduxApp() {
           <ActiveItem />
         </Pane>
       </Pane>
-    </ThemeProvider>
+    </>
+  );
+}
+
+function ReduxApp() {
+  const { isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
+
+  if (isLoading) {
+    return null;
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <Pane
+        width="100%"
+        height="100vh"
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+        backgroundColor={theme.colors.tint3}
+      >
+        <h1
+          style={{
+            fontSize: 72,
+            fontFamily: 'Lora',
+            color: theme.colors.tint6
+          }}
+        >
+          Quanda
+        </h1>
+        <Button appearance="primary" onClick={() => loginWithRedirect()}>
+          Login
+        </Button>
+      </Pane>
+    );
+  }
+
+  return (
+    <Provider store={store}>
+      <AuthenticatedApp />
+    </Provider>
   );
 }
 
 function App() {
   return (
-    <Provider store={store}>
-      <ReduxApp />
-    </Provider>
+    <Auth0Provider
+      domain="dev-czejtnrwqf2cuw1e.uk.auth0.com"
+      clientId="FrKaByHTyqxjP4AFIKqzeAw2dvzQdlJp"
+      authorizationParams={{
+        redirect_uri: window.location.origin,
+        audience: 'http://quanda.ai/api/',
+        scope: 'read:current_user update:current_user_metadata'
+      }}
+    >
+      <ThemeProvider value={theme}>
+        <ReduxApp />
+      </ThemeProvider>
+    </Auth0Provider>
   );
 }
 

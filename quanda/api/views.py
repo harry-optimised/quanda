@@ -4,10 +4,11 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import IsAuthenticated
 
 
-from item.models import Evidence, Item, System, Tag, ItemRelation
-from api.serializers import SystemSerializer, EvidenceSerializer, TagSerializer, ItemSerializer, AddLinkSerializer
+from item.models import Evidence, Item, System, Tag, ItemRelation, Project
+from api.serializers import SystemSerializer, EvidenceSerializer, TagSerializer, ItemSerializer, AddLinkSerializer, ProjectSerializer
 
 class CustomPageNumberPagination(PageNumberPagination):
     page_size = 12
@@ -15,15 +16,23 @@ class CustomPageNumberPagination(PageNumberPagination):
 class SystemViewSet(viewsets.ModelViewSet):
     queryset = System.objects.all()
     serializer_class = SystemSerializer
+    permission_classes = [IsAuthenticated]
 
 class EvidenceViewSet(viewsets.ModelViewSet):
     queryset = Evidence.objects.all()
     serializer_class = EvidenceSerializer
+    permission_classes = [IsAuthenticated]
 
 class TagViewSet(viewsets.ModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
+    permission_classes = [IsAuthenticated]
 
+
+class ProjectViewSet(viewsets.ModelViewSet):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+    permission_classes = [IsAuthenticated]
 
 class ItemViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all().order_by('primary')
@@ -31,6 +40,7 @@ class ItemViewSet(viewsets.ModelViewSet):
     filter_backends = [filters.SearchFilter, DjangoFilterBackend]
     search_fields = ['primary']
     pagination_class = CustomPageNumberPagination
+    permission_classes = [IsAuthenticated]
 
     def paginate_queryset(self, queryset):
         if self.action == 'list':

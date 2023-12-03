@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'rest_framework',
+    "rest_framework_simplejwt",
     'guardian',
     'user',
     'item',
@@ -57,6 +58,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.auth.middleware.RemoteUserMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
@@ -134,13 +136,34 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
-
+ 
 
 # Permissions
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'guardian.backends.ObjectPermissionBackend',
+    #django.contrib.auth.backends.RemoteUserBackend',
 )
+
+
+# Auth
+SIMPLE_JWT = {
+    'ALGORITHM': 'RS256',
+    'AUDIENCE': 'http://quanda.ai/api/',
+    'ISSUER': f"https://dev-czejtnrwqf2cuw1e.uk.auth0.com/",
+    'JWK_URL': f"https://dev-czejtnrwqf2cuw1e.uk.auth0.com/.well-known/jwks.json",
+    "USER_ID_CLAIM": 'sub',
+    "USER_ID_FIELD": 'sub',
+    'JTI_CLAIM': None,
+    'TOKEN_TYPE_CLAIM': None,
+}
+
+# REST Framework
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'user.auth.Auth0Authentication',
+    ),
+}
 
 
 # Internationalization

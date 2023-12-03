@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@auth0/auth0-react": "^2.2.3",
     "@blueprintjs/core": "^5.2.1",
     "@blueprintjs/select": "^5.0.9",
     "@reduxjs/toolkit": "^1.9.7",

@@ -5,7 +5,7 @@ from user.models import User, Team
 
 @admin.register(User)
 class UserAdmin(DefaultUserAdmin):
-    list_display = ('username', 'is_staff', 'last_login')
+    list_display = ('username', 'is_staff', 'last_login', 'sub')
     search_fields = ('username', 'email')
     ordering = ('username',)
     readonly_fields = ('get_teams',)

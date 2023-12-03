@@ -24,6 +24,7 @@ import { set } from 'lodash';
 import { LightItem, SetLink } from '../../types';
 import theme from '../../theme';
 import BrowseableItem from '../BrowseableItem';
+import { useAuth0 } from '@auth0/auth0-react';
 
 interface LinkButtonProps {
   onSave: (link: SetLink) => void;
@@ -55,12 +56,16 @@ const LinkButton: React.FC<LinkButtonProps> = ({ onSave }) => {
   const [error, setError] = useState<Error | null>(null);
   const [selectedItem, setSelectedItem] = useState<BasicItem | null>();
   const [editMode, setEditMode] = useState<boolean>(false);
+  const { getAccessTokenSilently } = useAuth0();
 
   const fetchItems = useCallback(
     debounce(async (searchQuery: string) => {
       setIsLoading(true);
       try {
-        const response = await fetch(`${URL}/?search=${searchQuery}`);
+        const accessToken = await getAccessTokenSilently();
+        const response = await fetch(`${URL}/?search=${searchQuery}`, {
+          headers: { Authorization: `Bearer ${accessToken}` }
+        });
         const data = (await response.json()) as SearchAPIResponse;
         const items = data.results as BasicItem[];
         setItems(items);

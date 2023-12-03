@@ -32,13 +32,20 @@ export const refreshItems = createAsyncThunk(
   async (resetItem: boolean, { getState }) => {
     const state = getState() as RootState;
 
+    if (!state.profile.token) {
+      console.error('No token available');
+      return { items: [], resetItem };
+    }
+
     // Construct URL
     const url = BASE_URL;
     const params = new URLSearchParams();
     if (state.navigator.searchTerm !== '')
       params.set('search', state.navigator.searchTerm);
 
-    const response = await fetch(`${url}?${params.toString()}`);
+    const response = await fetch(`${url}?${params.toString()}`, {
+      headers: { Authorization: `Bearer ${state.profile.token}` }
+    });
     const data = (await response.json()) as ItemAPIResponse;
     return { items: data.results, resetItem };
   }
@@ -78,6 +85,7 @@ const navigatorState = createSlice({
     builder.addCase(
       refreshItems.fulfilled,
       (state, action: PayloadAction<RefreshItemsResponse>) => {
+        if (!action.payload.items) return;
         const positionedItems = action.payload.items.map((item) => ({
           ...item,
           position: { x: Math.random() * 1000, y: Math.random() * 500 }

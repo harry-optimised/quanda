@@ -4,8 +4,10 @@ import 'reactflow/dist/style.css';
 import theme from '../../theme';
 import {
   Button,
+  CleanIcon,
   Group,
   Heading,
+  Icon,
   IconButton,
   Spinner,
   Strong,
@@ -29,9 +31,11 @@ import BrowseableItem from '../../components/BrowseableItem';
 import LinkButton from '../LinkButton';
 
 import LinkIcon from '../LinkIcon';
+import { useAuth0 } from '@auth0/auth0-react';
 
 function ActiveItem() {
   const activeItem = useSelector(selectItem);
+  const { getAccessTokenSilently } = useAuth0();
 
   const dispatch = useDispatch<AppDispatch>();
   const project = 1;
@@ -72,30 +76,35 @@ function ActiveItem() {
   const onSaveLink = useCallback(
     (link: SetLink) => {
       if (!activeItem) return;
-      fetch(`http://localhost:8000/api/items/${activeItem.id}/add_link/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(link)
-      })
-        .then((response) => (response.ok ? response : Promise.reject(response)))
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          if (activeItem)
-            onSave({
-              ...activeItem,
-              links: [
-                ...activeItem.links,
-                { target: data, type: link.relation_type as LinkType }
-              ]
-            });
+      getAccessTokenSilently().then((accessToken) => {
+        fetch(`http://localhost:8000/api/items/${activeItem.id}/add_link/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${accessToken}`
+          },
+          body: JSON.stringify(link)
         })
-        .catch((error) => error.json())
-        .then((data) => {
-          console.log(data);
-        });
+          .then((response) =>
+            response.ok ? response : Promise.reject(response)
+          )
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            if (activeItem)
+              onSave({
+                ...activeItem,
+                links: [
+                  ...activeItem.links,
+                  { target: data, type: link.relation_type as LinkType }
+                ]
+              });
+          })
+          .catch((error) => error.json())
+          .then((data) => {
+            console.log(data);
+          });
+      });
     },
     [activeItem]
   );
@@ -103,42 +112,57 @@ function ActiveItem() {
   const onRemoveLink = useCallback(
     (link: SetLink) => {
       if (!activeItem) return;
-      fetch(`http://localhost:8000/api/items/${activeItem.id}/remove_link/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(link)
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (activeItem)
-            onSave({
-              ...activeItem,
-              links: activeItem.links.filter(
-                (link) => link.target.id !== data.id
-              )
-            });
-        });
+      getAccessTokenSilently().then((accessToken) => {
+        fetch(`http://localhost:8000/api/items/${activeItem.id}/remove_link/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${accessToken}`
+          },
+          body: JSON.stringify(link)
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (activeItem)
+              onSave({
+                ...activeItem,
+                links: activeItem.links.filter(
+                  (link) => link.target.id !== data.id
+                )
+              });
+          });
+      });
     },
     [activeItem]
   );
 
   const onClickLink = useCallback((targetID: number) => {
-    fetch(`http://localhost:8000/api/items/${targetID}/`)
-      .then((response) => response.json())
-      .then((data) => {
-        dispatch(setItem(data));
-      });
+    //TODO: I don't think we need to get the access token every single time...
+    getAccessTokenSilently().then((accessToken) => {
+      fetch(`http://localhost:8000/api/items/${targetID}/`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          dispatch(setItem(data));
+        });
+    });
   }, []);
 
   const onDelete = useCallback(() => {
     if (activeItem) {
-      fetch(`http://localhost:8000/api/items/${activeItem.id}/`, {
-        method: 'DELETE'
-      }).then(() => {
-        dispatch(removeItem(activeItem.id));
-        dispatch(setItem({ item: null, updateBackend: false }));
+      getAccessTokenSilently().then((accessToken) => {
+        fetch(`http://localhost:8000/api/items/${activeItem.id}/`, {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        }).then(() => {
+          dispatch(removeItem(activeItem.id));
+          dispatch(setItem({ item: null, updateBackend: false }));
+        });
       });
     }
   }, [activeItem]);
@@ -171,12 +195,24 @@ function ActiveItem() {
           width: '100%',
           height: 'calc(100vh - 48px)',
           display: 'flex',
+          flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
           backgroundColor: theme.colors.background
         }}
       >
-        <Spinner size={64} />
+        <Icon
+          icon={CleanIcon}
+          size={96}
+          color={theme.colors.gray400}
+          marginBottom={32}
+        />
+        <Heading size={800} color={theme.colors.gray400} paddingLeft={16}>
+          Nothing selected
+        </Heading>
+        <Heading size={600} color={theme.colors.gray400} paddingLeft={16}>
+          Pick an item from the sidebar to get started
+        </Heading>
       </Pane>
     );
   }

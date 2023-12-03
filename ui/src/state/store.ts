@@ -3,13 +3,15 @@ import navigatorState from './navigator';
 import systemSlice from './systemsSlice';
 import tagSlice from './tagsSlice';
 import item from './item';
+import profile from './profile';
 
 export const store = configureStore({
   reducer: {
     item: item.reducer,
     navigator: navigatorState.reducer,
     systems: systemSlice.reducer,
-    tags: tagSlice.reducer
+    tags: tagSlice.reducer,
+    profile: profile.reducer
   }
 });
 
