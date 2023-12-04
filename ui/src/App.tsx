@@ -242,7 +242,7 @@ function App() {
       clientId="FrKaByHTyqxjP4AFIKqzeAw2dvzQdlJp"
       authorizationParams={{
         redirect_uri: window.location.origin,
-        audience: 'http://quanda.ai/api/',
+        audience: 'https://api.quanda.ai/',
         scope: 'read:current_user update:current_user_metadata'
       }}
     >
