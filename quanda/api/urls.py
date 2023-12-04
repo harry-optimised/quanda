@@ -10,5 +10,5 @@ router.register(r'items', views.ItemViewSet)
 router.register(r'projects', views.ProjectViewSet)
 
 urlpatterns = [
-    path('', include(router.urls))
+    path('', include(router.urls)),
 ]
