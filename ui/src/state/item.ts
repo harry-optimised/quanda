@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { Item } from '../types';
 
-const BASE_URL = 'http://localhost:8000/api/items';
+const BASE_URL = 'https://api.quanda.ai/api/items';
 
 type ItemState = {
   item: Item | null;

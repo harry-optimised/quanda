@@ -37,7 +37,8 @@ function ProjectManager() {
     if (!isShown) return;
     getAccessTokenSilently()
       .then((accessToken) => {
-        fetch('http://localhost:8000/api/projects/', {
+        //TODO: Abstract all API calls behind some sort of API service.
+        fetch('https://api.quanda.ai/api/projects/', {
           headers: {
             Authorization: `Bearer ${accessToken}`
           }

@@ -74,7 +74,7 @@ function ActiveItem() {
     (link: SetLink) => {
       if (!activeItem) return;
       getAccessTokenSilently().then((accessToken) => {
-        fetch(`http://localhost:8000/api/items/${activeItem.id}/add_link/`, {
+        fetch(`https://api.quanda.ai/api/items/${activeItem.id}/add_link/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -110,7 +110,7 @@ function ActiveItem() {
     (link: SetLink) => {
       if (!activeItem) return;
       getAccessTokenSilently().then((accessToken) => {
-        fetch(`http://localhost:8000/api/items/${activeItem.id}/remove_link/`, {
+        fetch(`https://api.quanda.ai/api/items/${activeItem.id}/remove_link/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -136,7 +136,7 @@ function ActiveItem() {
   const onClickLink = useCallback((targetID: number) => {
     //TODO: I don't think we need to get the access token every single time...
     getAccessTokenSilently().then((accessToken) => {
-      fetch(`http://localhost:8000/api/items/${targetID}/`, {
+      fetch(`https://api.quanda.ai/api/items/${targetID}/`, {
         headers: {
           Authorization: `Bearer ${accessToken}`
         }
@@ -151,7 +151,7 @@ function ActiveItem() {
   const onDelete = useCallback(() => {
     if (activeItem) {
       getAccessTokenSilently().then((accessToken) => {
-        fetch(`http://localhost:8000/api/items/${activeItem.id}/`, {
+        fetch(`https://api.quanda.ai/api/items/${activeItem.id}/`, {
           method: 'DELETE',
           headers: {
             Authorization: `Bearer ${accessToken}`

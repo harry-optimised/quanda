@@ -36,7 +36,7 @@ const useTags = (): UseTagsResponse => {
     const fetchData = async () => {
       try {
         const token = await getAccessTokenSilently();
-        const response = await fetch(`http://localhost:8000/api/tags/`, {
+        const response = await fetch(`https://api.quanda.ai/api/tags/`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         const data = (await response.json()) as TagAPIResponse;

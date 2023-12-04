@@ -6,7 +6,7 @@ const defaultSystems: System[] = [];
 
 const initialState = defaultSystems;
 
-const BASE_URL = 'http://localhost:8000/api/systems';
+const BASE_URL = 'https://api.quanda.ai/api/systems';
 
 export const fetchSystems = createAsyncThunk('system/fetch', async () => {
   const response = await fetch(`${BASE_URL}/`);

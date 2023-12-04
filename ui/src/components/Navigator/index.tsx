@@ -58,7 +58,7 @@ function Navigator() {
     if (nextIndex < items.length) {
       const id = items[nextIndex].id;
       getAccessTokenSilently().then((accessToken) => {
-        fetch(`http://localhost:8000/api/items/${id}/`, {
+        fetch(`https://api.quanda.ai/api/items/${id}/`, {
           headers: { Authorization: `Bearer ${accessToken}` }
         })
           .then((response) => response.json())
@@ -76,7 +76,7 @@ function Navigator() {
     if (nextIndex >= 0) {
       const id = items[nextIndex].id;
       getAccessTokenSilently().then((accessToken) => {
-        fetch(`http://localhost:8000/api/items/${id}/`, {
+        fetch(`https://api.quanda.ai/api/items/${id}/`, {
           headers: { Authorization: `Bearer ${accessToken}` }
         })
           .then((response) => response.json())
@@ -90,7 +90,7 @@ function Navigator() {
   const onItemSelect = useCallback(
     (id: number) => {
       getAccessTokenSilently().then((accessToken) => {
-        fetch(`http://localhost:8000/api/items/${id}/`, {
+        fetch(`https://api.quanda.ai/api/items/${id}/`, {
           headers: { Authorization: `Bearer ${accessToken}` }
         })
           .then((response) => response.json())
@@ -114,7 +114,7 @@ function Navigator() {
       project: 1
     };
     getAccessTokenSilently().then((accessToken) => {
-      fetch(`http://localhost:8000/api/items/`, {
+      fetch(`https://api.quanda.ai/api/items/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -8,7 +8,7 @@ import {
 import { Item } from '../types';
 import { RootState } from './store';
 
-const BASE_URL = 'http://localhost:8000/api/items';
+const BASE_URL = 'https://api.quanda.ai/api/items';
 
 type ItemAPIResponse = {
   count: number;

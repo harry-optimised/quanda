@@ -7,7 +7,7 @@ const defaultTags: Tag[] = [];
 
 const initialState = defaultTags;
 
-const BASE_URL = 'http://localhost:8000/api/tags';
+const BASE_URL = 'https://api.quanda.ai/api/tags';
 
 export const fetchTags = createAsyncThunk(
   'tags/fetch',
