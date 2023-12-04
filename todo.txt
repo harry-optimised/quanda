@@ -1,3 +1,0 @@
-Auth0 SSO
-GraphQL
-React Application

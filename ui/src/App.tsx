@@ -13,6 +13,7 @@ import {
   ThemeProvider
 } from 'evergreen-ui';
 
+//TODO: Do some of that sweet sweet bundle splitting.
 import { Pane } from 'evergreen-ui';
 import { store, AppDispatch, selectItem } from './state/store';
 import { refreshItems, selectAllItems } from './state/navigator';
@@ -243,7 +244,7 @@ function App() {
       clientId="FrKaByHTyqxjP4AFIKqzeAw2dvzQdlJp"
       authorizationParams={{
         redirect_uri: window.location.origin,
-        audience: 'https://api.quanda.ai/',
+        audience: 'api.quanda.ai',
         scope: 'read:current_user update:current_user_metadata'
       }}
     >

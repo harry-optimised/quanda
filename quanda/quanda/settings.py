@@ -137,7 +137,7 @@ AUTHENTICATION_BACKENDS = (
 # Auth
 SIMPLE_JWT = {
     'ALGORITHM': 'RS256',
-    'AUDIENCE': 'https://api.quanda.ai/',
+    'AUDIENCE': 'api.quanda.ai',
     'ISSUER': f"https://dev-czejtnrwqf2cuw1e.uk.auth0.com/",
     'JWK_URL': f"https://dev-czejtnrwqf2cuw1e.uk.auth0.com/.well-known/jwks.json",
     "USER_ID_CLAIM": 'sub',
