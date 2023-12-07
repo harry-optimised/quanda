@@ -4,7 +4,7 @@ import theme from '../../theme';
 
 type HeaderLink = {
   name: string;
-  icon: unknown;
+  icon: JSX.Element;
   onClick: () => unknown;
 };
 
