@@ -1,6 +1,6 @@
 import '../../App.css';
 import React, { useCallback, useEffect } from 'react';
-import { SearchInput } from 'evergreen-ui';
+import { CleanIcon, Heading, Icon, SearchInput } from 'evergreen-ui';
 
 import { Pane } from 'evergreen-ui';
 import { AppDispatch, selectItem } from '../../state/store';
@@ -16,6 +16,7 @@ import BrowseableItem from '../../components/BrowseableItem';
 import { debounce } from 'lodash';
 import useAPI from '../../hooks/useAPI';
 import { selectCurrentProject } from '../../state/projects';
+import theme from '../../theme';
 
 function Navigator() {
   const dispatch = useDispatch<AppDispatch>();
@@ -119,6 +120,7 @@ function Navigator() {
         display="flex"
         flexDirection="row"
         alignItems="center"
+        userSelect="none"
         style={{
           width: '100%',
           padding: 32,
@@ -137,6 +139,7 @@ function Navigator() {
       </Pane>
       <Pane
         id="browseBody"
+        userSelect="none"
         className="browseBodyNoScrollbar"
         style={{
           width: '100%',
@@ -150,6 +153,23 @@ function Navigator() {
             <BrowseableItem item={item} selected={item.id === activeItem?.id} onSelect={onItemSelect} />
           </Pane>
         ))}
+        {items.length === 0 && (
+          <Pane
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
+            opacity={0.3}
+            style={{ height: '100%' }}
+          >
+            <Heading size={800} color={theme.colors.tint6} paddingLeft={16}>
+              No items
+            </Heading>
+            <Heading size={600} color={theme.colors.tint6} paddingLeft={16}>
+              Add one below to get started.
+            </Heading>
+          </Pane>
+        )}
       </Pane>
       <Pane
         style={{

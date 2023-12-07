@@ -5,6 +5,7 @@ import {
   Button,
   Card,
   Dialog,
+  Heading,
   Icon,
   Paragraph,
   PersonIcon,
@@ -206,9 +207,6 @@ function AuthenticatedApp() {
       const _project = localStorage.getItem('activeProject');
       if (_project) dispatch(setCurrentProject(JSON.parse(_project)));
       // TODO: If project does not exist, handle it.
-      api.listTags().then((tags) => {
-        if (tags) dispatch(setTags(tags));
-      });
 
       fetch('https://dev-czejtnrwqf2cuw1e.uk.auth0.com/userinfo', {
         headers: {
@@ -220,6 +218,12 @@ function AuthenticatedApp() {
           dispatch(setUsername(data.email));
         });
       });
+
+      setTimeout(() => {
+        api.listTags().then((tags) => {
+          if (tags) dispatch(setTags(tags));
+        });
+      }, 1000);
     });
   }, []);
 
@@ -262,14 +266,14 @@ function AuthenticatedApp() {
           userSelect="none"
         >
           <Pane width="50%" height="30%" display="flex" flexDirection="column" justifyContent="space-between">
-            <Pane display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+            <Pane display="flex" flexDirection="column" alignItems="center" justifyContent="center" opacity={0.7}>
               <Icon icon={RocketSlantIcon} color={theme.colors.tint6} size={64} marginBottom={32} />
-              <Strong color={theme.colors.tint6} marginBottom={16}>
+              <Heading size={800} color={theme.colors.tint6} paddingLeft={16} marginBottom={16}>
                 Welcome to Quanda
-              </Strong>
-              <Paragraph color={theme.colors.tint6} marginLeft={16}>
+              </Heading>
+              <Heading size={600} color={theme.colors.tint6} paddingLeft={16} marginBottom={16}>
                 Open a Project to get started.
-              </Paragraph>
+              </Heading>
             </Pane>
             <Pane display="flex" flexDirection="row" alignItems="center" justifyContent="center" marginBottom={32}>
               <Button
@@ -321,6 +325,7 @@ function LoginScreen() {
         alignItems="center"
         backgroundColor={theme.colors.tint3}
       >
+        <img src="logo512.png" alt="Quanda Logo" width={256} height={256} />
         <h1
           style={{
             fontSize: 72,
@@ -330,7 +335,7 @@ function LoginScreen() {
         >
           Quanda
         </h1>
-        <Button appearance="primary" onClick={() => loginWithRedirect()}>
+        <Button appearance="primary" onClick={() => loginWithRedirect()} size="large">
           Login
         </Button>
       </Pane>

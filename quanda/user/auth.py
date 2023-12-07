@@ -4,7 +4,7 @@ from rest_framework import authentication
 from rest_framework import exceptions
 from django.contrib.auth import get_user_model
 from guardian.shortcuts import assign_perm
-from item.models import Project
+from item.models import Project, Item, Tag
 import requests
 
 # TODO: Need to support logout on the frontend.
@@ -44,6 +44,23 @@ class Auth0Authentication(authentication.BaseAuthentication):
             )
 
             assign_perm('change_project', user, project)
+
+            tag = Tag.objects.create(
+                name='Welcome',
+                description='Welcome to Quanda!',
+                colour='rgb(255,165,171)',
+                project=project
+            )
+
+            item = Item.objects.create(
+                primary="Welcome to Quanda!",
+                secondary="This is a sandbox environment. Feel free to play around.",
+                confidence=1,
+                project=project,
+            )
+
+            # Add tag to the item.
+            item.tags.add(tag)
 
 
         return (user, validated_token)

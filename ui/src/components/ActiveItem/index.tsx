@@ -156,7 +156,7 @@ function ActiveItem() {
           Nothing selected
         </Heading>
         <Heading size={600} color={theme.colors.gray500} paddingLeft={16}>
-          Pick an item from the sidebar to get started
+          Choose an item from the sidebar
         </Heading>
       </Pane>
     );
