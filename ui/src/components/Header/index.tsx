@@ -1,10 +1,10 @@
 import React from 'react';
-import { Pane, Strong, Icon } from 'evergreen-ui';
+import { Pane, Strong, Icon, IconComponent } from 'evergreen-ui';
 import theme from '../../theme';
 
 type HeaderLink = {
   name: string;
-  icon: JSX.Element;
+  icon: IconComponent;
   onClick: () => unknown;
 };
 
