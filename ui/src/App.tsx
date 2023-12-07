@@ -192,7 +192,7 @@ const TagManager = React.forwardRef<TagManagerRef>((props, ref) => {
 
 function AuthenticatedApp() {
   const dispatch = useDispatch<AppDispatch>();
-  const { user, getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently } = useAuth0();
   const token = useSelector(selectToken);
   const username = useSelector(selectUsername);
   const project = useSelector(selectCurrentProject);

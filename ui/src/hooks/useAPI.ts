@@ -1,5 +1,3 @@
-import { useAuth0 } from '@auth0/auth0-react';
-import { useCallback } from 'react';
 import { Item, Project, SetLink, Tag } from '../types';
 import { useSelector } from 'react-redux';
 import { selectCurrentProject } from '../state/projects';
@@ -19,13 +17,12 @@ type DjangoListResponse = {
 type DjangoRetrieveResponse = Entity;
 type DjangoCreateResponse = Entity;
 type DjangoUpdateResponse = Entity;
-type DjangoDeleteResponse = void;
 
 const useAPI = () => {
   const project = useSelector(selectCurrentProject);
   const token = useSelector(selectToken);
 
-  const callAPI = async (path: string, body?: any, method = 'GET'): Promise<Response | null> => {
+  const callAPI = async (path: string, body?: unknown, method = 'GET'): Promise<Response | null> => {
     const requiresProject = !path.includes('project');
 
     if (!token) {

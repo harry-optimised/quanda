@@ -1,6 +1,6 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { Tag, Project } from '../types';
+import { Project } from '../types';
 import { RootState } from './store';
 
 interface ProjectsState {
@@ -29,5 +29,4 @@ const projects = createSlice({
 export default projects;
 export const { setProjects, setCurrentProject } = projects.actions;
 export const selectProjects = (state: RootState) => state.projects.projects;
-export const selectCurrentProject = (state: RootState) =>
-  state.projects.currentProject;
+export const selectCurrentProject = (state: RootState) => state.projects.currentProject;

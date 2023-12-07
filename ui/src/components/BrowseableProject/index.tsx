@@ -1,8 +1,7 @@
 import React, { useMemo } from 'react';
 import theme from '../../theme';
 import { Project } from '../../types';
-import { Pane, Card, Text, Strong } from 'evergreen-ui';
-import TagBar from '../TagBar';
+import { Card, Text, Strong } from 'evergreen-ui';
 
 interface BrowseableProjectProps {
   project: Project;
@@ -10,17 +9,11 @@ interface BrowseableProjectProps {
   onSelect: (project: Project) => void;
 }
 
-function BrowseableProject({
-  project,
-  selected,
-  onSelect
-}: BrowseableProjectProps) {
+function BrowseableProject({ project, selected, onSelect }: BrowseableProjectProps) {
   const [hover, setHover] = React.useState<boolean>(false);
   const description = useMemo(() => {
     if (!project.description) return '';
-    return project.description.length > 70
-      ? project.description.slice(0, 70) + '...'
-      : project.description;
+    return project.description.length > 70 ? project.description.slice(0, 70) + '...' : project.description;
   }, [project.description]);
 
   const backgroundColor = selected ? theme.colors.tint4 : `transparent`;

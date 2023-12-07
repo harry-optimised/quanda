@@ -4,8 +4,8 @@ import theme from '../../theme';
 
 type HeaderLink = {
   name: string;
-  icon: any;
-  onClick: () => any;
+  icon: unknown;
+  onClick: () => unknown;
 };
 
 interface HeaderProps {
@@ -45,12 +45,7 @@ export function Header({ links, disabled }: HeaderProps) {
             userSelect="none"
             onClick={link.onClick}
           >
-            <Icon
-              icon={link.icon}
-              color={theme.colors.background}
-              size={16}
-              marginRight={8}
-            />
+            <Icon icon={link.icon} color={theme.colors.background} size={16} marginRight={8} />
             <Strong color={theme.colors.background}>{link.name}</Strong>
           </Pane>
         ))}
