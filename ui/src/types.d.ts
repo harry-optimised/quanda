@@ -10,30 +10,18 @@ export type SetLink = {
   to_item: number;
 };
 
-export type LightItem = {
-  id: number;
-  primary: string;
-  secondary: string;
-  confidence: number;
-  tags: number[];
-  frozen: boolean;
-  priority: boolean;
-  system: number;
-};
-
 export type Item = {
+  project: number;
   id: number;
-  position: Position;
   primary: string;
   secondary: string;
   confidence: number;
   tags: number[];
   evidence: number[];
-  frozen: boolean;
-  priority: boolean;
-  system: number;
   links: Link[];
 };
+
+export type LightItem = Omit<Item, 'evidence' | 'links'>;
 
 export type Position = {
   x: number;
@@ -46,19 +34,16 @@ export type System = {
   description: string;
 };
 
-export type TagColour =
-  | 'teal'
-  | 'blue'
-  | 'purple'
-  | 'red'
-  | 'orange'
-  | 'yellow'
-  | 'green'
-  | 'neutral';
-
 export type Tag = {
   id: number;
   name: string;
   description: string;
-  colour: TagColour;
+  colour: string;
+  project: number;
+};
+
+export type Project = {
+  id: number;
+  name: string;
+  description: string;
 };

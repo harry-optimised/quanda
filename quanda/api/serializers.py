@@ -1,13 +1,8 @@
 import logging
 from rest_framework import serializers
-from item.models import Evidence, Item, System, Tag, ItemRelation, Project
+from item.models import Evidence, Item, Tag, ItemRelation, Project
 
 logger = logging.getLogger(__name__)
-
-class SystemSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = System
-        fields = '__all__'
 
 class EvidenceSerializer(serializers.ModelSerializer):
     class Meta:
@@ -23,7 +18,7 @@ class LightItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Item
-        fields = ['id', 'primary', 'secondary', 'tags', 'system', 'frozen', 'priority', 'confidence']
+        fields = ['id', 'primary', 'secondary', 'tags', 'confidence']
 
 
 class ProjectSerializer(serializers.ModelSerializer):

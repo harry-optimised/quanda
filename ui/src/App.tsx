@@ -1,54 +1,71 @@
 import './App.css';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import theme from './theme';
 import {
   Button,
+  Card,
   Dialog,
   Icon,
+  Paragraph,
   PersonIcon,
   ProjectsIcon,
   RocketSlantIcon,
   Strong,
   TagIcon,
+  TextInput,
   ThemeProvider
 } from 'evergreen-ui';
 
 //TODO: Do some of that sweet sweet bundle splitting.
 import { Pane } from 'evergreen-ui';
-import { store, AppDispatch, selectItem } from './state/store';
-import { refreshItems, selectAllItems } from './state/navigator';
+import { store, AppDispatch } from './state/store';
+
 import { Provider, useSelector, useDispatch } from 'react-redux';
 import { Auth0Provider, useAuth0 } from '@auth0/auth0-react';
-
-import { useFetchTags } from './state/hooks';
-
-import { setItem } from './state/item';
 
 import ActiveItem from './components/ActiveItem';
 import Navigator from './components/Navigator';
 
-import { setToken } from './state/profile';
+import { selectToken, selectUsername, setToken, setUsername } from './state/profile';
+import useAPI from './hooks/useAPI';
+import { selectCurrentProject, setCurrentProject } from './state/projects';
+import { Project } from './types';
+import BrowseableProject from './components/BrowseableProject';
+import { Header } from './components/Header';
+import { LoadingScreen } from './components/LoadingScreen';
+import BrowseableTag from './components/BrowseableTag';
+import { hsvToRgb } from './colourConversionAlgorithms';
+import { selectTags, setTags } from './state/tagsSlice';
+interface ProjectManagerRef {
+  open: () => void;
+}
 
-function ProjectManager() {
+const ProjectManager = React.forwardRef<ProjectManagerRef>((props, ref) => {
   const [isShown, setIsShown] = React.useState(false);
-  const [hover, setHover] = React.useState(false);
-  const { getAccessTokenSilently } = useAuth0();
+
+  const api = useAPI();
+  const dispatch = useDispatch<AppDispatch>();
+  const [projects, setProjects] = React.useState<Project[]>([]);
+  const [selectedProject, setSelectedProject] = React.useState<Project | null>();
+
+  // External trigger to open the dialog.
+  const open = () => setIsShown(true);
+  React.useImperativeHandle(ref, () => ({
+    open
+  }));
 
   useEffect(() => {
-    if (!isShown) return;
-    getAccessTokenSilently()
-      .then((accessToken) => {
-        //TODO: Abstract all API calls behind some sort of API service.
-        fetch('https://api.quanda.ai/api/projects/', {
-          headers: {
-            Authorization: `Bearer ${accessToken}`
-          }
-        })
-          .then((response) => response.json())
-          .then((data) => console.log(data));
-      })
-      .catch((err) => console.error(err));
-  }, [isShown]);
+    api.listProjects().then((projects) => {
+      if (projects) setProjects(projects);
+    });
+  }, []);
+
+  const onOpenProject = useCallback(() => {
+    if (!selectedProject) return;
+    dispatch(setCurrentProject(selectedProject));
+    localStorage.setItem('activeProject', JSON.stringify(selectedProject));
+    setIsShown(false);
+  }, [selectedProject]);
 
   return (
     <>
@@ -56,152 +73,241 @@ function ProjectManager() {
         isShown={isShown}
         title="Projects"
         onCloseComplete={() => setIsShown(false)}
-        confirmLabel="Custom Label"
+        confirmLabel="Open"
+        isConfirmDisabled={!selectedProject}
+        onConfirm={onOpenProject}
+        hasCancel={false}
       >
-        Dialog content
+        {projects.map((project) => (
+          <BrowseableProject
+            key={project.id}
+            project={project}
+            selected={selectedProject?.id === project.id}
+            onSelect={() => setSelectedProject(project)}
+          />
+        ))}
       </Dialog>
-
-      <Pane
-        display="flex"
-        flexDirection="row"
-        alignItems="center"
-        height="100%"
-        paddingLeft={16}
-        paddingRight={16}
-        style={{ cursor: 'pointer', transition: 'background-color 0.1s' }}
-        backgroundColor={hover ? theme.colors.tint5 : 'transparent'}
-        onClick={() => setIsShown(true)}
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
-      >
-        <Icon
-          icon={ProjectsIcon}
-          color={theme.colors.background}
-          size={16}
-          marginRight={8}
-        />
-        <Strong color={theme.colors.background}>CareCrow</Strong>
-      </Pane>
     </>
   );
+});
+
+interface TagManagerRef {
+  open: () => void;
 }
 
-function AuthenticatedApp() {
-  const fetchTags = useFetchTags();
+const getRandomTagColour = () => {
+  const hue = Math.random() * 360;
+  const saturation = 0.5;
+  const value = 0.8;
+  const [r, g, b] = hsvToRgb(hue, saturation, value);
+  return `rgb(${r},${g},${b})`;
+};
+
+const TagManager = React.forwardRef<TagManagerRef>((props, ref) => {
+  const [isShown, setIsShown] = React.useState(false);
+  const [newTag, setNewTag] = React.useState<string>('');
+  const [colour, setColour] = React.useState<string>(getRandomTagColour());
+  const project = useSelector(selectCurrentProject);
+  const tags = useSelector(selectTags);
+
+  const api = useAPI();
   const dispatch = useDispatch<AppDispatch>();
-  const items = useSelector(selectAllItems);
-  const activeItem = useSelector(selectItem);
+
+  // External trigger to open the dialog.
+  const open = () => setIsShown(true);
+  React.useImperativeHandle(ref, () => ({
+    open
+  }));
+
+  const onCreateTag = useCallback(() => {
+    if (!newTag) return;
+    if (!project) return;
+    setColour(getRandomTagColour());
+    api
+      .createTag({
+        name: newTag,
+        description: 'not used',
+        colour: colour,
+        project: project.id
+      })
+      .then((tag) => {
+        setNewTag('');
+        if (!tag) return;
+        dispatch(setTags([...tags, tag]));
+      });
+  }, [newTag, colour]);
+
+  const newColour = useCallback(() => {
+    setColour(getRandomTagColour());
+  }, [colour]);
+
+  return (
+    <>
+      <Dialog
+        isShown={isShown}
+        title="Tag Manager"
+        onCloseComplete={() => setIsShown(false)}
+        confirmLabel="Finished"
+        hasCancel={false}
+      >
+        {tags.map((tag) => (
+          <BrowseableTag
+            key={tag.id}
+            tag={tag}
+            selected={false}
+            onSelect={() => {
+              console.log(tag.name);
+            }}
+          />
+        ))}
+        <Pane display="flex" flexDirection="row" alignItems="center" justifyContent="flex-start" marginTop={16}>
+          <TextInput
+            placeholder="New Tag"
+            value={newTag}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewTag(e.target.value)}
+          />
+          <Card
+            backgroundColor={colour}
+            onClick={() => newColour()}
+            marginLeft={16}
+            userSelect="none"
+            width={64}
+            height={32}
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            color="white"
+            fontSize={14}
+          >
+            <Strong color="white">Colour</Strong>
+          </Card>
+          <Button appearance="primary" onClick={() => onCreateTag()} marginLeft={16} disabled={newTag === ''}>
+            Create Tag
+          </Button>
+        </Pane>
+      </Dialog>
+    </>
+  );
+});
+
+function AuthenticatedApp() {
+  const dispatch = useDispatch<AppDispatch>();
   const { user, getAccessTokenSilently } = useAuth0();
+  const token = useSelector(selectToken);
+  const username = useSelector(selectUsername);
+  const project = useSelector(selectCurrentProject);
+  const projectManagerRef = React.useRef<ProjectManagerRef>(null);
+  const tagManagerRef = React.useRef<TagManagerRef>(null);
+  const api = useAPI();
 
   useEffect(() => {
     getAccessTokenSilently().then((accessToken) => {
       dispatch(setToken(accessToken));
-      dispatch(refreshItems(false));
-      fetchTags();
+      const _project = localStorage.getItem('activeProject');
+      if (_project) dispatch(setCurrentProject(JSON.parse(_project)));
+
+      api.listTags().then((tags) => {
+        if (tags) dispatch(setTags(tags));
+      });
+
+      fetch('https://dev-czejtnrwqf2cuw1e.uk.auth0.com/userinfo', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      }).then((response) => {
+        response.json().then((data) => {
+          console.log(data);
+          dispatch(setUsername(data.email));
+        });
+      });
     });
   }, []);
 
-  useEffect(() => {
-    if (!activeItem && items.length > 0) {
-      dispatch(setItem({ item: items[0], updateBackend: false }));
-    }
-  }, [items, activeItem]);
+  if (!token) return <LoadingScreen />;
 
   return (
     <>
-      <Pane
-        width="100%"
-        height={48}
-        backgroundColor={theme.colors.tint6}
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-      >
-        <Pane display="flex" flexDirection="row" paddingLeft={16}></Pane>
+      <Header
+        disabled={!project}
+        links={[
+          {
+            name: 'Tags',
+            icon: TagIcon,
+            onClick: () => tagManagerRef.current?.open()
+          },
+          {
+            name: project ? project.name : 'No Project',
+            icon: ProjectsIcon,
+            onClick: () => projectManagerRef.current?.open()
+          },
+          {
+            name: username ?? 'Unknown',
+            icon: PersonIcon,
+            onClick: () => console.log('Profile')
+          }
+        ]}
+      />
+      <ProjectManager ref={projectManagerRef} />
+      <TagManager ref={tagManagerRef} />
+      {!project && (
         <Pane
+          className="App"
+          width="100%"
+          height="calc(100vh - 48px)"
           display="flex"
-          flexDirection="row"
-          backgroundColor={theme.colors.tint6}
-          height={48}
-          paddingRight={16}
+          backgroundColor={theme.colors.tint3}
+          justifyContent="center"
+          alignItems="center"
+          userSelect="none"
         >
-          <Pane
-            display="flex"
-            flexDirection="row"
-            alignItems="center"
-            marginLeft={32}
-          >
-            <Icon
-              icon={TagIcon}
-              color={theme.colors.background}
-              size={16}
-              marginRight={8}
-            />
-            <Strong color={theme.colors.background}>Tags</Strong>
-          </Pane>
-          <Pane
-            display="flex"
-            flexDirection="row"
-            alignItems="center"
-            marginLeft={32}
-          >
-            <Icon
-              icon={RocketSlantIcon}
-              color={theme.colors.background}
-              size={16}
-              marginRight={8}
-            />
-            <Strong color={theme.colors.background}>AI Settings</Strong>
-          </Pane>
-          <Pane marginLeft={32}>
-            <ProjectManager />
-          </Pane>
-          <Pane
-            display="flex"
-            flexDirection="row"
-            alignItems="center"
-            marginLeft={32}
-          >
-            <Icon
-              icon={PersonIcon}
-              color={theme.colors.background}
-              size={16}
-              marginRight={8}
-            />
-            <Strong color={theme.colors.background}>{user?.email}</Strong>
+          <Pane width="50%" height="30%" display="flex" flexDirection="column" justifyContent="space-between">
+            <Pane display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+              <Icon icon={RocketSlantIcon} color={theme.colors.tint6} size={64} marginBottom={32} />
+              <Strong color={theme.colors.tint6} marginBottom={16}>
+                Welcome to Quanda
+              </Strong>
+              <Paragraph color={theme.colors.tint6} marginLeft={16}>
+                Open a Project to get started.
+              </Paragraph>
+            </Pane>
+            <Pane display="flex" flexDirection="row" alignItems="center" justifyContent="center" marginBottom={32}>
+              <Button
+                appearance="primary"
+                onClick={() => {
+                  projectManagerRef.current?.open();
+                }}
+              >
+                Open Project
+              </Button>
+            </Pane>
           </Pane>
         </Pane>
-      </Pane>
-      <Pane
-        className="App"
-        width="100%"
-        height="calc(100vh - 48px)"
-        display="flex"
-        backgroundColor={theme.colors.tint3}
-      >
+      )}
+
+      {project && (
         <Pane
-          width="25%"
-          height="100%"
+          className="App"
+          width="100%"
+          height="calc(100vh - 48px)"
           display="flex"
-          flexDirection="column"
-          justifyContent="space-between"
+          backgroundColor={theme.colors.tint3}
         >
-          <Navigator />
+          <Pane width="25%" height="100%" display="flex" flexDirection="column" justifyContent="space-between">
+            <Navigator />
+          </Pane>
+          <Pane width="75%" padding={0}>
+            <ActiveItem />
+          </Pane>
         </Pane>
-        <Pane width="75%" padding={0}>
-          <ActiveItem />
-        </Pane>
-      </Pane>
+      )}
     </>
   );
 }
 
-function ReduxApp() {
+function LoginScreen() {
   const { isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
 
-  if (isLoading) {
-    return null;
-  }
+  if (isLoading) return null;
 
   if (!isAuthenticated) {
     return (
@@ -245,11 +351,11 @@ function App() {
       authorizationParams={{
         redirect_uri: window.location.origin,
         audience: 'api.quanda.ai',
-        scope: 'read:current_user update:current_user_metadata'
+        scope: 'read:current_user update:current_user_metadata openid email'
       }}
     >
       <ThemeProvider value={theme}>
-        <ReduxApp />
+        <LoginScreen />
       </ThemeProvider>
     </Auth0Provider>
   );

@@ -8,8 +8,6 @@ import {
 import { Item } from '../types';
 import { RootState } from './store';
 
-const BASE_URL = 'https://api.quanda.ai/api/items';
-
 type ItemAPIResponse = {
   count: number;
   next: string | null;
@@ -27,29 +25,28 @@ type NavigatorState = {
   items: ReturnType<typeof itemsAdapter.getInitialState>;
 };
 
-export const refreshItems = createAsyncThunk(
-  'navigator/refreshItems',
-  async (resetItem: boolean, { getState }) => {
-    const state = getState() as RootState;
+// export const refreshItems = createAsyncThunk(
+//   'navigator/refreshItems',
+//   async (resetItem: boolean, { getState }) => {
+//     const state = getState() as RootState;
 
-    if (!state.profile.token) {
-      console.error('No token available');
-      return { items: [], resetItem };
-    }
+//     if (!state.profile.token) {
+//       console.warn('No token available');
+//       return { items: [], resetItem };
+//     }
 
-    // Construct URL
-    const url = BASE_URL;
-    const params = new URLSearchParams();
-    if (state.navigator.searchTerm !== '')
-      params.set('search', state.navigator.searchTerm);
+//     const url = `${process.env.REACT_APP_API_BASE_URL}/items/`;
+//     const params = new URLSearchParams();
+//     if (state.navigator.searchTerm !== '')
+//       params.set('search', state.navigator.searchTerm);
 
-    const response = await fetch(`${url}?${params.toString()}`, {
-      headers: { Authorization: `Bearer ${state.profile.token}` }
-    });
-    const data = (await response.json()) as ItemAPIResponse;
-    return { items: data.results, resetItem };
-  }
-);
+//     const response = await fetch(`${url}?${params.toString()}`, {
+//       headers: { Authorization: `Bearer ${state.profile.token}` }
+//     });
+//     const data = (await response.json()) as ItemAPIResponse;
+//     return { items: data.results, resetItem };
+//   }
+// );
 
 const itemsAdapter = createEntityAdapter<Item>({
   sortComparer: (a, b) => a.primary.localeCompare(b.primary)
@@ -59,9 +56,6 @@ const initialState: NavigatorState = {
   searchTerm: '',
   items: itemsAdapter.getInitialState()
 };
-
-// Nagivator Slice
-//---------------
 
 const navigatorState = createSlice({
   name: 'navigator',
@@ -79,22 +73,25 @@ const navigatorState = createSlice({
     },
     removeItem: (state, action: PayloadAction<number>) => {
       itemsAdapter.removeOne(state.items, action.payload);
+    },
+    setItems(state, action: PayloadAction<Item[]>) {
+      itemsAdapter.setAll(state.items, action.payload);
     }
-  },
-  extraReducers: (builder) => {
-    builder.addCase(
-      refreshItems.fulfilled,
-      (state, action: PayloadAction<RefreshItemsResponse>) => {
-        if (!action.payload.items) return;
-        const positionedItems = action.payload.items.map((item) => ({
-          ...item,
-          position: { x: Math.random() * 1000, y: Math.random() * 500 }
-        }));
-
-        itemsAdapter.setAll(state.items, positionedItems);
-      }
-    );
   }
+  // extraReducers: (builder) => {
+  //   builder.addCase(
+  //     refreshItems.fulfilled,
+  //     (state, action: PayloadAction<RefreshItemsResponse>) => {
+  //       if (!action.payload.items) return;
+  //       const positionedItems = action.payload.items.map((item) => ({
+  //         ...item,
+  //         position: { x: Math.random() * 1000, y: Math.random() * 500 }
+  //       }));
+
+  //       itemsAdapter.setAll(state.items, positionedItems);
+  //     }
+  //   );
+  // }
 });
 
 export const { selectAll: selectAllItems } = itemsAdapter.getSelectors(
@@ -103,6 +100,6 @@ export const { selectAll: selectAllItems } = itemsAdapter.getSelectors(
 export const selectSearchTerm = (state: RootState) =>
   state.navigator.searchTerm;
 
-export const { updateItem, updateSearchTerm, removeItem } =
+export const { updateItem, updateSearchTerm, removeItem, setItems } =
   navigatorState.actions;
 export default navigatorState;

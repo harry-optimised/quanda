@@ -1,15 +1,10 @@
 import '../../App.css';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { SearchInput } from 'evergreen-ui';
 
 import { Pane } from 'evergreen-ui';
 import { AppDispatch, selectItem } from '../../state/store';
-import {
-  selectAllItems,
-  updateSearchTerm,
-  refreshItems,
-  selectSearchTerm
-} from '../../state/navigator';
+import { selectAllItems, updateSearchTerm, selectSearchTerm, setItems } from '../../state/navigator';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHotkeys } from 'react-hotkeys-hook';
 
@@ -19,7 +14,8 @@ import BrowseableItem from '../../components/BrowseableItem';
 
 // Utilities
 import { debounce } from 'lodash';
-import { useAuth0 } from '@auth0/auth0-react';
+import useAPI from '../../hooks/useAPI';
+import { selectCurrentProject } from '../../state/projects';
 
 function Navigator() {
   const dispatch = useDispatch<AppDispatch>();
@@ -27,11 +23,21 @@ function Navigator() {
   const activeItem = useSelector(selectItem);
   const searchTerm = useSelector(selectSearchTerm);
   const searchBoxRef = React.useRef<HTMLInputElement>(null);
-  const { getAccessTokenSilently } = useAuth0();
+  const api = useAPI();
+  const project = useSelector(selectCurrentProject);
+
+  const refreshNavigator = useCallback(() => {
+    api.listItems().then((items) => {
+      if (items) dispatch(setItems(items));
+    });
+  }, [dispatch]);
+
+  // Load all items on mount.
+  useEffect(() => refreshNavigator(), []);
 
   const debouncedRefreshItems = useCallback(
     debounce(() => {
-      dispatch(refreshItems(false));
+      // dispatch(refreshItems(false));
     }, 250),
     []
   );
@@ -57,14 +63,10 @@ function Navigator() {
     const nextIndex = currentIndex + 1;
     if (nextIndex < items.length) {
       const id = items[nextIndex].id;
-      getAccessTokenSilently().then((accessToken) => {
-        fetch(`https://api.quanda.ai/api/items/${id}/`, {
-          headers: { Authorization: `Bearer ${accessToken}` }
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            dispatch(setItem(data));
-          });
+
+      api.retrieveItem(id).then((item) => {
+        // TODO: Can simplify setItem, since it's just a single item.
+        if (item) dispatch(setItem({ item }));
       });
     }
   });
@@ -75,59 +77,39 @@ function Navigator() {
     const nextIndex = currentIndex - 1;
     if (nextIndex >= 0) {
       const id = items[nextIndex].id;
-      getAccessTokenSilently().then((accessToken) => {
-        fetch(`https://api.quanda.ai/api/items/${id}/`, {
-          headers: { Authorization: `Bearer ${accessToken}` }
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            dispatch(setItem(data));
-          });
+      api.retrieveItem(id).then((item) => {
+        if (item) dispatch(setItem({ item }));
       });
     }
   });
 
   const onItemSelect = useCallback(
     (id: number) => {
-      getAccessTokenSilently().then((accessToken) => {
-        fetch(`https://api.quanda.ai/api/items/${id}/`, {
-          headers: { Authorization: `Bearer ${accessToken}` }
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            dispatch(setItem({ item: data, updateBackend: false }));
-          });
+      api.retrieveItem(id).then((item) => {
+        if (item) dispatch(setItem({ item }));
       });
     },
     [dispatch]
   );
 
   const onAddItem = useCallback((primary: string) => {
-    const newItem = {
-      primary: primary,
-      secondary: 'null',
-      confidence: 0,
-      tags: [],
-      evidence: [],
-      frozen: false,
-      priority: false,
-      project: 1
-    };
-    getAccessTokenSilently().then((accessToken) => {
-      fetch(`https://api.quanda.ai/api/items/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${accessToken}`
-        },
-        body: JSON.stringify(newItem)
+    if (!project) return;
+    api
+      .createItem({
+        primary: primary,
+        secondary: 'null',
+        confidence: 0,
+        tags: [],
+        evidence: [],
+        links: [],
+        project: project.id
       })
-        .then((response) => response.json())
-        .then((data) => {
-          dispatch(setItem(data));
-          dispatch(refreshItems(false));
-        });
-    });
+      .then((item) => {
+        if (item) {
+          dispatch(setItem({ item }));
+          refreshNavigator();
+        }
+      });
   }, []);
 
   return (
@@ -164,12 +146,8 @@ function Navigator() {
         }}
       >
         {items.map((item) => (
-          <Pane>
-            <BrowseableItem
-              item={item}
-              selected={item.id === activeItem?.id}
-              onSelect={onItemSelect}
-            />
+          <Pane key={item.id}>
+            <BrowseableItem item={item} selected={item.id === activeItem?.id} onSelect={onItemSelect} />
           </Pane>
         ))}
       </Pane>

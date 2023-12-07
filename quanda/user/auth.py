@@ -3,7 +3,9 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework import authentication
 from rest_framework import exceptions
 from django.contrib.auth import get_user_model
+import requests
 
+# TODO: Need to support logout on the frontend.
 class Auth0Authentication(authentication.BaseAuthentication):
     def authenticate(self, request):
         
@@ -20,6 +22,18 @@ class Auth0Authentication(authentication.BaseAuthentication):
 
         User = get_user_model()
         user, created = User.objects.get_or_create(sub=payload.get('sub'))
-        # TODO: Use 'created' to populate user information and perform setup.
-        
+
+        if created:
+
+            user_info = requests.get(
+                'https://dev-czejtnrwqf2cuw1e.uk.auth0.com/userinfo', 
+                headers={'Authorization': header}
+            ).json()
+
+            email = user_info.get('email', None)
+
+            if email:
+                user.username = email
+                user.save()
+
         return (user, validated_token)

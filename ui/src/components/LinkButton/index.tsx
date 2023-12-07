@@ -36,7 +36,7 @@ type SearchAPIResponse = {
 
 type LinkType = 'relates_to' | 'supports';
 
-const URL = 'https://api.quanda.ai/api/items';
+const URL = '${process.env.REACT_APP_API_BASE_URL}/items';
 
 const LinkButton: React.FC<LinkButtonProps> = ({ onSave }) => {
   const [linkType, setLinkType] = useState<LinkType>('relates_to');

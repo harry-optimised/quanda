@@ -1,46 +1,55 @@
 from rest_framework import viewsets, filters, status
-from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import BasePermission
+from guardian.shortcuts import get_objects_for_user
 
-
-from item.models import Evidence, Item, System, Tag, ItemRelation, Project
-from api.serializers import SystemSerializer, EvidenceSerializer, TagSerializer, ItemSerializer, AddLinkSerializer, ProjectSerializer
+from item.models import Item, Tag, ItemRelation, Project
+from api.serializers import TagSerializer, ItemSerializer, AddLinkSerializer, ProjectSerializer
 
 class CustomPageNumberPagination(PageNumberPagination):
     page_size = 12
 
-class SystemViewSet(viewsets.ModelViewSet):
-    queryset = System.objects.all()
-    serializer_class = SystemSerializer
-    permission_classes = [IsAuthenticated]
 
-class EvidenceViewSet(viewsets.ModelViewSet):
-    queryset = Evidence.objects.all()
-    serializer_class = EvidenceSerializer
-    permission_classes = [IsAuthenticated]
+class HasAccessToProject(BasePermission):
+    def has_permission(self, request, view):
+         
+        project = request.headers.get('Quanda-Project', None)
+        return project and request.user.has_perm('change_project', Project.objects.get(pk=project))
+          
 
-class TagViewSet(viewsets.ModelViewSet):
+class FilterByProjectMixin():
+
+    def get_queryset(self):
+        """Filter items by the requested project."""
+
+        project = self.request.headers.get('Quanda-Project')
+        queryset = super().get_queryset()
+        return queryset.filter(project__pk=project)
+
+
+class TagViewSet(FilterByProjectMixin, viewsets.ModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, HasAccessToProject]
+    pagination_class = CustomPageNumberPagination
+
+    def paginate_queryset(self, queryset):
+        if self.action == 'list':
+            return super().paginate_queryset(queryset)
+        return None
 
 
-class ProjectViewSet(viewsets.ModelViewSet):
-    queryset = Project.objects.all()
-    serializer_class = ProjectSerializer
-    permission_classes = [IsAuthenticated]
-
-class ItemViewSet(viewsets.ModelViewSet):
-    queryset = Item.objects.all().order_by('primary')
+class ItemViewSet(FilterByProjectMixin, viewsets.ModelViewSet):
+    queryset = Item.objects.all()
     serializer_class = ItemSerializer
     filter_backends = [filters.SearchFilter, DjangoFilterBackend]
     search_fields = ['primary']
     pagination_class = CustomPageNumberPagination
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, HasAccessToProject]
 
     def paginate_queryset(self, queryset):
         if self.action == 'list':
@@ -90,3 +99,25 @@ class ItemViewSet(viewsets.ModelViewSet):
             relation.delete()
         
         return Response(ItemSerializer(to_item).data, status=status.HTTP_200_OK)
+    
+
+
+class ProjectViewSet(viewsets.GenericViewSet, viewsets.mixins.ListModelMixin, viewsets.mixins.CreateModelMixin):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+    permission_classes = [IsAuthenticated]
+    pagination_class = CustomPageNumberPagination
+
+    def paginate_queryset(self, queryset):
+        if self.action == 'list':
+            return super().paginate_queryset(queryset)
+        return None
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return get_objects_for_user(self.request.user, 'change_project', queryset)
+    
+    def perform_create(self, serializer):
+        project = serializer.save()
+        self.request.user.user_permissions.add('change_project', project)
+        self.request.user.save()

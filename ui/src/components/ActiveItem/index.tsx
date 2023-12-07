@@ -1,16 +1,8 @@
 import '../../App.css';
 import React, { useCallback } from 'react';
 import theme from '../../theme';
-import {
-  Button,
-  CleanIcon,
-  Group,
-  Heading,
-  Icon,
-  IconButton,
-  TrashIcon
-} from 'evergreen-ui';
-import { Item, LinkType, SetLink } from '../../types';
+import { Button, CleanIcon, Group, Heading, Icon, IconButton, TrashIcon } from 'evergreen-ui';
+import { Item, LightItem, LinkType, SetLink } from '../../types';
 import { Pane, Card } from 'evergreen-ui';
 import { AppDispatch, selectItem } from '../../state/store';
 import { useSelector, useDispatch } from 'react-redux';
@@ -28,11 +20,11 @@ import BrowseableItem from '../../components/BrowseableItem';
 import LinkButton from '../LinkButton';
 
 import LinkIcon from '../LinkIcon';
-import { useAuth0 } from '@auth0/auth0-react';
+import useAPI from '../../hooks/useAPI';
 
 function ActiveItem() {
   const activeItem = useSelector(selectItem);
-  const { getAccessTokenSilently } = useAuth0();
+  const api = useAPI();
 
   const dispatch = useDispatch<AppDispatch>();
   const project = 1;
@@ -40,9 +32,13 @@ function ActiveItem() {
   const onSave = useCallback(
     (updatedItem: Item) => {
       // Update the UI optimistically.
-      dispatch(setItem({ item: updatedItem, updateBackend: true }));
+      dispatch(setItem({ item: updatedItem }));
+
+      // Update the backend.
+      api.updateItem(updatedItem);
 
       // Update item in search bar.
+      // TODO: This needs a better name, shouldn't need these comments.
       dispatch(updateItem(updatedItem));
     },
     [project]
@@ -57,7 +53,6 @@ function ActiveItem() {
 
   const onSavePrimary = useCallback(
     (primary: string) => {
-      console.log(primary);
       if (activeItem) onSave({ ...activeItem, primary: primary });
     },
     [activeItem]
@@ -73,34 +68,20 @@ function ActiveItem() {
   const onSaveLink = useCallback(
     (link: SetLink) => {
       if (!activeItem) return;
-      getAccessTokenSilently().then((accessToken) => {
-        fetch(`https://api.quanda.ai/api/items/${activeItem.id}/add_link/`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${accessToken}`
-          },
-          body: JSON.stringify(link)
-        })
-          .then((response) =>
-            response.ok ? response : Promise.reject(response)
-          )
-          .then((response) => response.json())
-          .then((data) => {
-            console.log(data);
-            if (activeItem)
-              onSave({
-                ...activeItem,
-                links: [
-                  ...activeItem.links,
-                  { target: data, type: link.relation_type as LinkType }
-                ]
-              });
-          })
-          .catch((error) => error.json())
-          .then((data) => {
-            console.log(data);
-          });
+
+      api.addLink(activeItem, link).then((linkedItem) => {
+        if (!linkedItem) return;
+        const lightItem = {
+          id: linkedItem.id,
+          primary: linkedItem.primary,
+          secondary: linkedItem.secondary,
+          confidence: linkedItem.confidence,
+          tags: linkedItem.tags
+        } as LightItem;
+        onSave({
+          ...activeItem,
+          links: [...activeItem.links, { target: lightItem, type: link.relation_type as LinkType }]
+        });
       });
     },
     [activeItem]
@@ -109,59 +90,31 @@ function ActiveItem() {
   const onRemoveLink = useCallback(
     (link: SetLink) => {
       if (!activeItem) return;
-      getAccessTokenSilently().then((accessToken) => {
-        fetch(`https://api.quanda.ai/api/items/${activeItem.id}/remove_link/`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${accessToken}`
-          },
-          body: JSON.stringify(link)
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            if (activeItem)
-              onSave({
-                ...activeItem,
-                links: activeItem.links.filter(
-                  (link) => link.target.id !== data.id
-                )
-              });
-          });
+
+      api.removeLink(activeItem, link).then((linkedItem) => {
+        if (!linkedItem) return;
+        onSave({
+          ...activeItem,
+          links: activeItem.links.filter((link) => link.target.id !== linkedItem.id)
+        });
       });
     },
     [activeItem]
   );
 
-  const onClickLink = useCallback((targetID: number) => {
-    //TODO: I don't think we need to get the access token every single time...
-    getAccessTokenSilently().then((accessToken) => {
-      fetch(`https://api.quanda.ai/api/items/${targetID}/`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          dispatch(setItem(data));
-        });
+  const onClickLink = useCallback((id: number) => {
+    api.retrieveItem(id).then((item) => {
+      dispatch(setItem({ item }));
     });
   }, []);
 
   const onDelete = useCallback(() => {
-    if (activeItem) {
-      getAccessTokenSilently().then((accessToken) => {
-        fetch(`https://api.quanda.ai/api/items/${activeItem.id}/`, {
-          method: 'DELETE',
-          headers: {
-            Authorization: `Bearer ${accessToken}`
-          }
-        }).then(() => {
-          dispatch(removeItem(activeItem.id));
-          dispatch(setItem({ item: null, updateBackend: false }));
-        });
-      });
-    }
+    if (!activeItem) return;
+
+    api.deleteItem(activeItem.id).then(() => {
+      dispatch(removeItem(activeItem.id));
+      dispatch(setItem({ item: null }));
+    });
   }, [activeItem]);
 
   const tagBarReference = React.useRef<HTMLInputElement>(null);
@@ -198,16 +151,11 @@ function ActiveItem() {
           backgroundColor: theme.colors.background
         }}
       >
-        <Icon
-          icon={CleanIcon}
-          size={96}
-          color={theme.colors.gray400}
-          marginBottom={32}
-        />
-        <Heading size={800} color={theme.colors.gray400} paddingLeft={16}>
+        <Icon icon={CleanIcon} size={96} color={theme.colors.gray500} marginBottom={32} />
+        <Heading size={800} color={theme.colors.gray500} paddingLeft={16}>
           Nothing selected
         </Heading>
-        <Heading size={600} color={theme.colors.gray400} paddingLeft={16}>
+        <Heading size={600} color={theme.colors.gray500} paddingLeft={16}>
           Pick an item from the sidebar to get started
         </Heading>
       </Pane>
@@ -227,19 +175,9 @@ function ActiveItem() {
         justifyContent: 'space-between'
       }}
     >
-      <Pane
-        width="60%"
-        padding={32}
-        height="100%"
-        display="flex"
-        flexDirection="column"
-      >
+      <Pane width="60%" padding={32} height="100%" display="flex" flexDirection="column">
         <Pane style={{ paddingBottom: 16, width: '100%' }} display="flex">
-          <TagBar
-            ref={tagBarReference}
-            tags={activeItem.tags}
-            onSave={onSaveTags}
-          />
+          <TagBar ref={tagBarReference} tags={activeItem.tags} onSave={onSaveTags} />
         </Pane>
         <Pane
           style={{
@@ -256,10 +194,7 @@ function ActiveItem() {
         </Pane>
 
         <Pane width="100%">
-          <SecondaryField
-            secondary={activeItem.secondary}
-            onSave={onSaveSecondary}
-          />
+          <SecondaryField secondary={activeItem.secondary} onSave={onSaveSecondary} />
         </Pane>
       </Pane>
       <Pane
@@ -302,7 +237,7 @@ function ActiveItem() {
               >
                 {activeItem.links &&
                   activeItem.links.map((link) => (
-                    <Pane display="flex" alignItems="center">
+                    <Pane display="flex" alignItems="center" key={link.target.id}>
                       <LinkIcon type={link.type as string} />
                       <BrowseableItem
                         item={link.target}
@@ -409,9 +344,7 @@ function ActiveItem() {
                 key={label}
                 isActive={tab === value}
                 onClick={() => setTab(value)}
-                backgroundColor={
-                  tab === value ? theme.colors.tint5 : theme.colors.tint4
-                }
+                backgroundColor={tab === value ? theme.colors.tint5 : theme.colors.tint4}
               >
                 {label}
               </Button>
