@@ -1,6 +1,6 @@
 import '../../App.css';
 import React, { useCallback, useEffect } from 'react';
-import { CleanIcon, Heading, Icon, SearchInput } from 'evergreen-ui';
+import { Heading, SearchInput } from 'evergreen-ui';
 
 import { Pane } from 'evergreen-ui';
 import { AppDispatch, selectItem } from '../../state/store';

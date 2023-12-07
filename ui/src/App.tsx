@@ -7,7 +7,6 @@ import {
   Dialog,
   Heading,
   Icon,
-  Paragraph,
   PersonIcon,
   ProjectsIcon,
   RocketSlantIcon,
