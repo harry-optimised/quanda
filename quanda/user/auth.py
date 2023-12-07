@@ -3,6 +3,8 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework import authentication
 from rest_framework import exceptions
 from django.contrib.auth import get_user_model
+from guardian.shortcuts import assign_perm
+from item.models import Project
 import requests
 
 # TODO: Need to support logout on the frontend.
@@ -35,5 +37,13 @@ class Auth0Authentication(authentication.BaseAuthentication):
             if email:
                 user.username = email
                 user.save()
+
+            project = Project.objects.create(
+                name='Sandbox',
+                description='Sandbox environment.'
+            )
+
+            assign_perm('change_project', user, project)
+
 
         return (user, validated_token)

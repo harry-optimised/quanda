@@ -192,7 +192,7 @@ const TagManager = React.forwardRef<TagManagerRef>((props, ref) => {
 
 function AuthenticatedApp() {
   const dispatch = useDispatch<AppDispatch>();
-  const { getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently, logout } = useAuth0();
   const token = useSelector(selectToken);
   const username = useSelector(selectUsername);
   const project = useSelector(selectCurrentProject);
@@ -205,7 +205,7 @@ function AuthenticatedApp() {
       dispatch(setToken(accessToken));
       const _project = localStorage.getItem('activeProject');
       if (_project) dispatch(setCurrentProject(JSON.parse(_project)));
-
+      // TODO: If project does not exist, handle it.
       api.listTags().then((tags) => {
         if (tags) dispatch(setTags(tags));
       });
@@ -228,11 +228,11 @@ function AuthenticatedApp() {
   return (
     <>
       <Header
-        disabled={!project}
         links={[
           {
             name: 'Tags',
             icon: TagIcon,
+            disabled: !project,
             onClick: () => tagManagerRef.current?.open()
           },
           {
@@ -243,10 +243,11 @@ function AuthenticatedApp() {
           {
             name: username ?? 'Unknown',
             icon: PersonIcon,
-            onClick: () => console.log('Profile')
+            onClick: () => logout()
           }
         ]}
       />
+
       <ProjectManager ref={projectManagerRef} />
       <TagManager ref={tagManagerRef} />
       {!project && (

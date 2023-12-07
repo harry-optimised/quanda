@@ -5,15 +5,15 @@ import theme from '../../theme';
 type HeaderLink = {
   name: string;
   icon: IconComponent;
+  disabled?: boolean;
   onClick: () => unknown;
 };
 
 interface HeaderProps {
   links: HeaderLink[];
-  disabled?: boolean;
 }
 
-export function Header({ links, disabled }: HeaderProps) {
+export function Header({ links }: HeaderProps) {
   return (
     <Pane
       width="100%"
@@ -25,15 +25,7 @@ export function Header({ links, disabled }: HeaderProps) {
       userSelect="none"
     >
       <Pane display="flex" flexDirection="row" paddingLeft={16}></Pane>
-      <Pane
-        display="flex"
-        flexDirection="row"
-        backgroundColor={theme.colors.tint6}
-        height={48}
-        paddingRight={16}
-        pointerEvents={disabled ? 'none' : 'auto'}
-        opacity={disabled ? 0.5 : 1}
-      >
+      <Pane display="flex" flexDirection="row" backgroundColor={theme.colors.tint6} height={48} paddingRight={16}>
         {links.map((link) => (
           <Pane
             display="flex"
@@ -43,6 +35,8 @@ export function Header({ links, disabled }: HeaderProps) {
             key={link.name}
             cursor="pointer"
             userSelect="none"
+            pointerEvents={link.disabled ? 'none' : 'auto'}
+            opacity={link.disabled ? 0.5 : 1}
             onClick={link.onClick}
           >
             <Icon icon={link.icon} color={theme.colors.background} size={16} marginRight={8} />
