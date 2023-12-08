@@ -78,8 +78,11 @@ const useAPI = () => {
     return data as Item;
   };
 
-  const listItems = async (): Promise<Item[] | null> => {
-    const response = await callAPI('items/');
+  const listItems = async ({ searchTerm }: { searchTerm?: string }): Promise<Item[] | null> => {
+    const params = new URLSearchParams();
+    if (searchTerm) params.append('search', searchTerm);
+
+    const response = await callAPI(`items/?${params.toString()}`);
     if (!response) return null;
     const data: DjangoListResponse = await response.json();
     return data.results as Item[];

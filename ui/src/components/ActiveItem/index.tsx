@@ -138,6 +138,8 @@ function ActiveItem() {
   );
   const [tab, setTab] = React.useState('links');
 
+  // TODO: Can probably take graph out for now.
+
   if (!activeItem) {
     return (
       <Pane
@@ -289,6 +291,7 @@ function ActiveItem() {
               </Heading>
             </Pane>
           )}
+
           {tab === 'graph' && (
             <Pane
               style={{

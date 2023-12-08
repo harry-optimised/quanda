@@ -1,5 +1,5 @@
 import '../../App.css';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Heading, SearchInput } from 'evergreen-ui';
 
 import { Pane } from 'evergreen-ui';
@@ -22,31 +22,36 @@ function Navigator() {
   const dispatch = useDispatch<AppDispatch>();
   const items = useSelector(selectAllItems);
   const activeItem = useSelector(selectItem);
-  const searchTerm = useSelector(selectSearchTerm);
+  const [searchTerm, setSearchTerm] = useState('');
   const searchBoxRef = React.useRef<HTMLInputElement>(null);
   const api = useAPI();
   const project = useSelector(selectCurrentProject);
 
-  const refreshNavigator = useCallback(() => {
-    api.listItems().then((items) => {
-      if (items) dispatch(setItems(items));
-    });
-  }, [dispatch]);
+  const refreshNavigator = useCallback(
+    ({ searchTerm }: { searchTerm?: string }) => {
+      api.listItems({ searchTerm }).then((items) => {
+        if (items) dispatch(setItems(items));
+      });
+    },
+    [dispatch]
+  );
+
+  //TODO: Get some more filter options in here!
+  // TODO: Add confidence bars back in.
 
   // Load all items on mount.
-  useEffect(() => refreshNavigator(), []);
+  useEffect(() => refreshNavigator({}), []);
 
   const debouncedRefreshItems = useCallback(
-    debounce(() => {
-      // dispatch(refreshItems(false));
+    debounce((searchTerm: string) => {
+      refreshNavigator({ searchTerm });
     }, 250),
     []
   );
 
   const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newSearchTerm = e.target.value;
-    dispatch(updateSearchTerm(newSearchTerm));
-    debouncedRefreshItems();
+    setSearchTerm(e.target.value);
+    debouncedRefreshItems(e.target.value);
   };
 
   useHotkeys(
@@ -108,7 +113,7 @@ function Navigator() {
       .then((item) => {
         if (item) {
           dispatch(setItem({ item }));
-          refreshNavigator();
+          refreshNavigator({});
         }
       });
   }, []);

@@ -49,7 +49,7 @@ const TagBar = React.forwardRef(({ tags, onSave, frozen }: TagBarProps, ref) => 
 
   const getTagProps = useCallback(
     (value: string) => {
-      const tag = allTags.find((t) => t.name === value.toLowerCase());
+      const tag = allTags.find((t) => t.name.toLowerCase() === value.toLowerCase());
       if (tag) {
         return {
           color: 'white',

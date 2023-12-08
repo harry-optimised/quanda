@@ -65,6 +65,7 @@ const ProjectManager = React.forwardRef<ProjectManagerRef>((props, ref) => {
     dispatch(setCurrentProject(selectedProject));
     localStorage.setItem('activeProject', JSON.stringify(selectedProject));
     setIsShown(false);
+    // TODO: Refresh navigator, and everything else, when project changes.
   }, [selectedProject]);
 
   return (
@@ -218,6 +219,7 @@ function AuthenticatedApp() {
         });
       });
 
+      // TODO: Tags not being fetched on first load.
       setTimeout(() => {
         api.listTags().then((tags) => {
           if (tags) dispatch(setTags(tags));
