@@ -21,13 +21,13 @@ import LinkButton from '../LinkButton';
 
 import LinkIcon from '../LinkIcon';
 import useAPI from '../../hooks/useAPI';
+import { selectCurrentProject } from '../../state/projects';
 
 function ActiveItem() {
   const activeItem = useSelector(selectItem);
   const api = useAPI();
-
+  const project = useSelector(selectCurrentProject);
   const dispatch = useDispatch<AppDispatch>();
-  const project = 1;
 
   const onSave = useCallback(
     (updatedItem: Item) => {
@@ -35,7 +35,7 @@ function ActiveItem() {
       dispatch(setItem({ item: updatedItem }));
 
       // Update the backend.
-      api.updateItem(updatedItem);
+      if (project) api.updateItem({ item: updatedItem, project: project.id });
 
       // Update item in search bar.
       // TODO: This needs a better name, shouldn't need these comments.
@@ -68,8 +68,9 @@ function ActiveItem() {
   const onSaveLink = useCallback(
     (link: SetLink) => {
       if (!activeItem) return;
+      if (!project) return;
 
-      api.addLink(activeItem, link).then((linkedItem) => {
+      api.addLink({ item: activeItem, link, project: project.id }).then((linkedItem) => {
         if (!linkedItem) return;
         const lightItem = {
           id: linkedItem.id,
@@ -84,14 +85,15 @@ function ActiveItem() {
         });
       });
     },
-    [activeItem]
+    [activeItem, project]
   );
 
   const onRemoveLink = useCallback(
     (link: SetLink) => {
       if (!activeItem) return;
+      if (!project) return;
 
-      api.removeLink(activeItem, link).then((linkedItem) => {
+      api.removeLink({ item: activeItem, link, project: project.id }).then((linkedItem) => {
         if (!linkedItem) return;
         onSave({
           ...activeItem,
@@ -99,23 +101,28 @@ function ActiveItem() {
         });
       });
     },
-    [activeItem]
+    [activeItem, project]
   );
 
-  const onClickLink = useCallback((id: number) => {
-    api.retrieveItem(id).then((item) => {
-      dispatch(setItem({ item }));
-    });
-  }, []);
+  const onClickLink = useCallback(
+    (id: number) => {
+      if (!project) return;
+      api.retrieveItem({ id, project: project.id }).then((item) => {
+        dispatch(setItem({ item }));
+      });
+    },
+    [project]
+  );
 
   const onDelete = useCallback(() => {
     if (!activeItem) return;
+    if (!project) return;
 
-    api.deleteItem(activeItem.id).then(() => {
+    api.deleteItem({ id: activeItem.id, project: project.id }).then(() => {
       dispatch(removeItem(activeItem.id));
       dispatch(setItem({ item: null }));
     });
-  }, [activeItem]);
+  }, [activeItem, project]);
 
   const tagBarReference = React.useRef<HTMLInputElement>(null);
   useHotkeys(
@@ -130,13 +137,25 @@ function ActiveItem() {
   const options = React.useMemo(
     () => [
       { label: 'Links', value: 'links' },
-      { label: 'Insights', value: 'insights' },
-      { label: 'Evidence', value: 'evidence' },
-      { label: 'Graph', value: 'graph' }
+      { label: 'Evidence', value: 'evidence' }
     ],
     []
   );
   const [tab, setTab] = React.useState('links');
+
+  useHotkeys('left', (event) => {
+    event.preventDefault();
+    const currentIndex = options.findIndex((option) => option.value === tab);
+    const nextIndex = currentIndex === 0 ? 0 : currentIndex - 1;
+    setTab(options[nextIndex].value);
+  });
+
+  useHotkeys('right', (event) => {
+    event.preventDefault();
+    const currentIndex = options.findIndex((option) => option.value === tab);
+    const nextIndex = currentIndex === options.length - 1 ? options.length - 1 : currentIndex + 1;
+    setTab(options[nextIndex].value);
+  });
 
   // TODO: Can probably take graph out for now.
 
@@ -191,7 +210,10 @@ function ActiveItem() {
             justifyContent: 'space-between'
           }}
         >
-          <PrimaryField primary={activeItem.primary} onSave={onSavePrimary} />
+          <Pane flex={1}>
+            <PrimaryField primary={activeItem.primary} onSave={onSavePrimary} />
+          </Pane>
+
           <DeleteButton onDelete={onDelete} primary={activeItem.primary} />
         </Pane>
 
@@ -228,7 +250,7 @@ function ActiveItem() {
               <Heading size={800} color={theme.colors.tint6} paddingBottom={16}>
                 Links
               </Heading>
-              <LinkButton onSave={onSaveLink} />
+              <LinkButton onSave={onSaveLink} parentID={activeItem.id} />
               <Pane
                 className="browseBodyNoScrollbar"
                 marginTop={16}

@@ -28,19 +28,20 @@ function Navigator() {
   const project = useSelector(selectCurrentProject);
 
   const refreshNavigator = useCallback(
-    ({ searchTerm, projectID }: { searchTerm?: string; projectID?: number }) => {
-      api.listItems({ searchTerm, projectID }).then((items) => {
+    ({ searchTerm }: { searchTerm?: string }) => {
+      if (!project) return;
+      api.listItems({ searchTerm, project: project.id }).then((items) => {
         if (items) dispatch(setItems(items));
       });
     },
-    [dispatch]
+    [dispatch, project]
   );
 
   //TODO: Get some more filter options in here!
   // TODO: Add confidence bars back in.
 
   // Load all items on mount.
-  useEffect(() => refreshNavigator({ projectID: project?.id }), [project]);
+  useEffect(() => refreshNavigator({}), [project]);
 
   const debouncedRefreshItems = useCallback(
     debounce((searchTerm: string) => {
@@ -69,8 +70,8 @@ function Navigator() {
     const nextIndex = currentIndex + 1;
     if (nextIndex < items.length) {
       const id = items[nextIndex].id;
-
-      api.retrieveItem(id).then((item) => {
+      if (!project) return;
+      api.retrieveItem({ id, project: project.id }).then((item) => {
         // TODO: Can simplify setItem, since it's just a single item.
         if (item) dispatch(setItem({ item }));
       });
@@ -83,7 +84,8 @@ function Navigator() {
     const nextIndex = currentIndex - 1;
     if (nextIndex >= 0) {
       const id = items[nextIndex].id;
-      api.retrieveItem(id).then((item) => {
+      if (!project) return;
+      api.retrieveItem({ id, project: project.id }).then((item) => {
         if (item) dispatch(setItem({ item }));
       });
     }
@@ -91,23 +93,27 @@ function Navigator() {
 
   const onItemSelect = useCallback(
     (id: number) => {
-      api.retrieveItem(id).then((item) => {
+      if (!project) return;
+      api.retrieveItem({ id, project: project.id }).then((item) => {
         if (item) dispatch(setItem({ item }));
       });
     },
-    [dispatch]
+    [dispatch, project]
   );
 
   const onAddItem = useCallback((primary: string) => {
     if (!project) return;
     api
       .createItem({
-        primary: primary,
-        secondary: 'null',
-        confidence: 0,
-        tags: [],
-        evidence: [],
-        links: [],
+        item: {
+          primary: primary,
+          secondary: 'null',
+          confidence: 0,
+          tags: [],
+          evidence: [],
+          links: [],
+          project: project.id
+        },
         project: project.id
       })
       .then((item) => {

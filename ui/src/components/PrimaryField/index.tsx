@@ -7,10 +7,7 @@ interface PrimaryFieldProps {
   primary: string;
 }
 
-const PrimaryField: React.FC<PrimaryFieldProps> = ({
-  onSave: parentOnSave,
-  primary
-}) => {
+const PrimaryField: React.FC<PrimaryFieldProps> = ({ onSave: parentOnSave, primary }) => {
   const [editMode, setEditMode] = useState(false);
   const [editablePrimary, setEditablePrimary] = useState(primary);
   const [hover, setHover] = useState(false);
@@ -53,7 +50,7 @@ const PrimaryField: React.FC<PrimaryFieldProps> = ({
       onMouseLeave={() => setHover(false)}
       style={{ display: 'flex', alignItems: 'center' }}
     >
-      <Heading size={900} color={theme.colors.tint6}>
+      <Heading size={800} color={theme.colors.tint6}>
         {primary}
       </Heading>
       <Icon
@@ -86,9 +83,7 @@ const PrimaryField: React.FC<PrimaryFieldProps> = ({
       fontSize={32}
       fontWeight={900}
       color={theme.colors.tint6}
-      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-        onChangePrimary(e.target.value)
-      }
+      onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChangePrimary(e.target.value)}
       onBlur={onSave}
       onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {

@@ -17,7 +17,7 @@ const TagBar = React.forwardRef(({ tags, onSave, frozen }: TagBarProps, ref) => 
     return tags.map((tag) => {
       const tagObj = allTags.find((t) => t.id === tag);
       if (tagObj) {
-        return tagObj.name;
+        return tagObj.name.toLowerCase();
       }
       return '';
     });
@@ -36,20 +36,18 @@ const TagBar = React.forwardRef(({ tags, onSave, frozen }: TagBarProps, ref) => 
           tagIds.push(tag.id);
         }
       }
-
       if (tagIds.length != values.length) {
         toaster.danger("That tag doesn't exist. Add it from the tag menu.");
         return;
       }
-
       onSave(tagIds);
     },
-    [allTags]
+    [allTags, onSave]
   );
 
   const getTagProps = useCallback(
     (value: string) => {
-      const tag = allTags.find((t) => t.name.toLowerCase() === value.toLowerCase());
+      const tag = allTags.find((t) => t.name === value.toLowerCase());
       if (tag) {
         return {
           color: 'white',
@@ -90,7 +88,7 @@ const TagBar = React.forwardRef(({ tags, onSave, frozen }: TagBarProps, ref) => 
           style={{ backgroundColor: getTagProps(value).backgroundColor }}
         >
           <Text color="white" fontSize={12}>
-            {value}
+            {value.toLowerCase()}
           </Text>
         </Card>
       ))}

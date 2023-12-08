@@ -11,6 +11,11 @@ const HIGHLIGHT = '#F2F2F2';
 const DANGER = '#F67E7D';
 
 const theme = mergeTheme(defaultTheme, {
+  fontFamilies: {
+    display: 'Manrope, sans-serif',
+    ui: 'Manrope, sans-serif',
+    mono: 'Manrope, sans-serif'
+  },
   components: {
     Button: {
       appearances: {

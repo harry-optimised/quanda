@@ -25,11 +25,7 @@ const DeleteButton: React.FC<DeleteButtonProps> = ({ onDelete, primary }) => {
         </Paragraph>
         <Strong>{primary}</Strong>
       </Dialog>
-      <Button
-        appearance="primary"
-        iconBefore={TrashIcon}
-        onClick={() => setIsShown(true)}
-      >
+      <Button appearance="primary" iconBefore={TrashIcon} onClick={() => setIsShown(true)}>
         Delete Item
       </Button>
     </>

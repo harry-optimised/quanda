@@ -122,15 +122,25 @@ const TagManager = React.forwardRef<TagManagerRef>((props, ref) => {
     open
   }));
 
+  useEffect(() => {
+    if (!project) return;
+    api.listTags({ project: project.id }).then((tags) => {
+      if (tags) dispatch(setTags(tags));
+    });
+  }, [project]);
+
   const onCreateTag = useCallback(() => {
     if (!newTag) return;
     if (!project) return;
     setColour(getRandomTagColour());
     api
       .createTag({
-        name: newTag,
-        description: 'not used',
-        colour: colour,
+        tag: {
+          name: newTag.toLowerCase(),
+          description: 'not used',
+          colour: colour,
+          project: project.id
+        },
         project: project.id
       })
       .then((tag) => {
@@ -138,7 +148,7 @@ const TagManager = React.forwardRef<TagManagerRef>((props, ref) => {
         if (!tag) return;
         dispatch(setTags([...tags, tag]));
       });
-  }, [newTag, colour]);
+  }, [newTag, colour, project]);
 
   const newColour = useCallback(() => {
     setColour(getRandomTagColour());
@@ -158,6 +168,7 @@ const TagManager = React.forwardRef<TagManagerRef>((props, ref) => {
             key={tag.id}
             tag={tag}
             selected={false}
+            project={project}
             onSelect={() => {
               console.log(tag.name);
             }}
@@ -201,7 +212,6 @@ function AuthenticatedApp() {
   const project = useSelector(selectCurrentProject);
   const projectManagerRef = React.useRef<ProjectManagerRef>(null);
   const tagManagerRef = React.useRef<TagManagerRef>(null);
-  const api = useAPI();
 
   useEffect(() => {
     getAccessTokenSilently().then((accessToken) => {
@@ -220,13 +230,6 @@ function AuthenticatedApp() {
           dispatch(setUsername(data.email));
         });
       });
-
-      // TODO: Tags not being fetched on first load.
-      setTimeout(() => {
-        api.listTags().then((tags) => {
-          if (tags) dispatch(setTags(tags));
-        });
-      }, 3000);
     });
   }, []);
 

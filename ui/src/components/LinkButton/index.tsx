@@ -1,24 +1,20 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import debounce from 'lodash.debounce';
 
-import {
-  Pane,
-  Popover,
-  Select,
-  Position,
-  Text,
-  LinkIcon,
-  Button,
-  SearchInput
-} from 'evergreen-ui';
+import { Pane, Popover, Select, Position, Text, LinkIcon, Button, SearchInput } from 'evergreen-ui';
 
 import { LightItem, SetLink } from '../../types';
 import theme from '../../theme';
 import BrowseableItem from '../BrowseableItem';
 import { useAuth0 } from '@auth0/auth0-react';
+import useAPI from '../../hooks/useAPI';
+import { useSelector } from 'react-redux';
+import { selectCurrentProject } from '../../state/projects';
+import { set } from 'lodash';
 
 interface LinkButtonProps {
   onSave: (link: SetLink) => void;
+  parentID: number;
 }
 
 type BasicItem = {
@@ -38,31 +34,26 @@ type LinkType = 'relates_to' | 'supports';
 
 const URL = '${process.env.REACT_APP_API_BASE_URL}/items';
 
-const LinkButton: React.FC<LinkButtonProps> = ({ onSave }) => {
+const LinkButton: React.FC<LinkButtonProps> = ({ onSave, parentID }) => {
   const [linkType, setLinkType] = useState<LinkType>('relates_to');
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [items, setItems] = useState<BasicItem[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [selectedItem, setSelectedItem] = useState<BasicItem | null>();
   const [editMode, setEditMode] = useState<boolean>(false);
-  const { getAccessTokenSilently } = useAuth0();
+  const project = useSelector(selectCurrentProject);
+  const api = useAPI();
 
   const fetchItems = useCallback(
     debounce(async (searchQuery: string) => {
       setIsLoading(true);
-      try {
-        const accessToken = await getAccessTokenSilently();
-        const response = await fetch(`${URL}/?search=${searchQuery}`, {
-          headers: { Authorization: `Bearer ${accessToken}` }
-        });
-        const data = (await response.json()) as SearchAPIResponse;
-        const items = data.results as BasicItem[];
-        setItems(items);
-        setIsLoading(false);
-      } catch (err) {
-        setIsLoading(false);
+      if (!project) return;
+      const items = await api.listItems({ searchTerm: searchQuery, project: project.id });
+      if (items) {
+        setItems(items.filter((i) => i.id !== parentID));
       }
-    }, 500),
+      setIsLoading(false);
+    }, 250),
     []
   );
 
@@ -75,12 +66,9 @@ const LinkButton: React.FC<LinkButtonProps> = ({ onSave }) => {
     setEditMode(true);
   }, []);
 
-  const onSearchTermChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setSearchTerm(event.target.value);
-    },
-    []
-  );
+  const onSearchTermChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  }, []);
 
   const onSelectItem = useCallback((item: string) => {
     setSearchTerm(item);
@@ -103,18 +91,9 @@ const LinkButton: React.FC<LinkButtonProps> = ({ onSave }) => {
   }, [selectedItem]);
 
   return (
-    <Pane
-      display="flex"
-      flexDirection="row"
-      alignItems="center"
-      width="100%"
-      justifyContent="flex-end"
-    >
+    <Pane display="flex" flexDirection="row" alignItems="center" width="100%" justifyContent="flex-end">
       <Pane>
-        <Select
-          value={linkType}
-          onChange={(event) => setLinkType(event.target.value as LinkType)}
-        >
+        <Select value={linkType} onChange={(event) => setLinkType(event.target.value as LinkType)}>
           <option value="relates_to">relates_to</option>
           <option value="supports">supports</option>
         </Select>
@@ -161,11 +140,7 @@ const LinkButton: React.FC<LinkButtonProps> = ({ onSave }) => {
                     }}
                     onClick={() => onSelectItem(item.primary)}
                   >
-                    <BrowseableItem
-                      item={item as LightItem}
-                      selected={false}
-                      onSelect={() => null}
-                    />
+                    <BrowseableItem item={item as LightItem} selected={false} onSelect={() => null} />
                   </Pane>
                 ))}
               </Pane>

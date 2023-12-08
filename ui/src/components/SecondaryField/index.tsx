@@ -8,10 +8,7 @@ interface SecondaryFieldProps {
   secondary: string;
 }
 
-const SecondaryField: React.FC<SecondaryFieldProps> = ({
-  onSave,
-  secondary
-}) => {
+const SecondaryField: React.FC<SecondaryFieldProps> = ({ onSave, secondary }) => {
   const [content, setContent] = useState<string | undefined>(secondary);
 
   useEffect(() => {

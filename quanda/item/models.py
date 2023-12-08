@@ -1,19 +1,11 @@
 from django.db import models
-from django.core.exceptions import ValidationError
 from guardian.shortcuts import get_perms
-
-class ColourChoices(models.TextChoices):
-    NEUTRAL = 'neutral'
-    GREEN = 'green'
-    BLUE = 'blue'
-    RED = 'red'
-    ORANGE = 'orange'
-    PURPLE = 'purple'
-    YELLOW = 'yellow'
-    TEAL = 'teal'
     
 class Project(models.Model):
     """Project Model."""
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     name = models.CharField(max_length=100)
     description = models.TextField()
@@ -24,7 +16,7 @@ class Project(models.Model):
 
 class ProjectMixin(models.Model):
     """Mixin to add a Project relationship."""
-
+    
     project = models.ForeignKey(Project, related_name='%(class)s_related', on_delete=models.CASCADE, db_index=True)
 
     class Meta:
@@ -37,6 +29,9 @@ class ProjectMixin(models.Model):
 class Evidence(ProjectMixin, models.Model):
     """Evidence Model."""
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     name = models.CharField(max_length=100)
     description = models.TextField()
     link = models.URLField()
@@ -47,6 +42,9 @@ class Evidence(ProjectMixin, models.Model):
 
 class Tag(ProjectMixin, models.Model):
     """Tag Model."""
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     name = models.CharField(max_length=100)
     description = models.TextField()
@@ -62,6 +60,9 @@ class Tag(ProjectMixin, models.Model):
 
 class Item(ProjectMixin, models.Model):
     """Item Model."""
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     primary = models.TextField()
     secondary = models.TextField()    

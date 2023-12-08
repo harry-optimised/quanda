@@ -24,7 +24,12 @@ export function Header({ links }: HeaderProps) {
       alignItems="center"
       userSelect="none"
     >
-      <Pane display="flex" flexDirection="row" paddingLeft={16}></Pane>
+      <Pane display="flex" flexDirection="row" paddingLeft={16} alignItems="center">
+        <img src="logo512white.png" alt="Quanda Logo" width={32} height={32} />
+        <Strong color={theme.colors.background} marginLeft={8} fontFamily="Lora" fontSize={20}>
+          Quanda
+        </Strong>
+      </Pane>
       <Pane display="flex" flexDirection="row" backgroundColor={theme.colors.tint6} height={48} paddingRight={16}>
         {links.map((link) => (
           <Pane

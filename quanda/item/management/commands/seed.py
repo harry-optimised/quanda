@@ -35,19 +35,19 @@ class Command(BaseCommand):
 
         self.stdout.write(self.style.HTTP_INFO("Creating Tags..."))
         tag_hunch, _ = Tag.objects.get_or_create(
-            name="Hunch", 
+            name="hunch", 
             description="Just a guess at this point in time.", 
             project=project_carecrow,
             colour="rgb(185,131,137)"
         )
         tag_mvp, _ = Tag.objects.get_or_create(
-            name="MVP", 
+            name="mvp", 
             description="Required for first release.", 
             project=project_carecrow,
             colour="rgb(181,157,164)"
         )
         tag_example, _ = Tag.objects.get_or_create(
-            name="Example", 
+            name="example", 
             description="An example tag.", 
             project=project_sandbox,
             colour="rgb(115,186,155)"

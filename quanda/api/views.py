@@ -28,7 +28,7 @@ class FilterByProjectMixin():
 
         project = self.request.headers.get('Quanda-Project')
         queryset = super().get_queryset()
-        return queryset.filter(project__pk=project)
+        return queryset.filter(project__pk=project).order_by('-created_at')
 
 
 class TagViewSet(FilterByProjectMixin, viewsets.ModelViewSet):
@@ -51,6 +51,7 @@ class ItemViewSet(FilterByProjectMixin, viewsets.ModelViewSet):
     pagination_class = CustomPageNumberPagination
     permission_classes = [IsAuthenticated, HasAccessToProject]
 
+   
     def paginate_queryset(self, queryset):
         if self.action == 'list':
             return super().paginate_queryset(queryset)
@@ -115,7 +116,7 @@ class ProjectViewSet(viewsets.GenericViewSet, viewsets.mixins.ListModelMixin, vi
     
     def get_queryset(self):
         queryset = super().get_queryset()
-        return get_objects_for_user(self.request.user, 'change_project', queryset)
+        return get_objects_for_user(self.request.user, 'change_project', queryset).order_by('-created_at')
     
     def perform_create(self, serializer):
         project = serializer.save()
