@@ -22,7 +22,12 @@ const useAPI = () => {
   const project = useSelector(selectCurrentProject);
   const token = useSelector(selectToken);
 
-  const callAPI = async (path: string, body?: unknown, method = 'GET'): Promise<Response | null> => {
+  const callAPI = async (
+    path: string,
+    body?: unknown,
+    overrideProject?: number,
+    method = 'GET'
+  ): Promise<Response | null> => {
     const requiresProject = !path.includes('project');
 
     if (!token) {
@@ -36,11 +41,14 @@ const useAPI = () => {
     headers.append('Authorization', `Bearer ${token}`);
 
     if (requiresProject) {
-      if (!project) {
-        console.error('No project found');
-        return null;
+      if (overrideProject) headers.append('Quanda-Project', `${overrideProject}`);
+      else {
+        if (!project) {
+          console.error('No project found');
+          return null;
+        }
+        headers.append('Quanda-Project', `${project.id}`);
       }
-      headers.append('Quanda-Project', `${project.id}`);
     }
 
     const response = await fetch(url, {
@@ -65,7 +73,7 @@ const useAPI = () => {
   // ########
 
   const createItem = async (item: Omit<Item, 'id'>): Promise<Item | null> => {
-    const response = await callAPI('items/', item, 'POST');
+    const response = await callAPI('items/', item, undefined, 'POST');
     if (!response) return null;
     const data: DjangoCreateResponse = await response.json();
     return data as Item;
@@ -78,39 +86,44 @@ const useAPI = () => {
     return data as Item;
   };
 
-  const listItems = async ({ searchTerm }: { searchTerm?: string }): Promise<Item[] | null> => {
+  const listItems = async ({
+    searchTerm,
+    projectID
+  }: {
+    searchTerm?: string;
+    projectID?: number;
+  }): Promise<Item[] | null> => {
     const params = new URLSearchParams();
     if (searchTerm) params.append('search', searchTerm);
-
-    const response = await callAPI(`items/?${params.toString()}`);
+    const response = await callAPI(`items/?${params.toString()}`, undefined, projectID);
     if (!response) return null;
     const data: DjangoListResponse = await response.json();
     return data.results as Item[];
   };
 
   const updateItem = async (item: Item): Promise<Item | null> => {
-    const response = await callAPI(`items/${item.id}/`, item, 'PATCH');
+    const response = await callAPI(`items/${item.id}/`, item, undefined, 'PATCH');
     if (!response) return null;
     const data: DjangoUpdateResponse = await response.json();
     return data as Item;
   };
 
   const addLink = async (item: Item, link: SetLink): Promise<Item | null> => {
-    const response = await callAPI(`items/${item.id}/add_link/`, link, 'POST');
+    const response = await callAPI(`items/${item.id}/add_link/`, link, undefined, 'POST');
     if (!response) return null;
     const data: DjangoUpdateResponse = await response.json();
     return data as Item;
   };
 
   const removeLink = async (item: Item, link: SetLink): Promise<Item | null> => {
-    const response = await callAPI(`items/${item.id}/remove_link/`, link, 'POST');
+    const response = await callAPI(`items/${item.id}/remove_link/`, link, undefined, 'POST');
     if (!response) return null;
     const data: DjangoUpdateResponse = await response.json();
     return data as Item;
   };
 
   const deleteItem = async (id: number): Promise<void | null> => {
-    const response = await callAPI(`items/${id}/`, {}, 'DELETE');
+    const response = await callAPI(`items/${id}/`, {}, undefined, 'DELETE');
     if (!response) return null;
     return;
   };
@@ -119,7 +132,7 @@ const useAPI = () => {
   // #######
 
   const createTag = async (tag: Omit<Tag, 'id'>): Promise<Tag | null> => {
-    const response = await callAPI('tags/', tag, 'POST');
+    const response = await callAPI('tags/', tag, undefined, 'POST');
     if (!response) return null;
     const data: DjangoCreateResponse = await response.json();
     return data as Tag;
@@ -133,7 +146,7 @@ const useAPI = () => {
   };
 
   const deleteTag = async (id: number): Promise<void | null> => {
-    const response = await callAPI(`tags/${id}/`, {}, 'DELETE');
+    const response = await callAPI(`tags/${id}/`, {}, undefined, 'DELETE');
     if (!response) return null;
     return;
   };

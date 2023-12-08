@@ -28,8 +28,8 @@ function Navigator() {
   const project = useSelector(selectCurrentProject);
 
   const refreshNavigator = useCallback(
-    ({ searchTerm }: { searchTerm?: string }) => {
-      api.listItems({ searchTerm }).then((items) => {
+    ({ searchTerm, projectID }: { searchTerm?: string; projectID?: number }) => {
+      api.listItems({ searchTerm, projectID }).then((items) => {
         if (items) dispatch(setItems(items));
       });
     },
@@ -40,7 +40,7 @@ function Navigator() {
   // TODO: Add confidence bars back in.
 
   // Load all items on mount.
-  useEffect(() => refreshNavigator({}), []);
+  useEffect(() => refreshNavigator({ projectID: project?.id }), [project]);
 
   const debouncedRefreshItems = useCallback(
     debounce((searchTerm: string) => {

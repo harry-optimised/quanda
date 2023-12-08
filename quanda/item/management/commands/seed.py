@@ -30,19 +30,27 @@ class Command(BaseCommand):
         self.stdout.write(self.style.HTTP_INFO("Creating Projects..."))
         project_carecrow, _ = Project.objects.get_or_create(name='CareCrow', description='CareCrow Project Description')
         assign_perm('change_project', team_ravonic, project_carecrow)
+        project_sandbox, _ = Project.objects.get_or_create(name='Sandbox', description='Sandbox Project Description')
+        assign_perm('change_project', user_personal, project_sandbox)
 
         self.stdout.write(self.style.HTTP_INFO("Creating Tags..."))
         tag_hunch, _ = Tag.objects.get_or_create(
             name="Hunch", 
             description="Just a guess at this point in time.", 
             project=project_carecrow,
-            colour="rgb(172,193,138)"
+            colour="rgb(185,131,137)"
         )
         tag_mvp, _ = Tag.objects.get_or_create(
             name="MVP", 
             description="Required for first release.", 
             project=project_carecrow,
-            colour="rgb(152,223,175)"
+            colour="rgb(181,157,164)"
+        )
+        tag_example, _ = Tag.objects.get_or_create(
+            name="Example", 
+            description="An example tag.", 
+            project=project_sandbox,
+            colour="rgb(115,186,155)"
         )
 
         self.stdout.write(self.style.HTTP_INFO("Creating Evidence..."))
@@ -78,5 +86,13 @@ class Command(BaseCommand):
         )
         item_3.tags.set([tag_mvp])
         item_3.evidence.set([evidence_interview])
+
+        item_4, _ = Item.objects.get_or_create(
+            primary="Get started with Quanda",
+            secondary="This is an example item.",
+            confidence=0.5,
+            project=project_sandbox
+        )
+        item_4.tags.set([tag_example])
 
         self.stdout.write(self.style.SUCCESS("Successfully seeded database."))

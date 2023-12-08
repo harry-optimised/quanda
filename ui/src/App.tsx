@@ -36,6 +36,8 @@ import { LoadingScreen } from './components/LoadingScreen';
 import BrowseableTag from './components/BrowseableTag';
 import { hsvToRgb } from './colourConversionAlgorithms';
 import { selectTags, setTags } from './state/tagsSlice';
+import { setItem } from './state/item';
+import { setItems } from './state/navigator';
 interface ProjectManagerRef {
   open: () => void;
 }
@@ -65,7 +67,7 @@ const ProjectManager = React.forwardRef<ProjectManagerRef>((props, ref) => {
     dispatch(setCurrentProject(selectedProject));
     localStorage.setItem('activeProject', JSON.stringify(selectedProject));
     setIsShown(false);
-    // TODO: Refresh navigator, and everything else, when project changes.
+    dispatch(setItem({ item: null }));
   }, [selectedProject]);
 
   return (
@@ -224,7 +226,7 @@ function AuthenticatedApp() {
         api.listTags().then((tags) => {
           if (tags) dispatch(setTags(tags));
         });
-      }, 1000);
+      }, 3000);
     });
   }, []);
 
