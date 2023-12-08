@@ -4,7 +4,7 @@ import { Heading, SearchInput } from 'evergreen-ui';
 
 import { Pane } from 'evergreen-ui';
 import { AppDispatch, selectItem } from '../../state/store';
-import { selectAllItems, updateSearchTerm, selectSearchTerm, setItems } from '../../state/navigator';
+import { selectAllItems, setItems } from '../../state/navigator';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHotkeys } from 'react-hotkeys-hook';
 

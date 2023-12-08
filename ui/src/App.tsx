@@ -37,7 +37,6 @@ import BrowseableTag from './components/BrowseableTag';
 import { hsvToRgb } from './colourConversionAlgorithms';
 import { selectTags, setTags } from './state/tagsSlice';
 import { setItem } from './state/item';
-import { setItems } from './state/navigator';
 interface ProjectManagerRef {
   open: () => void;
 }

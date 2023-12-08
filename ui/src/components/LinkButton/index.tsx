@@ -6,11 +6,9 @@ import { Pane, Popover, Select, Position, Text, LinkIcon, Button, SearchInput } 
 import { LightItem, SetLink } from '../../types';
 import theme from '../../theme';
 import BrowseableItem from '../BrowseableItem';
-import { useAuth0 } from '@auth0/auth0-react';
 import useAPI from '../../hooks/useAPI';
 import { useSelector } from 'react-redux';
 import { selectCurrentProject } from '../../state/projects';
-import { set } from 'lodash';
 
 interface LinkButtonProps {
   onSave: (link: SetLink) => void;
@@ -23,16 +21,7 @@ type BasicItem = {
   secondary: string;
 };
 
-type SearchAPIResponse = {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: BasicItem[];
-};
-
 type LinkType = 'relates_to' | 'supports';
-
-const URL = '${process.env.REACT_APP_API_BASE_URL}/items';
 
 const LinkButton: React.FC<LinkButtonProps> = ({ onSave, parentID }) => {
   const [linkType, setLinkType] = useState<LinkType>('relates_to');
