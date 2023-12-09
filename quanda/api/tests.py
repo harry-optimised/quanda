@@ -1,3 +1,9 @@
-from django.test import TestCase
+from django.urls import include, path, reverse
+from rest_framework.test import APITestCase, URLPatternsTestCase
 
-# Create your tests here.
+class UserTest(APITestCase, URLPatternsTestCase):
+    urlpatterns = [
+        path('api/', include('api.urls')),
+    ]
+
+    # https://www.django-rest-framework.org/api-guide/testing/#example_1

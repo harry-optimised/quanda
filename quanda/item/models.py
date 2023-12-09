@@ -17,7 +17,7 @@ class Project(models.Model):
 class ProjectMixin(models.Model):
     """Mixin to add a Project relationship."""
     
-    project = models.ForeignKey(Project, related_name='%(class)s_related', on_delete=models.CASCADE, db_index=True)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, db_index=True)
 
     class Meta:
         abstract = True
@@ -49,7 +49,7 @@ class Tag(ProjectMixin, models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
     colour = models.CharField(max_length=24)
-
+   
     def __str__(self):
         return self.name
     
