@@ -101,28 +101,31 @@ function Navigator() {
     [dispatch, project]
   );
 
-  const onAddItem = useCallback((primary: string) => {
-    if (!project) return;
-    api
-      .createItem({
-        item: {
-          primary: primary,
-          secondary: 'null',
-          confidence: 0,
-          tags: [],
-          evidence: [],
-          links: [],
+  const onAddItem = useCallback(
+    (primary: string) => {
+      if (!project) return;
+      api
+        .createItem({
+          item: {
+            primary: primary,
+            secondary: 'null',
+            confidence: 0,
+            tags: [],
+            evidence: [],
+            links: [],
+            project: project.id
+          },
           project: project.id
-        },
-        project: project.id
-      })
-      .then((item) => {
-        if (item) {
-          dispatch(setItem({ item }));
-          refreshNavigator({});
-        }
-      });
-  }, []);
+        })
+        .then((item) => {
+          if (item) {
+            dispatch(setItem({ item }));
+            refreshNavigator({});
+          }
+        });
+    },
+    [project]
+  );
 
   return (
     <>
