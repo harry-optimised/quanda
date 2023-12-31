@@ -47,3 +47,8 @@ export type Project = {
   name: string;
   description: string;
 };
+
+export type DjangoBlobResponse = {
+  blob: Blob;
+  name: string;
+};

@@ -1,6 +1,7 @@
-import { Item, Project, SetLink, Tag } from '../types';
+import { DjangoBlobResponse, Item, Project, SetLink, Tag } from '../types';
 import { useSelector } from 'react-redux';
 import { selectToken } from '../state/profile';
+import { type } from 'os';
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
@@ -21,8 +22,6 @@ const useAPI = () => {
   const token = useSelector(selectToken);
 
   const callAPI = async (path: string, project: number, body?: unknown, method = 'GET'): Promise<Response | null> => {
-    const requiresProject = !path.includes('project');
-
     if (!token) {
       console.error('No token found');
       return null;
@@ -30,9 +29,15 @@ const useAPI = () => {
 
     const url = `${API_BASE_URL}/${path}`;
     const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    const isFormData = body instanceof FormData;
     headers.append('Authorization', `Bearer ${token}`);
 
+    if (!isFormData) {
+      headers.append('Content-Type', 'application/json');
+      body = JSON.stringify(body);
+    }
+
+    const requiresProject = !path.includes('project');
     if (requiresProject) {
       headers.append('Quanda-Project', `${project}`);
     }
@@ -40,7 +45,7 @@ const useAPI = () => {
     const response = await fetch(url, {
       method,
       headers: headers,
-      body: JSON.stringify(body)
+      body: isFormData ? (body as FormData) : (body as string)
     });
 
     if (!response.ok) {
@@ -192,6 +197,26 @@ const useAPI = () => {
     return data.results as Project[];
   };
 
+  const exportProject = async (project: number): Promise<DjangoBlobResponse | null> => {
+    const response = await callAPI(`projects/${project}/export/`, project);
+    if (!response) return null;
+
+    const contentDisposition = response.headers.get('Content-Disposition');
+    console.log(contentDisposition);
+    const filename = contentDisposition?.split('filename=')[1].replace(/"/g, '') || 'exported_data.pkl';
+    return {
+      blob: await response.blob(),
+      name: filename
+    };
+  };
+
+  const importProject = async (project: number, file: File): Promise<Project | null> => {
+    const formData = new FormData();
+    formData.append('file', file);
+    await callAPI(`projects/${project}/ingest/`, project, formData, 'POST');
+    return null;
+  };
+
   return {
     createItem,
     updateItem,
@@ -200,6 +225,8 @@ const useAPI = () => {
     retrieveItem,
     deleteItem,
     listProjects,
+    exportProject,
+    importProject,
     listItems,
     createTag,
     listTags,

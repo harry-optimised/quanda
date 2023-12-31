@@ -20,7 +20,7 @@ SECRET_KEY = getenv("SECRET_KEY")
 DEBUG = getenv('DEBUG', 0) == '1'
 ALLOWED_HOSTS = getenv("DJANGO_ALLOWED_HOSTS").split(" ")
 CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOW_HEADERS = ['Quanda-Project', 'Content-Type', 'Authorization']
+CORS_ALLOW_HEADERS = ['Quanda-Project', 'Content-Type', 'Authorization', 'Content-Disposition']
 
 
 # Application definition

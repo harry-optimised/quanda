@@ -2,18 +2,27 @@ import './App.css';
 import React, { useCallback, useEffect } from 'react';
 import theme from './theme';
 import {
+  BoxIcon,
   Button,
   Card,
+  DatabaseIcon,
   Dialog,
+  ExportIcon,
+  FileCard,
+  FileUploader,
   Heading,
   Icon,
+  ImportIcon,
+  Paragraph,
   PersonIcon,
   ProjectsIcon,
   RocketSlantIcon,
   Strong,
   TagIcon,
   TextInput,
-  ThemeProvider
+  ThemeProvider,
+  FileRejection,
+  majorScale
 } from 'evergreen-ui';
 
 //TODO: Do some of that sweet sweet bundle splitting.
@@ -37,6 +46,7 @@ import BrowseableTag from './components/BrowseableTag';
 import { hsvToRgb } from './colourConversionAlgorithms';
 import { selectTags, setTags } from './state/tagsSlice';
 import { setItem } from './state/item';
+
 interface ProjectManagerRef {
   open: () => void;
 }
@@ -88,6 +98,153 @@ const ProjectManager = React.forwardRef<ProjectManagerRef>((props, ref) => {
             onSelect={() => setSelectedProject(project)}
           />
         ))}
+      </Dialog>
+    </>
+  );
+});
+
+interface ExportManagerRef {
+  open: () => void;
+}
+
+const ExportManager = React.forwardRef<ProjectManagerRef>((props, ref) => {
+  const [isShown, setIsShown] = React.useState(false);
+  const project = useSelector(selectCurrentProject);
+
+  const api = useAPI();
+
+  // External trigger to open the dialog.
+  const open = () => setIsShown(true);
+  React.useImperativeHandle(ref, () => ({
+    open
+  }));
+
+  const onExportData = useCallback(() => {
+    console.log('!');
+    if (!project) return;
+    api
+      .exportProject(project.id)
+      .then((response) => {
+        if (!response) return;
+
+        const url = window.URL.createObjectURL(response.blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', response.name);
+        document.body.appendChild(link);
+        link.click();
+        link.parentNode?.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      })
+      .catch((error) => {
+        console.error('Error during export:', error);
+      });
+
+    setIsShown(false);
+  }, [project, api]);
+
+  return (
+    <>
+      <Dialog
+        isShown={isShown}
+        title="Export Data"
+        onCloseComplete={() => setIsShown(false)}
+        confirmLabel="Export"
+        onConfirm={onExportData}
+        hasCancel={false}
+      >
+        <Paragraph>
+          Exporting data will generate a Pickle file containing all the data in the project. This can be used to import
+          at a later time, or import into another project.
+        </Paragraph>
+      </Dialog>
+    </>
+  );
+});
+
+interface ImportManagerRef {
+  open: () => void;
+}
+
+const ImportManager = React.forwardRef<ImportManagerRef>((props, ref) => {
+  const [isShown, setIsShown] = React.useState(false);
+  const project = useSelector(selectCurrentProject);
+  const [files, setFiles] = React.useState<File[]>([]);
+  const [fileRejections, setFileRejections] = React.useState<FileRejection[]>([]);
+
+  const handleChange = React.useCallback((files: File[]) => setFiles([files[0]]), []);
+  const handleRejected = React.useCallback(
+    (fileRejections: FileRejection[]) => setFileRejections([fileRejections[0]]),
+    []
+  );
+  const handleRemove = React.useCallback(() => {
+    setFiles([]);
+    setFileRejections([]);
+  }, []);
+
+  const api = useAPI();
+
+  // External trigger to open the dialog.
+  const open = () => setIsShown(true);
+  React.useImperativeHandle(ref, () => ({
+    open
+  }));
+
+  const onImportData = useCallback(() => {
+    if (files.length !== 1) return;
+    const file = files[0];
+    if (!project) return;
+    api
+      .importProject(project.id, file)
+      .then(() => {
+        setIsShown(false);
+      })
+      .catch((error) => {
+        console.error('Error during import:', error);
+      });
+  }, [files, project, api]);
+
+  return (
+    <>
+      <Dialog
+        isShown={isShown}
+        title="Import Data"
+        onCloseComplete={() => setIsShown(false)}
+        confirmLabel="Import"
+        onConfirm={onImportData}
+        hasCancel={false}
+      >
+        <Paragraph marginBottom={majorScale(4)}>
+          Importing an existing <strong>.quanda </strong> file to add all items to this project. This will not overwrite
+          any existing items. Items that already exist (matched by the ID) will be skipped.
+        </Paragraph>
+        <Pane maxWidth={654}>
+          <FileUploader
+            label="Upload File"
+            description="You can upload 1 file. File can be up to 50 MB."
+            maxSizeInBytes={50 * 1024 ** 2}
+            maxFiles={1}
+            onChange={handleChange}
+            onRejected={handleRejected}
+            renderFile={(file) => {
+              const { name, size, type } = file;
+              const fileRejection = fileRejections.find((fileRejection) => fileRejection.file === file);
+              const { message } = fileRejection || {};
+              return (
+                <FileCard
+                  key={name}
+                  isInvalid={fileRejection != null}
+                  name={name}
+                  onRemove={handleRemove}
+                  sizeInBytes={size}
+                  type={type}
+                  validationMessage={message}
+                />
+              );
+            }}
+            values={files}
+          />
+        </Pane>
       </Dialog>
     </>
   );
@@ -211,6 +368,8 @@ function AuthenticatedApp() {
   const project = useSelector(selectCurrentProject);
   const projectManagerRef = React.useRef<ProjectManagerRef>(null);
   const tagManagerRef = React.useRef<TagManagerRef>(null);
+  const exportManagerRef = React.useRef<ExportManagerRef>(null);
+  const importManagerRef = React.useRef<ImportManagerRef>(null);
 
   useEffect(() => {
     getAccessTokenSilently().then((accessToken) => {
@@ -239,6 +398,23 @@ function AuthenticatedApp() {
       <Header
         links={[
           {
+            name: 'Data',
+            icon: DatabaseIcon,
+            onClick: () => null,
+            subHeadings: [
+              {
+                name: 'Import Data',
+                icon: ImportIcon,
+                onClick: () => importManagerRef.current?.open()
+              },
+              {
+                name: 'Export Data',
+                icon: ExportIcon,
+                onClick: () => exportManagerRef.current?.open()
+              }
+            ]
+          },
+          {
             name: 'Tags',
             icon: TagIcon,
             disabled: !project,
@@ -257,6 +433,8 @@ function AuthenticatedApp() {
         ]}
       />
 
+      <ImportManager ref={importManagerRef} />
+      <ExportManager ref={exportManagerRef} />
       <ProjectManager ref={projectManagerRef} />
       <TagManager ref={tagManagerRef} />
       {!project && (

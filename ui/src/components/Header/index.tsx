@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pane, Strong, Icon, IconComponent } from 'evergreen-ui';
+import { Pane, Strong, Icon, IconComponent, Popover, Menu, Position } from 'evergreen-ui';
 import theme from '../../theme';
 
 type HeaderLink = {
@@ -7,6 +7,7 @@ type HeaderLink = {
   icon: IconComponent;
   disabled?: boolean;
   onClick: () => unknown;
+  subHeadings?: HeaderLink[];
 };
 
 interface HeaderProps {
@@ -14,6 +15,62 @@ interface HeaderProps {
 }
 
 export function Header({ links }: HeaderProps) {
+  const _links: React.ReactNode[] = [];
+  links.forEach((link) => {
+    if (!link.subHeadings) {
+      _links.push(
+        <Pane
+          display="flex"
+          flexDirection="row"
+          alignItems="center"
+          marginLeft={32}
+          key={link.name}
+          cursor="pointer"
+          userSelect="none"
+          pointerEvents={link.disabled ? 'none' : 'auto'}
+          opacity={link.disabled ? 0.5 : 1}
+          onClick={link.onClick}
+        >
+          <Icon icon={link.icon} color={theme.colors.background} size={16} marginRight={8} />
+          <Strong color={theme.colors.background}>{link.name}</Strong>
+        </Pane>
+      );
+    } else {
+      _links.push(
+        <Popover
+          position={Position.BOTTOM_RIGHT}
+          content={
+            <Menu>
+              <Menu.Group>
+                {link.subHeadings?.map((subHeading) => (
+                  <Menu.Item key={subHeading.name} icon={subHeading.icon} onSelect={subHeading.onClick}>
+                    {subHeading.name}
+                  </Menu.Item>
+                ))}
+              </Menu.Group>
+            </Menu>
+          }
+        >
+          <Pane
+            display="flex"
+            flexDirection="row"
+            alignItems="center"
+            marginLeft={32}
+            key={link.name}
+            cursor="pointer"
+            userSelect="none"
+            pointerEvents={link.disabled ? 'none' : 'auto'}
+            opacity={link.disabled ? 0.5 : 1}
+            onClick={link.onClick}
+          >
+            <Icon icon={link.icon} color={theme.colors.background} size={16} marginRight={8} />
+            <Strong color={theme.colors.background}>{link.name}</Strong>
+          </Pane>
+        </Popover>
+      );
+    }
+  });
+
   return (
     <Pane
       width="100%"
@@ -31,23 +88,7 @@ export function Header({ links }: HeaderProps) {
         </Strong>
       </Pane>
       <Pane display="flex" flexDirection="row" backgroundColor={theme.colors.tint6} height={48} paddingRight={16}>
-        {links.map((link) => (
-          <Pane
-            display="flex"
-            flexDirection="row"
-            alignItems="center"
-            marginLeft={32}
-            key={link.name}
-            cursor="pointer"
-            userSelect="none"
-            pointerEvents={link.disabled ? 'none' : 'auto'}
-            opacity={link.disabled ? 0.5 : 1}
-            onClick={link.onClick}
-          >
-            <Icon icon={link.icon} color={theme.colors.background} size={16} marginRight={8} />
-            <Strong color={theme.colors.background}>{link.name}</Strong>
-          </Pane>
-        ))}
+        {_links}
       </Pane>
     </Pane>
   );

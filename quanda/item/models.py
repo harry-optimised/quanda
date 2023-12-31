@@ -1,6 +1,8 @@
 from django.db import models
+from rest_framework import serializers
 from guardian.shortcuts import get_perms
-    
+
+
 class Project(models.Model):
     """Project Model."""
 
@@ -91,7 +93,60 @@ class ItemRelation(models.Model):
     )
 
 
+# Import/Export
+###############
+    
+class ExportTagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = '__all__'
+
+class ExportItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Item
+        fields = '__all__'
+
+def export_project(project: Project) -> dict:
+    """Export a list of items and tags to a dict."""
+
+    items = Item.objects.filter(project=project)
+    tags = Tag.objects.filter(project=project)
+
+    return {
+        'items': ExportItemSerializer(items, many=True).data,
+        'tags': ExportTagSerializer(tags, many=True).data,
+    }
+
+def import_project(project: Project, data: dict):
+    """Import a list of items and tags from a dict."""
+
+    items = data['items']
+    tags = data['tags']
+
+    # for t in tags:
+    #     t['project'] = project
+        
+    #     if Tag.objects.get(pk=t['id']) is not None:
+    #         continue
+        
+    #     t.pop('id')
+    #     Tag.objects.create(**t)
+
+    # for i in items:
+    #     i['project'] = project
+
+    #     if Item.objects.get(pk=i['id']) is not None:
+    #         item = Item.objects.create(**i)
+
+    #     if created:
+    #         continue
+
+    #     item.tags.set([Tag.objects.get(pk=t['id']) for t in i['tags']])
+    #     item.save()
+
+
 # Guardian Optimisations
+########################
 
 from guardian.models import UserObjectPermissionBase
 from guardian.models import GroupObjectPermissionBase
