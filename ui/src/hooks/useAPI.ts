@@ -1,7 +1,6 @@
 import { DjangoBlobResponse, Item, Project, SetLink, Tag } from '../types';
 import { useSelector } from 'react-redux';
 import { selectToken } from '../state/profile';
-import { type } from 'os';
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
