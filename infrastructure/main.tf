@@ -13,6 +13,14 @@ terraform {
   }
 }
 
+variable "DB_USERNAME" {
+  type = string
+}
+
+variable "DB_PASSWORD" {
+  type = string
+}
+
 resource "aws_security_group" "dragon_road_access" {
   name        = "dragon_road_access"
   description = "Allow SSH inbound traffic from home IP address"
@@ -81,4 +89,14 @@ resource "aws_route53_record" "api_record" {
   type    = "A"
   ttl     = "300"
   records = [aws_eip.server_eip.public_ip]
+}
+
+resource "aws_db_instance" "quanda_db" {
+  allocated_storage = 10
+  engine = "postgres"
+  identifier = "quanda-db"
+  instance_class = "db.t3.micro"
+  username = var.DB_USERNAME
+  password = var.DB_PASSWORD
+  skip_final_snapshot = true
 }
