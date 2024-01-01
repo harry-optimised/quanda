@@ -120,29 +120,45 @@ def export_project(project: Project) -> dict:
 def import_project(project: Project, data: dict):
     """Import a list of items and tags from a dict."""
 
-    items = data['items']
-    tags = data['tags']
+    tags = {}
+    _tags = data['tags']
 
-    # for t in tags:
-    #     t['project'] = project
+    for _tag in _tags:
         
-    #     if Tag.objects.get(pk=t['id']) is not None:
-    #         continue
+        _t_id = _tag.pop('id', None)
+        _tag['project'] = project
+    
+        tag_objects = Tag.objects.filter(name=_tag['name'].lower(), project=project)
+
+        if tag_objects.exists():
+            tag = tag_objects.first()
+        else:
+            tag = Tag.objects.create(**_tag)
         
-    #     t.pop('id')
-    #     Tag.objects.create(**t)
+        tags[_t_id] = tag
 
-    # for i in items:
-    #     i['project'] = project
 
-    #     if Item.objects.get(pk=i['id']) is not None:
-    #         item = Item.objects.create(**i)
+    _items = data['items']
 
-    #     if created:
-    #         continue
+    for _item in _items:
 
-    #     item.tags.set([Tag.objects.get(pk=t['id']) for t in i['tags']])
-    #     item.save()
+        _item.pop('id', None)
+        _item.pop('evidence', None)
+        _item.pop('links', None)
+        _i_tags = _item.pop('tags', None)
+        _item['project'] = project
+
+        item_objects = Item.objects.filter(primary=_item['primary'], project=project)
+        
+        if item_objects.exists():
+            item = item_objects.first()
+        else:
+            item = Item.objects.create(**_item)  
+
+      
+        _i_tag_set = [tags[t] for t in _i_tags]
+        item.tags.set(_i_tag_set)
+        item.save()
 
 
 # Guardian Optimisations

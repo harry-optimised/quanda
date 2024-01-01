@@ -20,7 +20,7 @@ const projects = createSlice({
     setProjects(state, action: PayloadAction<Project[]>) {
       state.projects = action.payload;
     },
-    setCurrentProject(state, action: PayloadAction<Project>) {
+    setCurrentProject(state, action: PayloadAction<Project | null>) {
       state.currentProject = action.payload;
     }
   }

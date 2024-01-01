@@ -1,7 +1,8 @@
 import React, { useCallback } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useAPI } from '../../hooks';
-import { selectCurrentProject } from '../../state/projects';
+import { AppDispatch } from '../../state/store';
+import { selectCurrentProject, setCurrentProject } from '../../state/projects';
 import { Dialog, FileCard, FileUploader, majorScale, Pane, Paragraph, FileRejection } from 'evergreen-ui';
 
 export interface ImportManagerRef {
@@ -11,6 +12,7 @@ export interface ImportManagerRef {
 const ImportManager = React.forwardRef<ImportManagerRef>((props, ref) => {
   const [isShown, setIsShown] = React.useState(false);
   const project = useSelector(selectCurrentProject);
+  const dispatch = useDispatch<AppDispatch>();
   const [files, setFiles] = React.useState<File[]>([]);
   const [fileRejections, setFileRejections] = React.useState<FileRejection[]>([]);
 
@@ -39,6 +41,11 @@ const ImportManager = React.forwardRef<ImportManagerRef>((props, ref) => {
     api
       .importProject(project.id, file)
       .then(() => {
+        // Trigger a refresh by toggling project.
+        dispatch(setCurrentProject(null));
+        setTimeout(() => {
+          dispatch(setCurrentProject(project));
+        }, 200);
         setIsShown(false);
       })
       .catch((error) => {
