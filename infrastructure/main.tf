@@ -13,6 +13,10 @@ terraform {
   }
 }
 
+variable "DB_NAME" {
+  type = string
+}
+
 variable "DB_USERNAME" {
   type = string
 }
@@ -54,13 +58,32 @@ resource "aws_security_group" "dragon_road_access" {
   }
 }
 
+resource "aws_security_group" "quanda_db_access" {
+  name        = "quanda_db_access"
+  description = "Allow traffic from server to the PostgreSQL database"
+
+  ingress {
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    self        = true
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
 resource "aws_instance" "server" {
   ami           = "ami-0cfd0973db26b893b"
   instance_type = "t2.small"
 
   key_name = aws_key_pair.quanda_key.key_name
 
-  security_groups = [aws_security_group.dragon_road_access.name]
+  vpc_security_group_ids = [aws_security_group.dragon_road_access.id, aws_security_group.quanda_db_access.id]
 
   user_data = <<-EOF
               #!/bin/bash           
@@ -70,6 +93,15 @@ resource "aws_instance" "server" {
               sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
               sudo chmod +x /usr/local/bin/docker-compose
               EOF
+}
+
+resource "aws_instance" "debug" {
+  ami           = "ami-0e5f882be1900e43b"
+  instance_type = "t2.micro"
+
+  key_name = aws_key_pair.quanda_key.key_name
+
+  vpc_security_group_ids = [aws_security_group.dragon_road_access.id, aws_security_group.quanda_db_access.id]
 }
 
 resource "aws_key_pair" "quanda_key" {
@@ -94,9 +126,12 @@ resource "aws_route53_record" "api_record" {
 resource "aws_db_instance" "quanda_db" {
   allocated_storage = 10
   engine = "postgres"
+  db_name= var.DB_NAME
   identifier = "quanda-db"
+  storage_encrypted = true
   instance_class = "db.t3.micro"
   username = var.DB_USERNAME
   password = var.DB_PASSWORD
   skip_final_snapshot = true
+  vpc_security_group_ids = [aws_security_group.quanda_db_access.id]
 }

@@ -78,12 +78,12 @@ WSGI_APPLICATION = "quanda.wsgi.application"
 
 DATABASES = {
     'default': {
-        "ENGINE": getenv("SQL_ENGINE", "django.db.backends.sqlite3"),
-        "NAME": getenv("SQL_DATABASE", BASE_DIR / "db.sqlite3"),
-        "USER": getenv("SQL_USER", "user"),
-        "PASSWORD": getenv("SQL_PASSWORD", "password"),
-        "HOST": getenv("SQL_HOST", "localhost"),
-        "PORT": getenv("SQL_PORT", "5432"),
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": getenv("DB_NAME"),
+        "USER": getenv("DB_USER"),
+        "PASSWORD": getenv("DB_PASSWORD"),
+        "HOST": getenv("DB_HOST"),
+        "PORT": getenv("DB_PORT"),
     }
 }
 

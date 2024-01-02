@@ -75,10 +75,21 @@ function AuthenticatedApp() {
       <Header
         links={[
           {
-            name: 'Data',
-            icon: DatabaseIcon,
+            name: 'Tags',
+            icon: TagIcon,
+            disabled: !project,
+            onClick: () => tagManagerRef.current?.open()
+          },
+          {
+            name: 'Project',
+            icon: ProjectsIcon,
             onClick: () => null,
             subHeadings: [
+              {
+                name: 'Change Project',
+                icon: ProjectsIcon,
+                onClick: () => projectManagerRef.current?.open()
+              },
               {
                 name: 'Import Data',
                 icon: ImportIcon,
@@ -92,21 +103,16 @@ function AuthenticatedApp() {
             ]
           },
           {
-            name: 'Tags',
-            icon: TagIcon,
-            disabled: !project,
-            onClick: () => tagManagerRef.current?.open()
-          },
-          {
-            name: project ? project.name : 'No Project',
-            icon: ProjectsIcon,
-            onClick: () => projectManagerRef.current?.open()
-          },
-          {
-            name: username ?? 'Unknown',
+            name: 'Account',
             icon: PersonIcon,
             onClick: () => null,
             subHeadings: [
+              {
+                name: username ?? 'Unknown',
+                icon: PersonIcon,
+                disabled: true,
+                onClick: () => null
+              },
               {
                 name: 'Logout',
                 icon: LogOutIcon,

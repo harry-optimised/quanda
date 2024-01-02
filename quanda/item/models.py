@@ -96,6 +96,8 @@ class ItemRelation(models.Model):
 # Import/Export
 ###############
     
+API_VERSION = '0.1'
+    
 class ExportTagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
@@ -113,12 +115,27 @@ def export_project(project: Project) -> dict:
     tags = Tag.objects.filter(project=project)
 
     return {
+        'meta': {
+            'name': project.name,
+            'description': project.description,
+            'api_version': API_VERSION
+        },
         'items': ExportItemSerializer(items, many=True).data,
         'tags': ExportTagSerializer(tags, many=True).data,
     }
 
 def import_project(project: Project, data: dict):
     """Import a list of items and tags from a dict."""
+
+    # Meta
+    ######
+
+    if data['meta']['api_version'] != API_VERSION:
+        raise Exception('API version mismatch.')
+    
+
+    # Tags
+    ######
 
     tags = {}
     _tags = data['tags']
@@ -137,6 +154,9 @@ def import_project(project: Project, data: dict):
         
         tags[_t_id] = tag
 
+
+    # Items
+    #######
 
     _items = data['items']
 

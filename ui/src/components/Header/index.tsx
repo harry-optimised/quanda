@@ -43,7 +43,14 @@ export function Header({ links }: HeaderProps) {
             <Menu>
               <Menu.Group>
                 {link.subHeadings?.map((subHeading) => (
-                  <Menu.Item key={subHeading.name} icon={subHeading.icon} onSelect={subHeading.onClick}>
+                  <Menu.Item
+                    userSelect="none"
+                    key={subHeading.name}
+                    icon={subHeading.icon}
+                    onSelect={subHeading.onClick}
+                    disabled={subHeading.disabled}
+                    cursor={subHeading.disabled ? null : 'pointer'}
+                  >
                     {subHeading.name}
                   </Menu.Item>
                 ))}
