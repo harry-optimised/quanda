@@ -8,4 +8,5 @@ router.register(r'entries', views.EntryViewSet, basename='entry')
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('report/', views.generate_report, name='report'),
 ]

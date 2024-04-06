@@ -185,6 +185,15 @@ const useAPI = () => {
     return;
   };
 
+  // Report API
+  // ##########
+
+  const generateReport = async (): Promise<null> => {
+    const response = await callAPI('report/');
+    if (!response) return null;
+    return null;
+  };
+
   return {
     createEntry,
     updateEntry,
@@ -196,7 +205,8 @@ const useAPI = () => {
     deleteThought,
     createTag,
     listTags,
-    deleteTag
+    deleteTag,
+    generateReport
   };
 };
 

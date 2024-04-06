@@ -28,7 +28,7 @@ class Command(BaseCommand):
         )
 
         self.stdout.write(self.style.HTTP_INFO("Creating entry 1..."))
-        entry_1 = Entry.objects.create(date="2021-01-01")
+        entry_1, _ = Entry.objects.get_or_create(date="2021-01-01")
         item_1, _ = Thought.objects.get_or_create(
             content="I think we should use React Native for the mobile app.",
             entry=entry_1,
@@ -48,7 +48,7 @@ class Command(BaseCommand):
         item_3.tags.set([tag_sleep])
 
         self.stdout.write(self.style.HTTP_INFO("Creating entry 2..."))
-        entry_2 = Entry.objects.create(date="2021-01-02")
+        entry_2, _ = Entry.objects.get_or_create(date="2021-01-02")
         item_4, _ = Thought.objects.get_or_create(
             content="I'm going to try going to bed earlier each night this week.",
             entry=entry_2,

@@ -25,11 +25,13 @@ class Auth0Authentication(authentication.BaseAuthentication):
 
         if created:
             
+            # TODO: If user has no email, reject.
             endpoint = settings.SIMPLE_JWT.get('USER_INFO_ENDPOINT', None)
             user_info = requests.get(endpoint, headers={'Authorization': header}).json()
 
             if email := user_info.get('email', None):
                 user.username = email
+                user.email = email
                 user.save()
 
         return (user, validated_token)

@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from os import getenv
 from pathlib import Path
+import sentry_sdk
+from openai import OpenAI
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -224,3 +226,26 @@ LOGGING = {
         },
     }, 
 }
+
+# Sentry
+
+sentry_sdk.init(
+    dsn="https://f89e9eab93a47612114118cb9b2be922@o382306.ingest.us.sentry.io/4507040255180800",
+    traces_sample_rate=1.0,
+    profiles_sample_rate=1.0,
+)
+
+
+# Email
+
+EMAIL_BACKEND = 'django_ses.SESBackend'
+AWS_ACCESS_KEY_ID = getenv('QUANDA_AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = getenv('QUANDA_AWS_SECRET_ACCESS_KEY')
+AWS_SES_REGION_NAME = 'eu-west-2'
+AWS_SES_REGION_ENDPOINT = 'email.eu-west-2.amazonaws.com'
+DEFAULT_FROM_EMAIL = 'report@quanda.ai'
+
+
+# OpenAI
+OPENAI_KEY = getenv('OPENAI_KEY')
+OPENAI_CLIENT = OpenAI(api_key=OPENAI_KEY)

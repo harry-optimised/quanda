@@ -1,7 +1,7 @@
 import './App.css';
 import React, { useEffect } from 'react';
 import theme from './theme';
-import { Button, LogOutIcon, PersonIcon, TagIcon, ThemeProvider } from 'evergreen-ui';
+import { Button, DocumentIcon, LogOutIcon, PersonIcon, TagIcon, ThemeProvider, toaster } from 'evergreen-ui';
 
 //TODO: Do some of that sweet sweet bundle splitting.
 import { Pane } from 'evergreen-ui';
@@ -19,8 +19,10 @@ import { LoadingScreen } from './components/LoadingScreen';
 
 // Fragments
 import TagManager, { TagManagerRef } from './fragments/TagManager/TagManagerRef';
+import { useAPI } from './hooks';
 
 function AuthenticatedApp() {
+  const api = useAPI();
   const dispatch = useDispatch<AppDispatch>();
   const { getAccessTokenSilently, logout } = useAuth0();
   const token = useSelector(selectToken);
@@ -45,12 +47,28 @@ function AuthenticatedApp() {
     });
   }, []);
 
+  const handleSendReport = () => {
+    api
+      .generateReport()
+      .then(() => {
+        toaster.success('Report sent!');
+      })
+      .catch(() => {
+        toaster.danger('Failed to send report');
+      });
+  };
+
   if (!token) return <LoadingScreen />;
 
   return (
     <>
       <Header
         links={[
+          {
+            name: 'Send Report',
+            icon: DocumentIcon,
+            onClick: () => handleSendReport()
+          },
           {
             name: 'Tags',
             icon: TagIcon,

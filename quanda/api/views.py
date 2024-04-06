@@ -4,6 +4,13 @@ from rest_framework import viewsets, filters
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status
+from django.utils.timezone import now
+from django.db.models import Prefetch
+from datetime import timedelta
+from django.conf import settings
+from django.core.mail import send_mail
+from rest_framework.decorators import api_view
+from rest_framework.decorators import permission_classes
 from guardian.shortcuts import assign_perm, get_objects_for_user
 from django.contrib.postgres.search import SearchVector
 from django.shortcuts import get_object_or_404
@@ -15,6 +22,58 @@ from thought.models import Thought, Tag, Entry
 from api.serializers import TagSerializer, ThoughtSerializer, EntrySerializer
 
 logger = getLogger(__name__)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def generate_report(request):
+
+    seven_days_ago = now() - timedelta(days=7)
+    entries = get_objects_for_user(request.user, 'view_entry', klass=Entry).filter(date__lte=seven_days_ago).prefetch_related(
+        Prefetch('thought_set', queryset=Thought.objects.select_related('entry').prefetch_related('tags'))
+    )
+    # Organize thoughts by tag
+    thoughts_by_tag = {}
+    for entry in entries:
+        for thought in entry.thought_set.all():
+            for tag in thought.tags.all():
+                if tag.name not in thoughts_by_tag:
+                    thoughts_by_tag[tag.name] = []
+                thoughts_by_tag[tag.name].append(thought.content)
+
+    # Generate report as string.
+    raw_report = ""
+    for tag, thoughts in thoughts_by_tag.items():
+        raw_report += f"Tag: {tag}\n"
+        for thought in thoughts:
+            raw_report += f"  - {thought}\n"
+        raw_report += "\n"
+
+    if raw_report == "":
+        return Response({'message': 'No thoughts found in the last 7 days.'})
+
+    response = settings.OPENAI_CLIENT.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a pscyhologist analysing the user's diary entries. The user will give you a dump of text containing diary entries organised by tag. You should analyse the text and write a short report with one paragraph for each tag. THe intent is to draw the users attention towards common patterns in their thinking."},
+            {"role": "user", "content": raw_report},
+        ]
+    )
+    report = response.choices[0].message.content
+
+    if not report:
+        return Response({'message': 'Report generation failed.'})
+
+    send_mail(
+        'Your Weekly Thoughts Report',
+        report,
+        from_email='report@quanda.ai',
+        recipient_list=[request.user.email],
+        fail_silently=False,
+    )
+
+    return Response({'message': 'Report generated successfully!'})
+
 
 class CustomPageNumberPagination(PageNumberPagination):
     page_size = 12
@@ -106,3 +165,4 @@ class EntryViewSet(viewsets.ModelViewSet):
         thought.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
+
