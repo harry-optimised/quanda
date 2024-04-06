@@ -39,7 +39,7 @@ function BrowseableItem({ entry, selected, onSelect }: BrowseableItemProps) {
         </Pane>
       )} */}
       <Strong color={theme.colors.tint6} textAlign="left">
-        {entry.id}
+        {entry.date}
       </Strong>
       {/* <Text color={theme.colors.tint6} textAlign="left">
         {secondary}

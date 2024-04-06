@@ -2,7 +2,9 @@ import { Thought, Tag, Entry } from '../types';
 import { useSelector } from 'react-redux';
 import { selectToken } from '../state/profile';
 
-const API_BASE_URL = 'http://localhost:8000/api'; //process.env.REACT_APP_API_BASE_URL;
+// Set based on domain. For local development, use 'http://localhost:8000/api'
+const API_BASE_URL =
+  window.location.origin === 'http://localhost:3000' ? 'http://localhost:8000/api' : 'https://api.quanda.ai/api';
 
 type Entity = Thought | Tag | Entry;
 
@@ -58,7 +60,7 @@ const useAPI = () => {
   // ###########
 
   interface CreateEntry {
-    entry: Entry;
+    entry: Omit<Entry, 'id'>;
   }
 
   const createEntry = async ({ entry }: CreateEntry): Promise<Entry | null> => {

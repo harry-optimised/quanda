@@ -7,6 +7,7 @@ export type Thought = {
 
 export type Entry = {
   id: string;
+  date: string;
   thoughts: Thought[];
 };
 

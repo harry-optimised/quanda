@@ -3,7 +3,8 @@ module.exports = {
   extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
   rules: {
     'max-len': ['error', { code: 120 }], // This is for setting max line length to 80 characters
-    '@typescript-eslint/semi': ['error', 'always'] // Enforce semicolons
+    '@typescript-eslint/semi': ['error', 'always'], // Enforce semicolons
+    '@typescript-eslint/no-namespace': 'off' // Allow namespaces
   },
   env: {
     browser: true,

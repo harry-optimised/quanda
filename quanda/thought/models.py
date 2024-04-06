@@ -35,12 +35,10 @@ class Thought(models.Model):
 
 class Entry(models.Model):
     """Entry Model, using date as primary key."""
-    id = models.DateField(primary_key=True)
 
+    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def save(self, *args, **kwargs):
-        if isinstance(self.id, datetime.date):
-            self.id = self.id.isoformat()
-        super().save(*args, **kwargs)
+    date = models.DateField()
+

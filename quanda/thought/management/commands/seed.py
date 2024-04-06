@@ -15,13 +15,6 @@ class Command(BaseCommand):
         user_admin.is_staff = True
         user_admin.save()
 
-        user_personal, _ = User.objects.get_or_create(sub='google-oauth2|106315701179260082674')
-        user_personal.set_password('')
-        user_personal.email = "henry.j.turner@gmail.com"
-        user_personal.is_superuser = False
-        user_personal.is_staff = False
-        user_personal.save()
-
         self.stdout.write(self.style.HTTP_INFO("Creating Tags..."))
         tag_sleep, _ = Tag.objects.get_or_create(
             name="sleep", 
@@ -34,9 +27,8 @@ class Command(BaseCommand):
             colour="rgb(181,157,164)"
         )
 
-
         self.stdout.write(self.style.HTTP_INFO("Creating entry 1..."))
-        entry_1 = Entry.objects.create(id="2021-01-01")
+        entry_1 = Entry.objects.create(date="2021-01-01")
         item_1, _ = Thought.objects.get_or_create(
             content="I think we should use React Native for the mobile app.",
             entry=entry_1,
@@ -56,7 +48,7 @@ class Command(BaseCommand):
         item_3.tags.set([tag_sleep])
 
         self.stdout.write(self.style.HTTP_INFO("Creating entry 2..."))
-        entry_2 = Entry.objects.create(id="2021-01-02")
+        entry_2 = Entry.objects.create(date="2021-01-02")
         item_4, _ = Thought.objects.get_or_create(
             content="I'm going to try going to bed earlier each night this week.",
             entry=entry_2,

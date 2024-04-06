@@ -102,7 +102,7 @@ function Navigator() {
       .createEntry({
         entry: {
           thoughts: [],
-          id: new Date().toISOString().split('T')[0]
+          date: new Date().toISOString().split('T')[0]
         }
       })
       .then((item) => {
@@ -123,8 +123,8 @@ function Navigator() {
         userSelect="none"
         style={{
           width: '100%',
-          padding: 32,
-          paddingBottom: 32
+          padding: 8,
+          paddingBottom: 8
         }}
       >
         <SearchInput
@@ -134,7 +134,7 @@ function Navigator() {
           ref={searchBoxRef}
           onChange={onSearchChange}
           value={searchTerm}
-          style={{ borderRadius: 32 }}
+          style={{ borderRadius: 4 }}
         />
       </Pane>
       <Pane
@@ -143,8 +143,8 @@ function Navigator() {
         className="browseBodyNoScrollbar"
         style={{
           width: '100%',
-          paddingLeft: 32,
-          paddingRight: 32,
+          paddingLeft: 8,
+          paddingRight: 8,
           height: 'calc(100% - 64px - 140px)'
         }}
       >

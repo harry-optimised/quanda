@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Dialog, Button, TrashIcon, Paragraph, Strong } from 'evergreen-ui';
+import { Dialog, Button, TrashIcon, Paragraph, Strong, Icon } from 'evergreen-ui';
+import theme from '../../theme';
 
 interface DeleteButtonProps {
   onDelete: () => void;
@@ -25,9 +26,7 @@ const DeleteButton: React.FC<DeleteButtonProps> = ({ onDelete, primary }) => {
         </Paragraph>
         <Strong>{primary}</Strong>
       </Dialog>
-      <Button appearance="primary" iconBefore={TrashIcon} onClick={() => setIsShown(true)}>
-        Delete Item
-      </Button>
+      <Icon icon={TrashIcon} onClick={() => setIsShown(true)} color={theme.colors.tint5} />
     </>
   );
 };

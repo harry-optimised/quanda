@@ -50,12 +50,12 @@ const PrimaryField: React.FC<PrimaryFieldProps> = ({ onSave: parentOnSave, prima
       onMouseLeave={() => setHover(false)}
       style={{ display: 'flex', alignItems: 'center' }}
     >
-      <Heading size={800} color={theme.colors.tint6}>
+      <Heading size={600} color={theme.colors.tint6}>
         {primary}
       </Heading>
       <Icon
         icon={EditIcon}
-        size={24}
+        size={16}
         style={{
           marginLeft: 16,
           transition: 'color 0.1s ease-in-out',
@@ -67,7 +67,7 @@ const PrimaryField: React.FC<PrimaryFieldProps> = ({ onSave: parentOnSave, prima
           marginLeft: 8,
           cursor: 'pointer',
           transition: 'color 0.1s ease-in-out',
-          color: hover ? theme.colors.tint5 : theme.colors.background
+          color: hover ? theme.colors.tint5 : theme.colors.tint3
         }}
       >
         edit
@@ -80,8 +80,8 @@ const PrimaryField: React.FC<PrimaryFieldProps> = ({ onSave: parentOnSave, prima
       width="100%"
       ref={inputRef}
       value={editablePrimary}
-      fontSize={32}
-      fontWeight={900}
+      fontSize={16}
+      fontWeight={600}
       color={theme.colors.tint6}
       onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChangePrimary(e.target.value)}
       onBlur={onSave}

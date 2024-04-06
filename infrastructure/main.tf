@@ -17,7 +17,7 @@ variable "DB_NAME" {
   type = string
 }
 
-variable "DB_USERNAME" {
+variable "DB_USER" {
   type = string
 }
 
@@ -79,7 +79,7 @@ resource "aws_security_group" "quanda_db_access" {
 
 resource "aws_instance" "server" {
   ami           = "ami-0cfd0973db26b893b"
-  instance_type = "t2.small"
+  instance_type = "t2.micro"
 
   key_name = aws_key_pair.quanda_key.key_name
 
@@ -93,15 +93,6 @@ resource "aws_instance" "server" {
               sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
               sudo chmod +x /usr/local/bin/docker-compose
               EOF
-}
-
-resource "aws_instance" "debug" {
-  ami           = "ami-0e5f882be1900e43b"
-  instance_type = "t2.micro"
-
-  key_name = aws_key_pair.quanda_key.key_name
-
-  vpc_security_group_ids = [aws_security_group.dragon_road_access.id, aws_security_group.quanda_db_access.id]
 }
 
 resource "aws_key_pair" "quanda_key" {
@@ -130,7 +121,7 @@ resource "aws_db_instance" "quanda_db" {
   identifier = "quanda-db"
   storage_encrypted = true
   instance_class = "db.t3.micro"
-  username = var.DB_USERNAME
+  username = var.DB_USER
   password = var.DB_PASSWORD
   skip_final_snapshot = true
   vpc_security_group_ids = [aws_security_group.quanda_db_access.id]
