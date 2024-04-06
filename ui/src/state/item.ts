@@ -1,24 +1,24 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { Item } from '../types';
+import { Entry } from '../types';
 
-type ItemState = {
-  item: Item | null;
+type EntryState = {
+  entry: Entry | null;
 };
 
-const initialState: ItemState = {
-  item: null
+const initialState: EntryState = {
+  entry: null
 };
 
-const itemSlice = createSlice({
-  name: 'items',
+const entrySlice = createSlice({
+  name: 'entries',
   initialState,
   reducers: {
-    setItem: (state, action: PayloadAction<ItemState>) => {
-      state.item = action.payload.item;
+    setEntry: (state, action: PayloadAction<EntryState>) => {
+      state.entry = action.payload.entry;
     }
   }
 });
 
-export const { setItem } = itemSlice.actions;
-export default itemSlice;
+export const { setEntry } = entrySlice.actions;
+export default entrySlice;

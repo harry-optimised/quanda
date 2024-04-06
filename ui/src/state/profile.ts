@@ -11,7 +11,7 @@ const initialState: ProfileState = {
 };
 
 const itemSlice = createSlice({
-  name: 'items',
+  name: 'entries',
   initialState,
   reducers: {
     setToken: (state, action: PayloadAction<string>) => {

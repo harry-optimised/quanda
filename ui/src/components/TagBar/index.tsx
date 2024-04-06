@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux';
 import { selectTags } from '../../state/tagsSlice';
 
 interface TagBarProps {
-  tags: number[];
-  onSave: (tags: number[]) => void;
+  tags: string[];
+  onSave: (tags: string[]) => void;
   frozen?: boolean;
 }
 
@@ -29,7 +29,7 @@ const TagBar = React.forwardRef(({ tags, onSave, frozen }: TagBarProps, ref) => 
 
   const onChange = useCallback(
     (values: string[]) => {
-      const tagIds: number[] = [];
+      const tagIds: string[] = [];
       for (const value of values) {
         const tag = allTags.find((t) => t.name === value.toLowerCase());
         if (tag) {

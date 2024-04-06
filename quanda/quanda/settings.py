@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     'guardian',
     'user',
-    'item',
+    'thought',
     'api'
 ]
 

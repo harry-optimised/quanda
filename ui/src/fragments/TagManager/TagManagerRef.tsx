@@ -4,7 +4,6 @@ import { Pane } from 'evergreen-ui';
 import { AppDispatch } from '../../state/store';
 import { useSelector, useDispatch } from 'react-redux';
 import useAPI from '../../hooks/useAPI';
-import { selectCurrentProject } from '../../state/projects';
 import BrowseableTag from '../../components/BrowseableTag';
 import { hsvToRgb } from '../../colourConversionAlgorithms';
 import { selectTags, setTags } from '../../state/tagsSlice';
@@ -24,7 +23,6 @@ const TagManager = React.forwardRef<TagManagerRef>((props, ref) => {
   const [isShown, setIsShown] = React.useState(false);
   const [newTag, setNewTag] = React.useState<string>('');
   const [colour, setColour] = React.useState<string>(getRandomTagColour());
-  const project = useSelector(selectCurrentProject);
   const tags = useSelector(selectTags);
 
   const api = useAPI();
@@ -37,32 +35,28 @@ const TagManager = React.forwardRef<TagManagerRef>((props, ref) => {
   }));
 
   useEffect(() => {
-    if (!project) return;
-    api.listTags({ project: project.id }).then((tags) => {
+    api.listTags().then((tags) => {
       if (tags) dispatch(setTags(tags));
     });
-  }, [project]);
+  }, []);
 
   const onCreateTag = useCallback(() => {
     if (!newTag) return;
-    if (!project) return;
     setColour(getRandomTagColour());
     api
       .createTag({
         tag: {
           name: newTag.toLowerCase(),
           description: 'not used',
-          colour: colour,
-          project: project.id
-        },
-        project: project.id
+          colour: colour
+        }
       })
       .then((tag) => {
         setNewTag('');
         if (!tag) return;
         dispatch(setTags([...tags, tag]));
       });
-  }, [newTag, colour, project]);
+  }, [newTag, colour]);
 
   const newColour = useCallback(() => {
     setColour(getRandomTagColour());
@@ -82,7 +76,6 @@ const TagManager = React.forwardRef<TagManagerRef>((props, ref) => {
             key={tag.id}
             tag={tag}
             selected={false}
-            project={project}
             onSelect={() => {
               console.log(tag.name);
             }}

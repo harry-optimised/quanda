@@ -1,22 +1,21 @@
 import '../../App.css';
 import React, { useCallback, useEffect, useState } from 'react';
-import { Heading, SearchInput } from 'evergreen-ui';
+import { Button, Heading, NewObjectIcon, SearchInput } from 'evergreen-ui';
 
 import { Pane } from 'evergreen-ui';
 import { AppDispatch, selectItem } from '../../state/store';
-import { selectAllItems, setItems } from '../../state/navigator';
+import { selectAllItems, setEntries } from '../../state/navigator';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHotkeys } from 'react-hotkeys-hook';
 
-import BottomBar from '../../components/BottomBar';
-import { setItem } from '../../state/item';
+import { setEntry } from '../../state/item';
 import BrowseableItem from '../../components/BrowseableItem';
 
 // Utilities
 import { debounce } from 'lodash';
 import useAPI from '../../hooks/useAPI';
-import { selectCurrentProject } from '../../state/projects';
 import theme from '../../theme';
+import { on } from 'events';
 
 function Navigator() {
   const dispatch = useDispatch<AppDispatch>();
@@ -25,23 +24,21 @@ function Navigator() {
   const [searchTerm, setSearchTerm] = useState('');
   const searchBoxRef = React.useRef<HTMLInputElement>(null);
   const api = useAPI();
-  const project = useSelector(selectCurrentProject);
 
   const refreshNavigator = useCallback(
     ({ searchTerm }: { searchTerm?: string }) => {
-      if (!project) return;
-      api.listItems({ searchTerm, project: project.id }).then((items) => {
-        if (items) dispatch(setItems(items));
+      api.listEntries({ searchTerm }).then((items) => {
+        if (items) dispatch(setEntries(items));
       });
     },
-    [dispatch, project]
+    [dispatch]
   );
 
   //TODO: Get some more filter options in here!
   // TODO: Add confidence bars back in.
 
   // Load all items on mount.
-  useEffect(() => refreshNavigator({}), [project]);
+  useEffect(() => refreshNavigator({}), []);
 
   const debouncedRefreshItems = useCallback(
     debounce((searchTerm: string) => {
@@ -64,68 +61,57 @@ function Navigator() {
     [searchBoxRef]
   );
 
-  useHotkeys('down', (event) => {
-    event.preventDefault();
-    const currentIndex = items.findIndex((item) => item.id === activeItem?.id);
-    const nextIndex = currentIndex + 1;
-    if (nextIndex < items.length) {
-      const id = items[nextIndex].id;
-      if (!project) return;
-      api.retrieveItem({ id, project: project.id }).then((item) => {
-        // TODO: Can simplify setItem, since it's just a single item.
-        if (item) dispatch(setItem({ item }));
-      });
-    }
-  });
+  // useHotkeys('down', (event) => {
+  //   event.preventDefault();
+  //   const currentIndex = items.findIndex((item) => item.id === activeItem?.id);
+  //   const nextIndex = currentIndex + 1;
+  //   if (nextIndex < items.length) {
+  //     const id = items[nextIndex].id;
+  //     if (!project) return;
+  //     api.retrieveItem({ id, project: project.id }).then((item) => {
+  //       // TODO: Can simplify setItem, since it's just a single item.
+  //       if (item) dispatch(setItem({ item }));
+  //     });
+  //   }
+  // });
 
-  useHotkeys('up', (event) => {
-    event.preventDefault();
-    const currentIndex = items.findIndex((item) => item.id === activeItem?.id);
-    const nextIndex = currentIndex - 1;
-    if (nextIndex >= 0) {
-      const id = items[nextIndex].id;
-      if (!project) return;
-      api.retrieveItem({ id, project: project.id }).then((item) => {
-        if (item) dispatch(setItem({ item }));
-      });
-    }
-  });
+  // useHotkeys('up', (event) => {
+  //   event.preventDefault();
+  //   const currentIndex = items.findIndex((item) => item.id === activeItem?.id);
+  //   const nextIndex = currentIndex - 1;
+  //   if (nextIndex >= 0) {
+  //     const id = items[nextIndex].id;
+  //     if (!project) return;
+  //     api.retrieveItem({ id, project: project.id }).then((item) => {
+  //       if (item) dispatch(setItem({ item }));
+  //     });
+  //   }
+  // });
 
   const onItemSelect = useCallback(
-    (id: number) => {
-      if (!project) return;
-      api.retrieveItem({ id, project: project.id }).then((item) => {
-        if (item) dispatch(setItem({ item }));
+    (id: string) => {
+      api.retrieveEntry({ id }).then((item) => {
+        if (item) dispatch(setEntry({ entry: item }));
       });
     },
-    [dispatch, project]
+    [dispatch]
   );
 
-  const onAddItem = useCallback(
-    (primary: string) => {
-      if (!project) return;
-      api
-        .createItem({
-          item: {
-            primary: primary,
-            secondary: 'null',
-            confidence: 0,
-            tags: [],
-            evidence: [],
-            links: [],
-            project: project.id
-          },
-          project: project.id
-        })
-        .then((item) => {
-          if (item) {
-            dispatch(setItem({ item }));
-            refreshNavigator({});
-          }
-        });
-    },
-    [project]
-  );
+  const onAddEntry = useCallback(() => {
+    api
+      .createEntry({
+        entry: {
+          thoughts: [],
+          id: new Date().toISOString().split('T')[0]
+        }
+      })
+      .then((item) => {
+        if (item) {
+          dispatch(setEntry({ entry: item }));
+          refreshNavigator({});
+        }
+      });
+  }, []);
 
   return (
     <>
@@ -164,7 +150,7 @@ function Navigator() {
       >
         {items.map((item) => (
           <Pane key={item.id}>
-            <BrowseableItem item={item} selected={item.id === activeItem?.id} onSelect={onItemSelect} />
+            <BrowseableItem entry={item} selected={item.id === activeItem?.id} onSelect={onItemSelect} />
           </Pane>
         ))}
         {items.length === 0 && (
@@ -191,7 +177,9 @@ function Navigator() {
           backgroundColor: 'transparent'
         }}
       >
-        <BottomBar onSave={onAddItem} />
+        <Button marginTop={16} appearance="primary" iconBefore={NewObjectIcon} onClick={onAddEntry}>
+          Add Today's Entry
+        </Button>
       </Pane>
     </>
   );

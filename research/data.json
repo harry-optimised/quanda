@@ -1,0 +1,1349 @@
+{
+"metadata" : {
+  "version" : "1.0"
+},
+"entries" : [
+{
+  "uuid" : "B41674E46E0A52D3ABA79973E840D8DB",
+  "creationDevice" : "Desktop",
+  "isAllDay" : false,
+  "sourceString" : "visit-6C4D6490-8F16-4774-B484-66F4BCAEE539",
+  "creationOSVersion" : "6.5.0",
+  "creationOSName" : "Linux",
+  "creationDate" : "2024-02-17T20:21:57Z",
+  "modifiedDate" : "2024-02-17T20:27:13Z",
+  "creationDeviceModel" : "Google Chrome 119",
+  "text" : "Things need to compound.<br>\n\nWhat's DayOne for? I never end up using a journal, that's not compounding, what would be useful instead? Thought dumps of ideas?<br>\n\nAnd then obsidian is the curated, searchable knowledge store?<br>\n\nI used to tracking things I've done on a daily basis, that's compounding if I reuse and look at it, like troubleshooting nvidia issues. But I don't do that on a regular basis. Need strong rules for what gets stored and where, and what I don't bother storing.<br>\n\nAnki is for storing concepts that I learn through dedicated time learning. I've got two decks now, concepts and questions. I am trying to make the concepts one a fairly quick review style of card, that I actually keep up to date with, because my previous \"master\" deck was like.. several months behind. Something like 2000 cards in review. That means I'm not following the recommended Anki scheduler which defeats the whole point. Eitherway, Anki for learning and tracking concepts.\nI still have this feeling that some stuff I do at work should be documented so I can refer back to it again. I mean obviously the normal docs, but actually curated knowledge. Well that's just what obsidian is for right? Yes but I think I need a process for when to do this, because I'm not doing it at the moment but I feel there's a bunch of stuff I'm doing that would be good to put in there. Also I need to be clear on the difference between the use of obsidian and Anki. Anything I want to retain in memory and \"know\" should be Ankified, I suppose Obsidian is for searchable, knowledge.\n\n**Project Ideas**\nBeen thinking more project ideas. I like the idea of growing Harrys Projects into a suite of tools. Fun things I've created that might help people. So today I started work on a tool that builds a mealplan out of recipes from the roasting tin given a starting recipe. I would use that, I could do one shop and make like 5 meals from it, if it works. Came across \"buy me a coffee\" which I might start adding to these projects and see if I can get just a trickle of income. Another cool project idea is something to help Ankify concepts when reading on the web. Chrome plugin that lets you highlight sections as you read and fires them off to Quanda to generate notes during the first step. Then you organise, and AI helps you do it, even in the background whilst you're reading! Then you commit all to Anki after reviewing etc. Maybe you send snippet of text and AI adds possible questions.\n",
+  "userActivity" : {
+
+  },
+  "isPinned" : false,
+  "editingTime" : 0,
+  "duration" : 0,
+  "creationDeviceType" : "Web Browser",
+  "timeZone" : "Europe\/London",
+  "starred" : false,
+  "richText" : "{\"contents\":[{\"attributes\":{},\"text\":\"Things need to compound.\\n\"},{\"attributes\":{},\"text\":\"What's DayOne for? I never end up using a journal, that's not compounding, what would be useful instead? Thought dumps of ideas?\\n\"},{\"attributes\":{},\"text\":\"And then obsidian is the curated, searchable knowledge store?\\n\"},{\"attributes\":{},\"text\":\"I used to tracking things I've done on a daily basis, that's compounding if I reuse and look at it, like troubleshooting nvidia issues. But I don't do that on a regular basis. Need strong rules for what gets stored and where, and what I don't bother storing.\\n\"},{\"attributes\":{},\"text\":\"Anki is for storing concepts that I learn through dedicated time learning. I've got two decks now, concepts and questions. I am trying to make the concepts one a fairly quick review style of card, that I actually keep up to date with, because my previous \\\"master\\\" deck was like.. several months behind. Something like 2000 cards in review. That means I'm not following the recommended Anki scheduler which defeats the whole point. Eitherway, Anki for learning and tracking concepts.\\nI still have this feeling that some stuff I do at work should be documented so I can refer back to it again. I mean obviously the normal docs, but actually curated knowledge. Well that's just what obsidian is for right? Yes but I think I need a process for when to do this, because I'm not doing it at the moment but I feel there's a bunch of stuff I'm doing that would be good to put in there. Also I need to be clear on the difference between the use of obsidian and Anki. Anything I want to retain in memory and \\\"know\\\" should be Ankified, I suppose Obsidian is for searchable, knowledge.\\n\\n\"},{\"attributes\":{\"bold\":true},\"text\":\"Project Ideas\"},{\"attributes\":{},\"text\":\"\\nBeen thinking more project ideas. I like the idea of growing Harrys Projects into a suite of tools. Fun things I've created that might help people. So today I started work on a tool that builds a mealplan out of recipes from the roasting tin given a starting recipe. I would use that, I could do one shop and make like 5 meals from it, if it works. Came across \\\"buy me a coffee\\\" which I might start adding to these projects and see if I can get just a trickle of income. Another cool project idea is something to help Ankify concepts when reading on the web. Chrome plugin that lets you highlight sections as you read and fires them off to Quanda to generate notes during the first step. Then you organise, and AI helps you do it, even in the background whilst you're reading! Then you commit all to Anki after reviewing etc. Maybe you send snippet of text and AI adds possible questions.\"}]}"
+},
+{
+  "creationDate" : "2024-03-02T21:40:27Z",
+  "richText" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"ECC7E6FE-71B5-48A8-89B6-2DE8B7A4F548\"}},\"text\":\"What’s on your mind today?\\n\"},{\"text\":\"I’ve started planning for the next stage in earnest, I’ve called it origins. It’s going to be hard, foundations went okay, I proved that the concept works but I’ve not been able to stick to the habits and goals. Origins ups the goals from 2 to 7, so part of me is worried it’s doomed from the start. \\n\\nI’m tracking things a lot better now I think, I’ve got the vast majority of required tasks in the reminders app so hopefully I’ll remember to do them more. I’ve just set up a tracker for counting lapses, things I was not supposed to do but did, between the two I don’t need to remember or keep track of anything, I just need to do my best based on what I know in the moment and the trackers will keep track of my progress over time.\"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2476},\"small-lines-removed\":true,\"version\":1}}",
+  "creationDeviceType" : "iPhone",
+  "starred" : false,
+  "text" : "# What’s on your mind today?\nI’ve started planning for the next stage in earnest, I’ve called it origins\\. It’s going to be hard, foundations went okay, I proved that the concept works but I’ve not been able to stick to the habits and goals\\. Origins ups the goals from 2 to 7, so part of me is worried it’s doomed from the start\\. \n\nI’m tracking things a lot better now I think, I’ve got the vast majority of required tasks in the reminders app so hopefully I’ll remember to do them more\\. I’ve just set up a tracker for counting lapses, things I was not supposed to do but did, between the two I don’t need to remember or keep track of anything, I just need to do my best based on what I know in the moment and the trackers will keep track of my progress over time\\.",
+  "sourceString" : "visit-7E5D1324-892E-4898-A1DB-BB063621857C",
+  "template" : {
+    "userModifiedDate" : "2024-03-23T21:21:49Z",
+    "title" : "Daily Entry",
+    "uuid" : "89EA91A2-3D17-4568-B9CC-CD20FD89DE1F",
+    "richTextJSON" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"ECC7E6FE-71B5-48A8-89B6-2DE8B7A4F548\"}},\"text\":\"What’s on your mind today?\\n\"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2476},\"small-lines-removed\":true,\"version\":1}}"
+  },
+  "creationDevice" : "iPhone (10)",
+  "duration" : 0,
+  "isAllDay" : false,
+  "modifiedDate" : "2024-03-02T21:44:25Z",
+  "timeZone" : "Europe\/London",
+  "editingTime" : 232.80328404903412,
+  "creationDeviceModel" : "iPhone13,2",
+  "uuid" : "0BEFB2D93FB448E0A6794379E97AFC20",
+  "isPinned" : false,
+  "creationOSVersion" : "17.3.1",
+  "location" : {
+    "region" : {
+      "center" : {
+        "longitude" : -2.50850510597229,
+        "latitude" : 51.521343231201172
+      },
+      "radius" : 75
+    },
+    "localityName" : "Bristol",
+    "country" : "United Kingdom",
+    "timeZoneName" : "Europe\/London",
+    "administrativeArea" : "England",
+    "longitude" : -2.50850510597229,
+    "placeName" : "37 Dragon Road",
+    "latitude" : 51.521343231201172
+  },
+  "weather" : {
+    "moonPhaseCode" : "waning-gibbous",
+    "weatherCode" : "clear",
+    "weatherServiceName" : "WeatherKit",
+    "temperatureCelsius" : 3.4900000095367432,
+    "windBearing" : 237,
+    "sunriseDate" : "2024-03-02T06:52:11Z",
+    "conditionsDescription" : "Mostly Clear",
+    "pressureMB" : 995.6099853515625,
+    "moonPhase" : 0.62,
+    "visibilityKM" : 23.521490097045898,
+    "relativeHumidity" : 88,
+    "windSpeedKPH" : 8.2799997329711914,
+    "sunsetDate" : "2024-03-02T17:53:03Z"
+  },
+  "creationOSName" : "iOS"
+},
+{
+  "creationOSName" : "iOS",
+  "uuid" : "4B30F74F9C4147C6AF5AF8179C861614",
+  "creationDeviceType" : "iPhone",
+  "creationOSVersion" : "17.3.1",
+  "creationDeviceModel" : "iPhone13,2",
+  "richText" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"ECC7E6FE-71B5-48A8-89B6-2DE8B7A4F548\"}},\"text\":\"What’s on your mind today?\\n\"},{\"text\":\"Ive refined the set of virtues for origins. Everything is tracked in some way or other so I should be able to measure my progress quite easily. They do say to measure what matters. I’m hoping that simply tracking the completing of a few key invariants that I’ve identified to be important will pay off in the long run. \\n\\nMet with Alex we’ve agreed to do a project on combining consciousness with LLMs. I am happier with approach as the pressure of starting a start up has been lifted. \"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2476},\"small-lines-removed\":true,\"version\":1}}",
+  "creationDate" : "2024-03-03T22:40:01Z",
+  "template" : {
+    "userModifiedDate" : "2024-03-23T21:21:49Z",
+    "title" : "Daily Entry",
+    "uuid" : "89EA91A2-3D17-4568-B9CC-CD20FD89DE1F",
+    "richTextJSON" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"ECC7E6FE-71B5-48A8-89B6-2DE8B7A4F548\"}},\"text\":\"What’s on your mind today?\\n\"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2476},\"small-lines-removed\":true,\"version\":1}}"
+  },
+  "isPinned" : false,
+  "userActivity" : {
+    "activityName" : "Stationary",
+    "stepCount" : 11583
+  },
+  "starred" : false,
+  "modifiedDate" : "2024-03-03T22:43:39Z",
+  "weather" : {
+    "moonPhaseCode" : "waning-gibbous",
+    "weatherCode" : "clear",
+    "weatherServiceName" : "WeatherKit",
+    "temperatureCelsius" : 2.8599998950958252,
+    "windBearing" : 146,
+    "sunriseDate" : "2024-03-03T06:50:01Z",
+    "conditionsDescription" : "Mostly Clear",
+    "pressureMB" : 1007.97998046875,
+    "moonPhase" : 0.62,
+    "visibilityKM" : 23.745689392089844,
+    "relativeHumidity" : 85,
+    "windSpeedKPH" : 4.8400001525878906,
+    "sunsetDate" : "2024-03-03T17:54:48Z"
+  },
+  "isAllDay" : false,
+  "location" : {
+    "region" : {
+      "center" : {
+        "longitude" : -2.5085532665252686,
+        "latitude" : 51.521286010742188
+      },
+      "radius" : 75
+    },
+    "localityName" : "Bristol",
+    "country" : "United Kingdom",
+    "timeZoneName" : "Europe\/London",
+    "administrativeArea" : "England",
+    "longitude" : -2.5085532665252686,
+    "placeName" : "39 Dragon Road",
+    "latitude" : 51.521286010742188
+  },
+  "text" : "# What’s on your mind today?\nIve refined the set of virtues for origins\\. Everything is tracked in some way or other so I should be able to measure my progress quite easily\\. They do say to measure what matters\\. I’m hoping that simply tracking the completing of a few key invariants that I’ve identified to be important will pay off in the long run\\. \n\nMet with Alex we’ve agreed to do a project on combining consciousness with LLMs\\. I am happier with approach as the pressure of starting a start up has been lifted\\.",
+  "editingTime" : 202.0442430973053,
+  "timeZone" : "Europe\/London",
+  "creationDevice" : "iPhone (10)",
+  "sourceString" : "visit-5FE8EA01-E25B-4958-B971-06DA9904290B",
+  "duration" : 0
+},
+{
+  "creationOSName" : "iOS",
+  "uuid" : "47229C514DA84694A221776C7EA1B832",
+  "creationDeviceType" : "iPhone",
+  "creationOSVersion" : "17.3.1",
+  "creationDeviceModel" : "iPhone13,2",
+  "richText" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"ECC7E6FE-71B5-48A8-89B6-2DE8B7A4F548\"}},\"text\":\"What’s on your mind today?\\n\"},{\"text\":\"Today has been a slog, I’ve felt demotivated and unproductive. Therefore a lot of targets failed today, drinking, stuffing myself, etc. This is exactly the same pattern that always occurs, and was what I was worried about, I genuinely am afraid that days like this cannot be avoided, period. It frustrates me. This is.. sort of day one origins and it feels like an utter failure before I’m out of the gate, seriously what hope do I have?? Two differences that are worth pointing out, firstly, the MSc is taking up so much of my time and energy that things are generally falling apart around it, and that’s fine because I knew this would happen, it’s why origins isn’t starting properly until April. For the record I did 7 hours of MSc today. The other thing is perhaps more important, the new origins is designed to allow off days as long as the general trend is on track. All my systems technically worked, I tracked everything, which means I can measure it. Perhaps, I can make targeted efforts to nip some of these bad habits in the bud, down the line. For now, I’m not gonna let it get to me. \\n\"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2476},\"small-lines-removed\":true,\"version\":1}}",
+  "creationDate" : "2024-03-04T20:53:36Z",
+  "template" : {
+    "userModifiedDate" : "2024-03-23T21:21:49Z",
+    "title" : "Daily Entry",
+    "uuid" : "89EA91A2-3D17-4568-B9CC-CD20FD89DE1F",
+    "richTextJSON" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"ECC7E6FE-71B5-48A8-89B6-2DE8B7A4F548\"}},\"text\":\"What’s on your mind today?\\n\"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2476},\"small-lines-removed\":true,\"version\":1}}"
+  },
+  "isPinned" : false,
+  "userActivity" : {
+    "activityName" : "Walking",
+    "stepCount" : 10130
+  },
+  "starred" : false,
+  "modifiedDate" : "2024-03-06T22:35:08Z",
+  "weather" : {
+    "moonPhaseCode" : "last-quarter",
+    "weatherCode" : "cloudy",
+    "weatherServiceName" : "WeatherKit",
+    "temperatureCelsius" : 7.25,
+    "windBearing" : 180,
+    "sunriseDate" : "2024-03-04T06:47:51Z",
+    "conditionsDescription" : "Cloudy",
+    "pressureMB" : 1003.72998046875,
+    "moonPhase" : 0.75,
+    "visibilityKM" : 11.867289543151855,
+    "relativeHumidity" : 89,
+    "windSpeedKPH" : 15.380000114440918,
+    "sunsetDate" : "2024-03-04T17:56:32Z"
+  },
+  "isAllDay" : false,
+  "location" : {
+    "region" : {
+      "center" : {
+        "longitude" : -2.5085818767547607,
+        "latitude" : 51.521331787109375
+      },
+      "radius" : 75
+    },
+    "localityName" : "Bristol",
+    "country" : "United Kingdom",
+    "timeZoneName" : "Europe\/London",
+    "administrativeArea" : "England",
+    "longitude" : -2.5085818767547607,
+    "placeName" : "35 Dragon Road",
+    "latitude" : 51.521331787109375
+  },
+  "text" : "# What’s on your mind today?\nToday has been a slog, I’ve felt demotivated and unproductive\\. Therefore a lot of targets failed today, drinking, stuffing myself, etc\\. This is exactly the same pattern that always occurs, and was what I was worried about, I genuinely am afraid that days like this cannot be avoided, period\\. It frustrates me\\. This is\\.\\. sort of day one origins and it feels like an utter failure before I’m out of the gate, seriously what hope do I have?? Two differences that are worth pointing out, firstly, the MSc is taking up so much of my time and energy that things are generally falling apart around it, and that’s fine because I knew this would happen, it’s why origins isn’t starting properly until April\\. For the record I did 7 hours of MSc today\\. The other thing is perhaps more important, the new origins is designed to allow off days as long as the general trend is on track\\. All my systems technically worked, I tracked everything, which means I can measure it\\. Perhaps, I can make targeted efforts to nip some of these bad habits in the bud, down the line\\. For now, I’m not gonna let it get to me\\. ",
+  "editingTime" : 258.84327793121338,
+  "timeZone" : "Europe\/London",
+  "creationDevice" : "iPhone (10)",
+  "sourceString" : "visit-06C1037A-CD23-4D08-9081-F530FEA15656",
+  "duration" : 0
+},
+{
+  "creationOSName" : "iOS",
+  "uuid" : "A6886000DC104ABA969A0351905C8C97",
+  "creationDeviceType" : "iPhone",
+  "creationOSVersion" : "17.3.1",
+  "creationDeviceModel" : "iPhone13,2",
+  "richText" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"ECC7E6FE-71B5-48A8-89B6-2DE8B7A4F548\"}},\"text\":\"What’s on your mind today?\\n\"},{\"text\":\"Another absolutely shit day. I’m so fucking exhausted, unhealthy, and fed up, and the relentless drive continues.\\n\\n7.5 hours MSc today, I do wonder. Am I putting in way more hours than I need? I said I’d put in 2... and I’m putting in over three times that. My daily average over the last week has been 5 hours. Is it any wonder things feel like they’re falling apart? I don’t have enough capacity and willpower to sustain over double what I’ve planned for. Because I feel so exhausted and stretched that everything feels like it’s falling apart. The smallest of things annoy me and break me. This absolute fucking stupid, ridiculous course THAT I DONT EVEN NEED. So many hundreds of hours on it. \\n\\nSo.. do I need to spend this much time? Quite possibly I am spending much more than I need, and it could be counter productive. For example, three beers tonight. Three. How messed up is my brain? How many points will not being on top of my game cost me? I absolutely need to be fully awake and well rested on Friday, and yet I have no will power at all because all my energy is sapped by the constant relentless study. \\n\\nI think... I’m going to dial everything back, I have to, this is not sustainable. \\n\\nFrom now, max 2 hours a day, I’ll try to stay on top of new origins which officially I’ve not begun but I’m feeling like I’m failing already do because of the absolute shitstorm that is this degree. I have to just get back on track. I always say this, and I always fail. Just completely fed up, and life does not stop ever. \\n\"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2476},\"small-lines-removed\":true,\"version\":1}}",
+  "creationDate" : "2024-03-05T22:18:44Z",
+  "template" : {
+    "userModifiedDate" : "2024-03-23T21:21:49Z",
+    "title" : "Daily Entry",
+    "uuid" : "89EA91A2-3D17-4568-B9CC-CD20FD89DE1F",
+    "richTextJSON" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"ECC7E6FE-71B5-48A8-89B6-2DE8B7A4F548\"}},\"text\":\"What’s on your mind today?\\n\"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2476},\"small-lines-removed\":true,\"version\":1}}"
+  },
+  "isPinned" : false,
+  "userActivity" : {
+    "activityName" : "Walking",
+    "stepCount" : 16748
+  },
+  "starred" : false,
+  "modifiedDate" : "2024-03-06T22:35:08Z",
+  "weather" : {
+    "moonPhaseCode" : "waning-crescent",
+    "weatherCode" : "clear",
+    "weatherServiceName" : "WeatherKit",
+    "temperatureCelsius" : 4.4800000190734863,
+    "windBearing" : 230,
+    "sunriseDate" : "2024-03-05T06:45:40Z",
+    "conditionsDescription" : "Mostly Clear",
+    "pressureMB" : 1018.22998046875,
+    "moonPhase" : 0.87,
+    "visibilityKM" : 21.623479843139648,
+    "relativeHumidity" : 86,
+    "windSpeedKPH" : 4.5300002098083496,
+    "sunsetDate" : "2024-03-05T17:58:15Z"
+  },
+  "isAllDay" : false,
+  "location" : {
+    "region" : {
+      "center" : {
+        "longitude" : -2.5086302757263184,
+        "latitude" : 51.521270751953125
+      },
+      "radius" : 75
+    },
+    "localityName" : "Bristol",
+    "country" : "United Kingdom",
+    "timeZoneName" : "Europe\/London",
+    "administrativeArea" : "England",
+    "longitude" : -2.5086302757263184,
+    "placeName" : "35 Dragon Road",
+    "latitude" : 51.521270751953125
+  },
+  "text" : "# What’s on your mind today?\nAnother absolutely shit day\\. I’m so fucking exhausted, unhealthy, and fed up, and the relentless drive continues\\.\n\n7\\.5 hours MSc today, I do wonder\\. Am I putting in way more hours than I need? I said I’d put in 2\\.\\.\\. and I’m putting in over three times that\\. My daily average over the last week has been 5 hours\\. Is it any wonder things feel like they’re falling apart? I don’t have enough capacity and willpower to sustain over double what I’ve planned for\\. Because I feel so exhausted and stretched that everything feels like it’s falling apart\\. The smallest of things annoy me and break me\\. This absolute fucking stupid, ridiculous course THAT I DONT EVEN NEED\\. So many hundreds of hours on it\\. \n\nSo\\.\\. do I need to spend this much time? Quite possibly I am spending much more than I need, and it could be counter productive\\. For example, three beers tonight\\. Three\\. How messed up is my brain? How many points will not being on top of my game cost me? I absolutely need to be fully awake and well rested on Friday, and yet I have no will power at all because all my energy is sapped by the constant relentless study\\. \n\nI think\\.\\.\\. I’m going to dial everything back, I have to, this is not sustainable\\. \n\nFrom now, max 2 hours a day, I’ll try to stay on top of new origins which officially I’ve not begun but I’m feeling like I’m failing already do because of the absolute shitstorm that is this degree\\. I have to just get back on track\\. I always say this, and I always fail\\. Just completely fed up, and life does not stop ever\\. ",
+  "editingTime" : 338.84500300884247,
+  "timeZone" : "Europe\/London",
+  "creationDevice" : "iPhone (10)",
+  "sourceString" : "visit-690E11FD-B4A8-4465-9F1E-FC75B2A4165D",
+  "duration" : 0
+},
+{
+  "creationOSName" : "iOS",
+  "uuid" : "8A3594B821C845A4931EAF1065C0526D",
+  "creationDeviceType" : "iPhone",
+  "creationOSVersion" : "17.3.1",
+  "creationDeviceModel" : "iPhone13,2",
+  "template" : {
+    "userModifiedDate" : "2024-03-23T21:21:49Z",
+    "title" : "Daily Entry",
+    "uuid" : "89EA91A2-3D17-4568-B9CC-CD20FD89DE1F",
+    "richTextJSON" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"ECC7E6FE-71B5-48A8-89B6-2DE8B7A4F548\"}},\"text\":\"What’s on your mind today?\\n\"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2476},\"small-lines-removed\":true,\"version\":1}}"
+  },
+  "creationDate" : "2024-03-06T22:35:08Z",
+  "richText" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"ECC7E6FE-71B5-48A8-89B6-2DE8B7A4F548\"}},\"text\":\"What’s on your mind today?\\n\"},{\"text\":\"Today was more positive than yesterday, I only did two hours of the hell course that’s probably why. I even managed two hours of personal projects in the evening which was nice. I’m getting meal planner to be responsive, turns out evergreen is not the tool for the job here, I’m looking into chakra which just looks loads better in general.\\n\"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2476},\"small-lines-removed\":true,\"version\":1}}",
+  "isPinned" : false,
+  "modifiedDate" : "2024-03-07T22:15:07Z",
+  "starred" : false,
+  "weather" : {
+    "moonPhaseCode" : "waning-crescent",
+    "weatherCode" : "clear",
+    "weatherServiceName" : "WeatherKit",
+    "temperatureCelsius" : 5.0399999618530273,
+    "windBearing" : 112,
+    "sunriseDate" : "2024-03-06T06:43:29Z",
+    "conditionsDescription" : "Clear",
+    "pressureMB" : 1022.47998046875,
+    "moonPhase" : 0.87,
+    "visibilityKM" : 22.458389282226562,
+    "relativeHumidity" : 84,
+    "windSpeedKPH" : 10.350000381469727,
+    "sunsetDate" : "2024-03-06T17:59:58Z"
+  },
+  "isAllDay" : false,
+  "location" : {
+    "region" : {
+      "center" : {
+        "longitude" : -2.5085947513580322,
+        "latitude" : 51.521335601806641
+      },
+      "radius" : 75
+    },
+    "localityName" : "Bristol",
+    "country" : "United Kingdom",
+    "timeZoneName" : "Europe\/London",
+    "administrativeArea" : "England",
+    "longitude" : -2.5085947513580322,
+    "placeName" : "35 Dragon Road",
+    "latitude" : 51.521335601806641
+  },
+  "editingTime" : 122.48193800449371,
+  "creationDevice" : "iPhone (10)",
+  "text" : "# What’s on your mind today?\nToday was more positive than yesterday, I only did two hours of the hell course that’s probably why\\. I even managed two hours of personal projects in the evening which was nice\\. I’m getting meal planner to be responsive, turns out evergreen is not the tool for the job here, I’m looking into chakra which just looks loads better in general\\.",
+  "timeZone" : "Europe\/London",
+  "sourceString" : "visit-C1E35D2E-E4C5-4A0D-8F10-ACAE5A27C1D2",
+  "duration" : 0
+},
+{
+  "creationDeviceType" : "iPhone",
+  "timeZone" : "Europe\/London",
+  "location" : {
+    "region" : {
+      "center" : {
+        "longitude" : -2.5086445808410645,
+        "latitude" : 51.521228790283203
+      },
+      "radius" : 75
+    },
+    "localityName" : "Bristol",
+    "country" : "United Kingdom",
+    "timeZoneName" : "Europe\/London",
+    "administrativeArea" : "England",
+    "longitude" : -2.5086445808410645,
+    "placeName" : "39 Dragon Road",
+    "latitude" : 51.521228790283203
+  },
+  "uuid" : "EEB3CA2F906B46A59B6357CEAA3B23CC",
+  "editingTime" : 159.97256600856781,
+  "creationDeviceModel" : "iPhone13,2",
+  "creationDate" : "2024-03-07T22:15:07Z",
+  "starred" : false,
+  "template" : {
+    "userModifiedDate" : "2024-03-23T21:21:49Z",
+    "title" : "Daily Entry",
+    "uuid" : "89EA91A2-3D17-4568-B9CC-CD20FD89DE1F",
+    "richTextJSON" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"ECC7E6FE-71B5-48A8-89B6-2DE8B7A4F548\"}},\"text\":\"What’s on your mind today?\\n\"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2476},\"small-lines-removed\":true,\"version\":1}}"
+  },
+  "isPinned" : false,
+  "modifiedDate" : "2024-03-07T23:45:34Z",
+  "richText" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"ECC7E6FE-71B5-48A8-89B6-2DE8B7A4F548\"}},\"text\":\"What’s on your mind today?\\n\"},{\"text\":\"No more personal projects today, no time. Over eight hours of MSc, but I do feel ready for the exam tomorrow. I’m less stressed than I was earlier this week. No drinking and I fasted until 7 then a fair amount of junk food. Not beating myself up today because over eight hours of MSc has drained me \\n\\nCurrent thoughts. Excited about idea of joining open ai or Palantir, lots of relevant jobs that I’m capable of. I need to brush up and study data engineering though, and Prometheus, I might be spending too much time on the Frontend.\"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2476},\"small-lines-removed\":true,\"version\":1}}",
+  "text" : "# What’s on your mind today?\nNo more personal projects today, no time\\. Over eight hours of MSc, but I do feel ready for the exam tomorrow\\. I’m less stressed than I was earlier this week\\. No drinking and I fasted until 7 then a fair amount of junk food\\. Not beating myself up today because over eight hours of MSc has drained me \n\nCurrent thoughts\\. Excited about idea of joining open ai or Palantir, lots of relevant jobs that I’m capable of\\. I need to brush up and study data engineering though, and Prometheus, I might be spending too much time on the Frontend\\.",
+  "duration" : 0,
+  "creationOSName" : "iOS",
+  "creationOSVersion" : "17.3.1",
+  "sourceString" : "visit-DD7EEF05-AFCF-4C1E-8FC7-832687D062FF",
+  "isAllDay" : false,
+  "weather" : {
+    "moonPhaseCode" : "waning-crescent",
+    "weatherCode" : "mostly-cloudy",
+    "weatherServiceName" : "WeatherKit",
+    "temperatureCelsius" : 5.679999828338623,
+    "windBearing" : 82,
+    "sunriseDate" : "2024-03-07T06:41:16Z",
+    "conditionsDescription" : "Mostly Cloudy",
+    "pressureMB" : 1014.6799926757812,
+    "moonPhase" : 0.87,
+    "visibilityKM" : 21.871440887451172,
+    "relativeHumidity" : 83,
+    "windSpeedKPH" : 23.079999923706055,
+    "sunsetDate" : "2024-03-07T18:01:44Z"
+  },
+  "creationDevice" : "iPhone (10)",
+  "userActivity" : {
+    "activityName" : "Stationary",
+    "stepCount" : 6322
+  }
+},
+{
+  "creationDeviceType" : "iPhone",
+  "timeZone" : "Europe\/London",
+  "location" : {
+    "region" : {
+      "center" : {
+        "longitude" : -2.5085585117340088,
+        "latitude" : 51.521331787109375
+      },
+      "radius" : 75
+    },
+    "localityName" : "Bristol",
+    "country" : "United Kingdom",
+    "timeZoneName" : "Europe\/London",
+    "administrativeArea" : "England",
+    "longitude" : -2.5085585117340088,
+    "placeName" : "35 Dragon Road",
+    "latitude" : 51.521331787109375
+  },
+  "uuid" : "90C9C0FDC4054D83897082A0981278F8",
+  "editingTime" : 284.45975112915039,
+  "creationDeviceModel" : "iPhone13,2",
+  "creationDate" : "2024-03-09T22:04:34Z",
+  "starred" : false,
+  "template" : {
+    "userModifiedDate" : "2024-03-23T21:21:49Z",
+    "title" : "Daily Entry",
+    "uuid" : "89EA91A2-3D17-4568-B9CC-CD20FD89DE1F",
+    "richTextJSON" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"ECC7E6FE-71B5-48A8-89B6-2DE8B7A4F548\"}},\"text\":\"What’s on your mind today?\\n\"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2476},\"small-lines-removed\":true,\"version\":1}}"
+  },
+  "isPinned" : false,
+  "modifiedDate" : "2024-03-09T22:12:01Z",
+  "richText" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"ECC7E6FE-71B5-48A8-89B6-2DE8B7A4F548\"}},\"text\":\"What’s on your mind today?\\n\"},{\"text\":\"The exam yesterday went well and I’m off to a good start with preparing for part three although I’m limiting everything to just three hours a day. I haven’t felt particularly great today, I’ve ticked off quite a lot of my habits and systems but not felt the buzz of progress, it’s not always there I suppose. I’ll tell you how I feel, I’ve done a fair whack today actually but I don’t feel that I made progress in anything, and don’t feel I’ve been doing the most important stuff, it feels like coasting! I need to combine these systems with goals perhaps, like my weight loss goal is related to exercise and healthy eating.. I started messing around with Minecraft bits tonight but I’ve not fixed or done up meal planner. Meal planner was supposed to be a quick project so part of me is annoyed I’ve not finished it yet. \"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2476},\"small-lines-removed\":true,\"version\":1}}",
+  "text" : "# What’s on your mind today?\nThe exam yesterday went well and I’m off to a good start with preparing for part three although I’m limiting everything to just three hours a day\\. I haven’t felt particularly great today, I’ve ticked off quite a lot of my habits and systems but not felt the buzz of progress, it’s not always there I suppose\\. I’ll tell you how I feel, I’ve done a fair whack today actually but I don’t feel that I made progress in anything, and don’t feel I’ve been doing the most important stuff, it feels like coasting\\! I need to combine these systems with goals perhaps, like my weight loss goal is related to exercise and healthy eating\\.\\. I started messing around with Minecraft bits tonight but I’ve not fixed or done up meal planner\\. Meal planner was supposed to be a quick project so part of me is annoyed I’ve not finished it yet\\.",
+  "duration" : 0,
+  "creationOSName" : "iOS",
+  "creationOSVersion" : "17.3.1",
+  "sourceString" : "visit-05DD4BD6-E7BB-4449-9925-BD5E5965738B",
+  "isAllDay" : false,
+  "weather" : {
+    "moonPhaseCode" : "waning-crescent",
+    "weatherCode" : "fair",
+    "weatherServiceName" : "WeatherKit",
+    "temperatureCelsius" : 8.5200004577636719,
+    "windBearing" : 74,
+    "sunriseDate" : "2024-03-09T06:36:50Z",
+    "conditionsDescription" : "Drizzle",
+    "pressureMB" : 991.80999755859375,
+    "moonPhase" : 0.87,
+    "visibilityKM" : 10.058839797973633,
+    "relativeHumidity" : 87,
+    "windSpeedKPH" : 17.719999313354492,
+    "sunsetDate" : "2024-03-09T18:05:13Z"
+  },
+  "creationDevice" : "iPhone (10)",
+  "userActivity" : {
+    "activityName" : "Stationary",
+    "stepCount" : 15328
+  }
+},
+{
+  "creationDeviceType" : "iPhone",
+  "timeZone" : "Europe\/London",
+  "location" : {
+    "region" : {
+      "center" : {
+        "longitude" : -2.508535623550415,
+        "latitude" : 51.519264221191406
+      },
+      "radius" : 75
+    },
+    "localityName" : "Bristol",
+    "country" : "United Kingdom",
+    "timeZoneName" : "Europe\/London",
+    "administrativeArea" : "England",
+    "longitude" : -2.508535623550415,
+    "placeName" : "68 Dragon Road",
+    "latitude" : 51.519264221191406
+  },
+  "uuid" : "C29E21CBC23D4554930334A032E270B6",
+  "editingTime" : 151.23160707950592,
+  "creationDeviceModel" : "iPhone13,2",
+  "creationDate" : "2024-03-10T13:10:24Z",
+  "starred" : false,
+  "template" : {
+    "userModifiedDate" : "2024-03-23T21:21:49Z",
+    "title" : "Daily Entry",
+    "uuid" : "89EA91A2-3D17-4568-B9CC-CD20FD89DE1F",
+    "richTextJSON" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"ECC7E6FE-71B5-48A8-89B6-2DE8B7A4F548\"}},\"text\":\"What’s on your mind today?\\n\"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2476},\"small-lines-removed\":true,\"version\":1}}"
+  },
+  "isPinned" : false,
+  "modifiedDate" : "2024-03-10T13:13:01Z",
+  "richText" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"ECC7E6FE-71B5-48A8-89B6-2DE8B7A4F548\"}},\"text\":\"What’s on your mind today?\\n\"},{\"text\":\"Still feeling negative and exhausted. I feel burned out but I can’t stop any of this because then I will achieve nothing. And yet, other people are successful and clearly happy and relaxed, so where am I going wrong? I’m a week into Origins, it’s not supposed to be exhausting and depressing, it’s supposed to be a life changing new way of existing. I’ve not given it a good chance yet, also I need to remember the concept is sound I just need to tweak little bits here and there to make it work.\"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2476},\"small-lines-removed\":true,\"version\":1}}",
+  "text" : "# What’s on your mind today?\nStill feeling negative and exhausted\\. I feel burned out but I can’t stop any of this because then I will achieve nothing\\. And yet, other people are successful and clearly happy and relaxed, so where am I going wrong? I’m a week into Origins, it’s not supposed to be exhausting and depressing, it’s supposed to be a life changing new way of existing\\. I’ve not given it a good chance yet, also I need to remember the concept is sound I just need to tweak little bits here and there to make it work\\.",
+  "duration" : 0,
+  "creationOSName" : "iOS",
+  "creationOSVersion" : "17.3.1",
+  "sourceString" : "visit-357444EF-8098-4E46-A223-2378987C4CED",
+  "isAllDay" : false,
+  "weather" : {
+    "moonPhaseCode" : "new",
+    "weatherCode" : "cloudy",
+    "weatherServiceName" : "WeatherKit",
+    "temperatureCelsius" : 10.819999694824219,
+    "windBearing" : 142,
+    "sunriseDate" : "2024-03-10T06:34:35Z",
+    "conditionsDescription" : "Cloudy",
+    "pressureMB" : 995.6099853515625,
+    "moonPhase" : 0,
+    "visibilityKM" : 21.906410217285156,
+    "relativeHumidity" : 74,
+    "windSpeedKPH" : 7.1599998474121094,
+    "sunsetDate" : "2024-03-10T18:06:57Z"
+  },
+  "creationDevice" : "iPhone (10)",
+  "userActivity" : {
+    "activityName" : "Walking",
+    "stepCount" : 5668
+  }
+},
+{
+  "creationDeviceType" : "iPhone",
+  "timeZone" : "Europe\/London",
+  "location" : {
+    "region" : {
+      "center" : {
+        "longitude" : -2.5085535049438477,
+        "latitude" : 51.521327972412109
+      },
+      "radius" : 75
+    },
+    "localityName" : "Bristol",
+    "country" : "United Kingdom",
+    "timeZoneName" : "Europe\/London",
+    "administrativeArea" : "England",
+    "longitude" : -2.5085535049438477,
+    "placeName" : "39 Dragon Road",
+    "latitude" : 51.521327972412109
+  },
+  "uuid" : "4B395C1FB57A491E88D3A0EB83240E22",
+  "editingTime" : 184.48791098594666,
+  "creationDeviceModel" : "iPhone13,2",
+  "creationDate" : "2024-03-11T22:27:12Z",
+  "starred" : false,
+  "template" : {
+    "userModifiedDate" : "2024-03-23T21:21:49Z",
+    "title" : "Daily Entry",
+    "uuid" : "89EA91A2-3D17-4568-B9CC-CD20FD89DE1F",
+    "richTextJSON" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"ECC7E6FE-71B5-48A8-89B6-2DE8B7A4F548\"}},\"text\":\"What’s on your mind today?\\n\"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2476},\"small-lines-removed\":true,\"version\":1}}"
+  },
+  "isPinned" : false,
+  "modifiedDate" : "2024-03-11T22:30:23Z",
+  "richText" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"ECC7E6FE-71B5-48A8-89B6-2DE8B7A4F548\"}},\"text\":\"What’s on your mind today?\\n\"},{\"text\":\"I am, at last, feeling more positive. I’ve happened on the idea of applying for a job at open ai, which will no doubt be competitive, but then I am highly capable and a damn good candidate so.. we’ll see. At the very least I want to apply for a role somewhere other an UL, it’s not a bad place, I’m just not gelling with it. So I have a short term goal, for March, to complete a number of articles to bolster my website, to get my headshots done and revamp my LinkedIn and CV, and then to apply to OpenAI. If I get an interview, then I go full out on the books, like when I interview at Ultraleap. There is lots to do here. \"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2476},\"small-lines-removed\":true,\"version\":1}}",
+  "text" : "# What’s on your mind today?\nI am, at last, feeling more positive\\. I’ve happened on the idea of applying for a job at open ai, which will no doubt be competitive, but then I am highly capable and a damn good candidate so\\.\\. we’ll see\\. At the very least I want to apply for a role somewhere other an UL, it’s not a bad place, I’m just not gelling with it\\. So I have a short term goal, for March, to complete a number of articles to bolster my website, to get my headshots done and revamp my LinkedIn and CV, and then to apply to OpenAI\\. If I get an interview, then I go full out on the books, like when I interview at Ultraleap\\. There is lots to do here\\.",
+  "duration" : 0,
+  "creationOSName" : "iOS",
+  "creationOSVersion" : "17.3.1",
+  "sourceString" : "visit-31909F8C-2A52-4D0E-BD34-24CBC7913E01",
+  "isAllDay" : false,
+  "weather" : {
+    "moonPhaseCode" : "waxing-crescent",
+    "weatherCode" : "cloudy",
+    "weatherServiceName" : "WeatherKit",
+    "temperatureCelsius" : 7.4899997711181641,
+    "windBearing" : 241,
+    "sunriseDate" : "2024-03-11T06:32:21Z",
+    "conditionsDescription" : "Cloudy",
+    "pressureMB" : 1012.5,
+    "moonPhase" : 0.12,
+    "visibilityKM" : 21.551790237426758,
+    "relativeHumidity" : 88,
+    "windSpeedKPH" : 11.510000228881836,
+    "sunsetDate" : "2024-03-11T18:08:42Z"
+  },
+  "creationDevice" : "iPhone (10)",
+  "userActivity" : {
+    "activityName" : "Stationary",
+    "stepCount" : 7234
+  }
+},
+{
+  "creationDeviceType" : "iPhone",
+  "timeZone" : "Europe\/London",
+  "location" : {
+    "region" : {
+      "center" : {
+        "longitude" : -2.5085196495056152,
+        "latitude" : 51.52130126953125
+      },
+      "radius" : 75
+    },
+    "localityName" : "Bristol",
+    "country" : "United Kingdom",
+    "timeZoneName" : "Europe\/London",
+    "administrativeArea" : "England",
+    "longitude" : -2.5085196495056152,
+    "placeName" : "37 Dragon Road",
+    "latitude" : 51.52130126953125
+  },
+  "uuid" : "0EC75D9765214003BD63118C25D09B8D",
+  "editingTime" : 341.53962707519531,
+  "creationDeviceModel" : "iPhone13,2",
+  "creationDate" : "2024-03-12T08:17:08Z",
+  "starred" : false,
+  "template" : {
+    "userModifiedDate" : "2024-03-23T21:21:49Z",
+    "title" : "Daily Entry",
+    "uuid" : "89EA91A2-3D17-4568-B9CC-CD20FD89DE1F",
+    "richTextJSON" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"ECC7E6FE-71B5-48A8-89B6-2DE8B7A4F548\"}},\"text\":\"What’s on your mind today?\\n\"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2476},\"small-lines-removed\":true,\"version\":1}}"
+  },
+  "isPinned" : false,
+  "modifiedDate" : "2024-03-12T21:21:37Z",
+  "richText" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"ECC7E6FE-71B5-48A8-89B6-2DE8B7A4F548\"}},\"text\":\"What’s on your mind today?\\n\"},{\"text\":\"I am feeling more positive now that I have goals to aim for, this whole midlife crisis thing is real and depressing. \\n\\nFor the foreseeable future I’m going to report my progress towards a job at OpenAI, or Palantir, or even Google etc, it doesn’t matter which, I have a rough shape of what that job should look like. To get there I’ll be finishing my degree, sprucing up my website, getting more headshots, learning from the most important oreilly books, etc. this is not a change in system, these are simply the goals defined in my vision board but I want to try to capitalise on the motivation I feel to get to OpenAI. This was the juice that was missing previously, I needed a target.\\n\\nSo in support of my new goal, I completed the global ID provider post today, onto the next article tomorrow. I’ll do a few that give me most bang for buck, mainly I need to do the first Minecraft one. I booked in headshots and identified where to get a CV checked. I also watched the office hours and did my (almost) two hours of MSc, it turns out I probably did okay in Exam 2. I’m working on doing decently in part three without killing myself. Tomorrow I’ll watch the video they suggested in office hours, and the NP complete lecture from MIT.\\n\"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2476},\"small-lines-removed\":true,\"version\":1}}",
+  "text" : "# What’s on your mind today?\nI am feeling more positive now that I have goals to aim for, this whole midlife crisis thing is real and depressing\\. \n\nFor the foreseeable future I’m going to report my progress towards a job at OpenAI, or Palantir, or even Google etc, it doesn’t matter which, I have a rough shape of what that job should look like\\. To get there I’ll be finishing my degree, sprucing up my website, getting more headshots, learning from the most important oreilly books, etc\\. this is not a change in system, these are simply the goals defined in my vision board but I want to try to capitalise on the motivation I feel to get to OpenAI\\. This was the juice that was missing previously, I needed a target\\.\n\nSo in support of my new goal, I completed the global ID provider post today, onto the next article tomorrow\\. I’ll do a few that give me most bang for buck, mainly I need to do the first Minecraft one\\. I booked in headshots and identified where to get a CV checked\\. I also watched the office hours and did my \\(almost\\) two hours of MSc, it turns out I probably did okay in Exam 2\\. I’m working on doing decently in part three without killing myself\\. Tomorrow I’ll watch the video they suggested in office hours, and the NP complete lecture from MIT\\.",
+  "duration" : 0,
+  "creationOSName" : "iOS",
+  "creationOSVersion" : "17.3.1",
+  "sourceString" : "visit-31909F8C-2A52-4D0E-BD34-24CBC7913E01",
+  "isAllDay" : false,
+  "weather" : {
+    "moonPhaseCode" : "waxing-crescent",
+    "weatherCode" : "rain",
+    "weatherServiceName" : "WeatherKit",
+    "temperatureCelsius" : 10.289999961853027,
+    "windBearing" : 227,
+    "sunriseDate" : "2024-03-12T06:30:06Z",
+    "conditionsDescription" : "Rain",
+    "pressureMB" : 1009.0800170898438,
+    "moonPhase" : 0.12,
+    "visibilityKM" : 7.4454798698425293,
+    "relativeHumidity" : 93,
+    "windSpeedKPH" : 20.040000915527344,
+    "sunsetDate" : "2024-03-12T18:10:26Z"
+  },
+  "creationDevice" : "iPhone (10)",
+  "userActivity" : {
+    "activityName" : "Walking",
+    "stepCount" : 110
+  }
+},
+{
+  "creationDeviceType" : "iPhone",
+  "timeZone" : "Europe\/London",
+  "location" : {
+    "region" : {
+      "center" : {
+        "longitude" : -2.5085155963897705,
+        "latitude" : 51.5213623046875
+      },
+      "radius" : 75
+    },
+    "localityName" : "Bristol",
+    "country" : "United Kingdom",
+    "timeZoneName" : "Europe\/London",
+    "administrativeArea" : "England",
+    "longitude" : -2.5085155963897705,
+    "placeName" : "37 Dragon Road",
+    "latitude" : 51.5213623046875
+  },
+  "uuid" : "F31428C035624D90B80FBAB61B42DEC3",
+  "editingTime" : 94.896733999252319,
+  "creationDeviceModel" : "iPhone13,2",
+  "creationDate" : "2024-03-13T09:24:00Z",
+  "starred" : false,
+  "template" : {
+    "userModifiedDate" : "2024-03-23T21:21:49Z",
+    "title" : "Daily Entry",
+    "uuid" : "89EA91A2-3D17-4568-B9CC-CD20FD89DE1F",
+    "richTextJSON" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"ECC7E6FE-71B5-48A8-89B6-2DE8B7A4F548\"}},\"text\":\"What’s on your mind today?\\n\"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2476},\"small-lines-removed\":true,\"version\":1}}"
+  },
+  "isPinned" : false,
+  "modifiedDate" : "2024-03-14T09:26:16Z",
+  "richText" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"ECC7E6FE-71B5-48A8-89B6-2DE8B7A4F548\"}},\"text\":\"What’s on your mind today?\\n\"},{\"text\":\"Note I’m writing this the day after. It was a good day, I’m feeling positive about my progress towards goals. I revamped my CV with Arnaud and I think it’s looking good. There some more polishing that needs doing to my LinkedIn, GitHub, website, etc but I’ll do those over the next few days. Aiming to send off an application next Wednesday after my photos.\"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2476},\"small-lines-removed\":true,\"version\":1}}",
+  "text" : "# What’s on your mind today?\nNote I’m writing this the day after\\. It was a good day, I’m feeling positive about my progress towards goals\\. I revamped my CV with Arnaud and I think it’s looking good\\. There some more polishing that needs doing to my LinkedIn, GitHub, website, etc but I’ll do those over the next few days\\. Aiming to send off an application next Wednesday after my photos\\.",
+  "duration" : 0,
+  "creationOSName" : "iOS",
+  "creationOSVersion" : "17.3.1",
+  "sourceString" : "visit-40FAE905-E8E6-4AE7-B768-675B5D6841D0",
+  "isAllDay" : false,
+  "weather" : {
+    "moonPhaseCode" : "waxing-crescent",
+    "weatherCode" : "cloudy",
+    "weatherServiceName" : "WeatherKit",
+    "temperatureCelsius" : 11.130000114440918,
+    "windBearing" : 204,
+    "sunriseDate" : "2024-03-13T06:27:50Z",
+    "conditionsDescription" : "Cloudy",
+    "pressureMB" : 1011.0700073242188,
+    "moonPhase" : 0.12,
+    "visibilityKM" : 20.607000350952148,
+    "relativeHumidity" : 90,
+    "windSpeedKPH" : 11.210000038146973,
+    "sunsetDate" : "2024-03-13T18:12:09Z"
+  },
+  "creationDevice" : "iPhone (10)",
+  "userActivity" : {
+    "activityName" : "Stationary",
+    "stepCount" : 5742
+  }
+},
+{
+  "creationDeviceType" : "iPhone",
+  "timeZone" : "Europe\/London",
+  "location" : {
+    "region" : {
+      "center" : {
+        "longitude" : -2.5084996223449707,
+        "latitude" : 51.5213623046875
+      },
+      "radius" : 75
+    },
+    "localityName" : "Bristol",
+    "country" : "United Kingdom",
+    "timeZoneName" : "Europe\/London",
+    "administrativeArea" : "England",
+    "longitude" : -2.5084996223449707,
+    "placeName" : "37 Dragon Road",
+    "latitude" : 51.5213623046875
+  },
+  "uuid" : "76F19205EB2C4F8685011C4FC8090C09",
+  "editingTime" : 112.93218410015106,
+  "creationDeviceModel" : "iPhone13,2",
+  "creationDate" : "2024-03-14T20:51:54Z",
+  "starred" : false,
+  "template" : {
+    "userModifiedDate" : "2024-03-23T21:21:49Z",
+    "title" : "Daily Entry",
+    "uuid" : "89EA91A2-3D17-4568-B9CC-CD20FD89DE1F",
+    "richTextJSON" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"ECC7E6FE-71B5-48A8-89B6-2DE8B7A4F548\"}},\"text\":\"What’s on your mind today?\\n\"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2476},\"small-lines-removed\":true,\"version\":1}}"
+  },
+  "isPinned" : false,
+  "modifiedDate" : "2024-03-14T20:54:46Z",
+  "richText" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"ECC7E6FE-71B5-48A8-89B6-2DE8B7A4F548\"}},\"text\":\"What’s on your mind today?\\n\"},{\"text\":\"I’m making progress towards the goal of securing the next job. I fixed the responsiveness of my website today. But, things aren’t going swimmingly. I’m struggling with the workload. Generally, eating is going well, but I’m drinking a lot, beers every night of the week. It’ll it’s a very difficult habit to shift, possibly because so much will power is being invested in other areas. I don’t feel I have automatic habits down, I’m still having to think and remember things. \"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2476},\"small-lines-removed\":true,\"version\":1}}",
+  "text" : "# What’s on your mind today?\nI’m making progress towards the goal of securing the next job\\. I fixed the responsiveness of my website today\\. But, things aren’t going swimmingly\\. I’m struggling with the workload\\. Generally, eating is going well, but I’m drinking a lot, beers every night of the week\\. It’ll it’s a very difficult habit to shift, possibly because so much will power is being invested in other areas\\. I don’t feel I have automatic habits down, I’m still having to think and remember things\\.",
+  "duration" : 0,
+  "creationOSName" : "iOS",
+  "creationOSVersion" : "17.3.1",
+  "sourceString" : "visit-74BF2801-F203-4B40-ABBB-A0DB32603B3B",
+  "isAllDay" : false,
+  "weather" : {
+    "moonPhaseCode" : "waxing-crescent",
+    "weatherCode" : "mostly-cloudy",
+    "weatherServiceName" : "WeatherKit",
+    "temperatureCelsius" : 11.600000381469727,
+    "windBearing" : 214,
+    "sunriseDate" : "2024-03-14T06:25:34Z",
+    "conditionsDescription" : "Mostly Cloudy",
+    "pressureMB" : 1001.8300170898438,
+    "moonPhase" : 0.12,
+    "visibilityKM" : 19.432489395141602,
+    "relativeHumidity" : 88,
+    "windSpeedKPH" : 21,
+    "sunsetDate" : "2024-03-14T18:13:53Z"
+  },
+  "creationDevice" : "iPhone (10)",
+  "userActivity" : {
+    "activityName" : "Stationary",
+    "stepCount" : 12128
+  }
+},
+{
+  "editingTime" : 313.49243497848511,
+  "template" : {
+    "userModifiedDate" : "2024-03-23T21:21:49Z",
+    "title" : "Daily Entry",
+    "uuid" : "89EA91A2-3D17-4568-B9CC-CD20FD89DE1F",
+    "richTextJSON" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"ECC7E6FE-71B5-48A8-89B6-2DE8B7A4F548\"}},\"text\":\"What’s on your mind today?\\n\"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2476},\"small-lines-removed\":true,\"version\":1}}"
+  },
+  "creationDate" : "2024-03-16T21:59:04Z",
+  "isAllDay" : false,
+  "location" : {
+    "region" : {
+      "center" : {
+        "longitude" : -2.5085628032684326,
+        "latitude" : 51.521366119384766
+      },
+      "radius" : 75
+    },
+    "localityName" : "Bristol",
+    "country" : "United Kingdom",
+    "timeZoneName" : "Europe\/London",
+    "administrativeArea" : "England",
+    "longitude" : -2.5085628032684326,
+    "placeName" : "39 Dragon Road",
+    "latitude" : 51.521366119384766
+  },
+  "creationDevice" : "iPhone (10)",
+  "richText" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"ECC7E6FE-71B5-48A8-89B6-2DE8B7A4F548\"}},\"text\":\"What’s on your mind today?\\n\"},{\"text\":\"Improving and developing myself is still forefront of my mind. I feel that I seem to spend all my time on my systems, projects, breaking the rules, kicking myself for breaking the rules, etc. what I want is more time to just think, exist, and experience new states of mind. I suppose in some ways I’m a little bored of the tediousness! That’s not a bad thing, relentlessly doing what I know to be the right thing to do rapidly becomes unsexy after a while, and that’s the main reason to keep doing it, because I’ve decided and proved to myself that it’s going to pay off. What I hope is that as I start to automate and internalise some of these habits, I will naturally free up space to ponder and experience other things, reading will expand my horizons for example.\\n\\nFor my job progress and deployed the new updated site with responsiveness, I wrote and published an article on complex configuration (the dynamic config) and I have done a bit more planning of the Minecraft bot which I shall work properly on tomorrow, that’s my priority now, \"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2476},\"small-lines-removed\":true,\"version\":1}}",
+  "modifiedDate" : "2024-03-16T22:04:22Z",
+  "creationDeviceType" : "iPhone",
+  "timeZone" : "Europe\/London",
+  "text" : "# What’s on your mind today?\nImproving and developing myself is still forefront of my mind\\. I feel that I seem to spend all my time on my systems, projects, breaking the rules, kicking myself for breaking the rules, etc\\. what I want is more time to just think, exist, and experience new states of mind\\. I suppose in some ways I’m a little bored of the tediousness\\! That’s not a bad thing, relentlessly doing what I know to be the right thing to do rapidly becomes unsexy after a while, and that’s the main reason to keep doing it, because I’ve decided and proved to myself that it’s going to pay off\\. What I hope is that as I start to automate and internalise some of these habits, I will naturally free up space to ponder and experience other things, reading will expand my horizons for example\\.\n\nFor my job progress and deployed the new updated site with responsiveness, I wrote and published an article on complex configuration \\(the dynamic config\\) and I have done a bit more planning of the Minecraft bot which I shall work properly on tomorrow, that’s my priority now,",
+  "sourceString" : "visit-E96B3AD2-9C9A-415A-8737-EFBD8CCF8CC2",
+  "duration" : 0,
+  "userActivity" : {
+    "activityName" : "Stationary",
+    "stepCount" : 12013
+  },
+  "isPinned" : false,
+  "weather" : {
+    "moonPhaseCode" : "waxing-crescent",
+    "weatherCode" : "cloudy",
+    "weatherServiceName" : "WeatherKit",
+    "temperatureCelsius" : 10.630000114440918,
+    "windBearing" : 187,
+    "sunriseDate" : "2024-03-16T06:21:01Z",
+    "conditionsDescription" : "Cloudy",
+    "pressureMB" : 1016.739990234375,
+    "moonPhase" : 0.12,
+    "visibilityKM" : 15.053440093994141,
+    "relativeHumidity" : 94,
+    "windSpeedKPH" : 17.200000762939453,
+    "sunsetDate" : "2024-03-16T18:17:19Z"
+  },
+  "creationDeviceModel" : "iPhone13,2",
+  "creationOSName" : "iOS",
+  "uuid" : "019044F391334EC995BEE3CE7398DDE9",
+  "creationOSVersion" : "17.3.1",
+  "starred" : false
+},
+{
+  "editingTime" : 147.20779097080231,
+  "template" : {
+    "userModifiedDate" : "2024-03-23T21:21:49Z",
+    "title" : "Daily Entry",
+    "uuid" : "89EA91A2-3D17-4568-B9CC-CD20FD89DE1F",
+    "richTextJSON" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"ECC7E6FE-71B5-48A8-89B6-2DE8B7A4F548\"}},\"text\":\"What’s on your mind today?\\n\"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2476},\"small-lines-removed\":true,\"version\":1}}"
+  },
+  "creationDate" : "2024-03-18T21:51:07Z",
+  "isAllDay" : false,
+  "location" : {
+    "region" : {
+      "center" : {
+        "longitude" : -2.5084173679351807,
+        "latitude" : 51.521274566650391
+      },
+      "radius" : 75
+    },
+    "localityName" : "Bristol",
+    "country" : "United Kingdom",
+    "timeZoneName" : "Europe\/London",
+    "administrativeArea" : "England",
+    "longitude" : -2.5084173679351807,
+    "placeName" : "41 Dragon Road",
+    "latitude" : 51.521274566650391
+  },
+  "creationDevice" : "iPhone (10)",
+  "richText" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"ECC7E6FE-71B5-48A8-89B6-2DE8B7A4F548\"}},\"text\":\"What’s on your mind today?\\n\"},{\"text\":\"Well I haven’t done much towards a new job today, but I did yesterday, I got a proper sense think act loop going and it’s ready for the first blog post which I... should probably have done today. \\n\\nToday I felt I was having a good day but I’ve not achieved that much, bit of a coasting day really, I get those sometimes. I think my single biggest issue right now is the drinking, I’m having beers every single night, most likely because of boredom or lack of anything else to stimulate me. It’s sad, it’s worrying, but I’ll fix it. \"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2476},\"small-lines-removed\":true,\"version\":1}}",
+  "modifiedDate" : "2024-03-18T21:53:37Z",
+  "creationDeviceType" : "iPhone",
+  "timeZone" : "Europe\/London",
+  "text" : "# What’s on your mind today?\nWell I haven’t done much towards a new job today, but I did yesterday, I got a proper sense think act loop going and it’s ready for the first blog post which I\\.\\.\\. should probably have done today\\. \n\nToday I felt I was having a good day but I’ve not achieved that much, bit of a coasting day really, I get those sometimes\\. I think my single biggest issue right now is the drinking, I’m having beers every single night, most likely because of boredom or lack of anything else to stimulate me\\. It’s sad, it’s worrying, but I’ll fix it\\.",
+  "sourceString" : "visit-73E78BF4-A87A-4C74-9468-A25B5144D066",
+  "duration" : 0,
+  "userActivity" : {
+    "activityName" : "Walking",
+    "stepCount" : 1528
+  },
+  "isPinned" : false,
+  "weather" : {
+    "moonPhaseCode" : "waxing-gibbous",
+    "weatherCode" : "partly-cloudy",
+    "weatherServiceName" : "WeatherKit",
+    "temperatureCelsius" : 10.609999656677246,
+    "windBearing" : 200,
+    "sunriseDate" : "2024-03-18T06:16:27Z",
+    "conditionsDescription" : "Partly Cloudy",
+    "pressureMB" : 1012.6699829101562,
+    "moonPhase" : 0.37,
+    "visibilityKM" : 21.162670135498047,
+    "relativeHumidity" : 85,
+    "windSpeedKPH" : 20.629999160766602,
+    "sunsetDate" : "2024-03-18T18:20:44Z"
+  },
+  "creationDeviceModel" : "iPhone13,2",
+  "creationOSName" : "iOS",
+  "uuid" : "3717EFC036F646798DBE9680F48540BF",
+  "creationOSVersion" : "17.3.1",
+  "starred" : false
+},
+{
+  "creationDeviceType" : "iPhone",
+  "timeZone" : "Europe\/London",
+  "location" : {
+    "region" : {
+      "center" : {
+        "longitude" : -2.50856614112854,
+        "latitude" : 51.521320343017578
+      },
+      "radius" : 75
+    },
+    "localityName" : "Bristol",
+    "country" : "United Kingdom",
+    "timeZoneName" : "Europe\/London",
+    "administrativeArea" : "England",
+    "longitude" : -2.50856614112854,
+    "placeName" : "39 Dragon Road",
+    "latitude" : 51.521320343017578
+  },
+  "uuid" : "EC6B88206AB847B6868E92935AE2FA51",
+  "editingTime" : 133.74668502807617,
+  "creationDeviceModel" : "iPhone13,2",
+  "creationDate" : "2024-03-19T22:22:58Z",
+  "starred" : false,
+  "template" : {
+    "userModifiedDate" : "2024-03-23T21:21:49Z",
+    "title" : "Daily Entry",
+    "uuid" : "89EA91A2-3D17-4568-B9CC-CD20FD89DE1F",
+    "richTextJSON" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"ECC7E6FE-71B5-48A8-89B6-2DE8B7A4F548\"}},\"text\":\"What’s on your mind today?\\n\"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2476},\"small-lines-removed\":true,\"version\":1}}"
+  },
+  "isPinned" : false,
+  "modifiedDate" : "2024-03-19T22:26:36Z",
+  "richText" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"ECC7E6FE-71B5-48A8-89B6-2DE8B7A4F548\"}},\"text\":\"What’s on your mind today?\\n\"},{\"text\":\"Better today, although still had a beer. My rational was to unwind for bed, which is maybe partially true. I’ve had a good day though, it was more relaxed and thoughtful and I completed a bunch of my reminders so my systems are on track, I was dismayed to see that both the OpenAI job AND the Google one had gone, blimey that was quick. I’ve learned my lesson, be prepared and act quickly when the opportunity comes up. I have applied for a backend engineer role at OpenAI though which looks interesting and I wonder if they’re all in the same area anyway. Foot in the door first, then leadership. So I’m going to continue my general trend of improvement, I’m feeling more positive at the moment.\"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2476},\"small-lines-removed\":true,\"version\":1}}",
+  "text" : "# What’s on your mind today?\nBetter today, although still had a beer\\. My rational was to unwind for bed, which is maybe partially true\\. I’ve had a good day though, it was more relaxed and thoughtful and I completed a bunch of my reminders so my systems are on track, I was dismayed to see that both the OpenAI job AND the Google one had gone, blimey that was quick\\. I’ve learned my lesson, be prepared and act quickly when the opportunity comes up\\. I have applied for a backend engineer role at OpenAI though which looks interesting and I wonder if they’re all in the same area anyway\\. Foot in the door first, then leadership\\. So I’m going to continue my general trend of improvement, I’m feeling more positive at the moment\\.",
+  "duration" : 0,
+  "creationOSName" : "iOS",
+  "creationOSVersion" : "17.3.1",
+  "sourceString" : "visit-683FA39D-3DD5-4EB7-8151-DE7276262EEF",
+  "isAllDay" : false,
+  "weather" : {
+    "moonPhaseCode" : "waxing-gibbous",
+    "weatherCode" : "cloudy",
+    "weatherServiceName" : "WeatherKit",
+    "temperatureCelsius" : 11.539999961853027,
+    "windBearing" : 172,
+    "sunriseDate" : "2024-03-19T06:14:09Z",
+    "conditionsDescription" : "Cloudy",
+    "pressureMB" : 1015.719970703125,
+    "moonPhase" : 0.37,
+    "visibilityKM" : 7.4444899559020996,
+    "relativeHumidity" : 90,
+    "windSpeedKPH" : 8.1899995803833008,
+    "sunsetDate" : "2024-03-19T18:22:26Z"
+  },
+  "creationDevice" : "iPhone (10)",
+  "userActivity" : {
+    "activityName" : "Walking",
+    "stepCount" : 18253
+  }
+},
+{
+  "creationDeviceType" : "iPhone",
+  "location" : {
+    "region" : {
+      "center" : {
+        "longitude" : -2.5085484981536865,
+        "latitude" : 51.521331787109375
+      },
+      "radius" : 75
+    },
+    "localityName" : "Bristol",
+    "country" : "United Kingdom",
+    "timeZoneName" : "Europe\/London",
+    "administrativeArea" : "England",
+    "longitude" : -2.5085484981536865,
+    "placeName" : "37 Dragon Road",
+    "latitude" : 51.521331787109375
+  },
+  "timeZone" : "Europe\/London",
+  "editingTime" : 146.87538194656372,
+  "creationDeviceModel" : "iPhone13,2",
+  "creationDate" : "2024-03-21T21:11:48Z",
+  "starred" : false,
+  "template" : {
+    "userModifiedDate" : "2024-03-23T21:21:49Z",
+    "title" : "Daily Entry",
+    "uuid" : "89EA91A2-3D17-4568-B9CC-CD20FD89DE1F",
+    "richTextJSON" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"ECC7E6FE-71B5-48A8-89B6-2DE8B7A4F548\"}},\"text\":\"What’s on your mind today?\\n\"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2476},\"small-lines-removed\":true,\"version\":1}}"
+  },
+  "isPinned" : false,
+  "modifiedDate" : "2024-03-21T21:14:18Z",
+  "richText" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"ECC7E6FE-71B5-48A8-89B6-2DE8B7A4F548\"}},\"text\":\"What’s on your mind today?\\n\"},{\"text\":\"I am pleased to report that I got 92% in exam 2, that means I only need 57% in exam 3 to get an A, and I don’t even need to take it at all  to get a B. So I’ve passed my degree either way, I’m relieved and proud. I will work hard to get that A though, no reason not to.\\n\\nI also finished and pushed my first article for Minecraft LLMs which is nice, I’m pleased with it, and it’s quite impressive I think. I’m happy with how things are going at the moment. I’m still not nailing origins, that’s fine, it will take time to build up.\\n\\n\"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2476},\"small-lines-removed\":true,\"version\":1}}",
+  "text" : "# What’s on your mind today?\nI am pleased to report that I got 92% in exam 2, that means I only need 57% in exam 3 to get an A, and I don’t even need to take it at all  to get a B\\. So I’ve passed my degree either way, I’m relieved and proud\\. I will work hard to get that A though, no reason not to\\.\n\nI also finished and pushed my first article for Minecraft LLMs which is nice, I’m pleased with it, and it’s quite impressive I think\\. I’m happy with how things are going at the moment\\. I’m still not nailing origins, that’s fine, it will take time to build up\\.\n",
+  "duration" : 0,
+  "creationOSName" : "iOS",
+  "creationOSVersion" : "17.3.1",
+  "sourceString" : "visit-FB14D8E5-1652-4054-A86D-D86A60364992",
+  "isAllDay" : false,
+  "weather" : {
+    "moonPhaseCode" : "waxing-gibbous",
+    "weatherCode" : "cloudy",
+    "weatherServiceName" : "WeatherKit",
+    "temperatureCelsius" : 9.0699996948242188,
+    "windBearing" : 241,
+    "sunriseDate" : "2024-03-21T06:09:34Z",
+    "conditionsDescription" : "Cloudy",
+    "pressureMB" : 1023.2000122070312,
+    "moonPhase" : 0.37,
+    "visibilityKM" : 24.517539978027344,
+    "relativeHumidity" : 80,
+    "windSpeedKPH" : 18.620000839233398,
+    "sunsetDate" : "2024-03-21T18:25:50Z"
+  },
+  "creationDevice" : "iPhone (10)",
+  "uuid" : "9CF7B2CD9FB349C79554B006C6BD07FF"
+},
+{
+  "location" : {
+    "region" : {
+      "center" : {
+        "longitude" : -2.508425235748291,
+        "latitude" : 51.521446228027344
+      },
+      "radius" : 75
+    },
+    "localityName" : "Bristol",
+    "country" : "United Kingdom",
+    "timeZoneName" : "Europe\/London",
+    "administrativeArea" : "England",
+    "longitude" : -2.508425235748291,
+    "placeName" : "37 Dragon Road",
+    "latitude" : 51.521446228027344
+  },
+  "duration" : 0,
+  "creationDate" : "2024-03-23T21:21:28Z",
+  "creationDevice" : "iPhone (10)",
+  "creationDeviceModel" : "iPhone13,2",
+  "text" : "# What’s on your mind today?\nThe positivity has been continued, mostly\\. I didn’t get a chance to do my project work today, fitting in the five hours of industry can be challenging\\. Five hours sounds like it would be easy to fit in, but I also did 2 hours of OMSCS which doesn’t count towards it, and went to willow brook with Susie, and did all the cooking\\. So I’m not surprised it got eaten up but I’m a little bitter\\. I have had mixed feelings about doing all the housework, I feel like Susie does absolutely nothing\\. I don’t want to spend my precious hours tidying, cleaning, and cooking\\. I feel it is all I do sometimes\\. What annoys me even more is when I have to make her breakfast, and lunch, and she asks for multiples teas and water\\. I feel like a slave\\. At the moment she has shingles, but even that annoys me, because she’s burned out and stressed for working too hard the last few weeks with her conferences etc, but I’m working flat out too, where is my break? Can’t she tailor things a little to help with the housework? I don’t know,  not sure what the solution is here\\.\\. \n\n\nThree things I want to start doing\\.\nDoing a few more things with Susie just to add some spice to our life, doesn’t need much\\.\nStart talking to her more and relating and helping encourage her to grow\\. Don’t “put up with” and “resent”\\. \nStart asking her to do more housework and making everything fairer\\.",
+  "modifiedDate" : "2024-03-23T21:55:58Z",
+  "creationDeviceType" : "iPhone",
+  "editingTime" : 404.9657781124115,
+  "creationOSVersion" : "17.3.1",
+  "uuid" : "E6A36DCFDE57435F8E786D812BA38470",
+  "isAllDay" : false,
+  "starred" : false,
+  "template" : {
+    "userModifiedDate" : "2024-03-23T21:21:49Z",
+    "title" : "Daily Entry",
+    "uuid" : "89EA91A2-3D17-4568-B9CC-CD20FD89DE1F",
+    "richTextJSON" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"ECC7E6FE-71B5-48A8-89B6-2DE8B7A4F548\"}},\"text\":\"What’s on your mind today?\\n\"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2476},\"small-lines-removed\":true,\"version\":1}}"
+  },
+  "isPinned" : false,
+  "richText" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"ECC7E6FE-71B5-48A8-89B6-2DE8B7A4F548\"}},\"text\":\"What’s on your mind today?\\n\"},{\"text\":\"The positivity has been continued, mostly. I didn’t get a chance to do my project work today, fitting in the five hours of industry can be challenging. Five hours sounds like it would be easy to fit in, but I also did 2 hours of OMSCS which doesn’t count towards it, and went to willow brook with Susie, and did all the cooking. So I’m not surprised it got eaten up but I’m a little bitter. I have had mixed feelings about doing all the housework, I feel like Susie does absolutely nothing. I don’t want to spend my precious hours tidying, cleaning, and cooking. I feel it is all I do sometimes. What annoys me even more is when I have to make her breakfast, and lunch, and she asks for multiples teas and water. I feel like a slave. At the moment she has shingles, but even that annoys me, because she’s burned out and stressed for working too hard the last few weeks with her conferences etc, but I’m working flat out too, where is my break? Can’t she tailor things a little to help with the housework? I don’t know,  not sure what the solution is here.. \\n\\n\\nThree things I want to start doing.\\nDoing a few more things with Susie just to add some spice to our life, doesn’t need much.\\nStart talking to her more and relating and helping encourage her to grow. Don’t “put up with” and “resent”. \\nStart asking her to do more housework and making everything fairer. \"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2476},\"small-lines-removed\":true,\"version\":1}}",
+  "sourceString" : "visit-96CE1CB3-2A5A-4CC3-BD8A-E83BEA784EBC",
+  "weather" : {
+    "moonPhaseCode" : "waxing-gibbous",
+    "weatherCode" : "clear",
+    "weatherServiceName" : "WeatherKit",
+    "temperatureCelsius" : 6.8899998664855957,
+    "windBearing" : 276,
+    "sunriseDate" : "2024-03-23T06:04:58Z",
+    "conditionsDescription" : "Clear",
+    "pressureMB" : 1012.3699951171875,
+    "moonPhase" : 0.37,
+    "visibilityKM" : 27.751270294189453,
+    "relativeHumidity" : 69,
+    "windSpeedKPH" : 19.489999771118164,
+    "sunsetDate" : "2024-03-23T18:29:13Z"
+  },
+  "timeZone" : "Europe\/London",
+  "userActivity" : {
+    "activityName" : "Stationary",
+    "stepCount" : 13756
+  },
+  "creationOSName" : "iOS"
+},
+{
+  "location" : {
+    "region" : {
+      "center" : {
+        "longitude" : -2.5082142353057861,
+        "latitude" : 51.521350860595703
+      },
+      "radius" : 75
+    },
+    "localityName" : "Bristol",
+    "country" : "United Kingdom",
+    "timeZoneName" : "Europe\/London",
+    "administrativeArea" : "England",
+    "longitude" : -2.5082142353057861,
+    "placeName" : "37 Dragon Road",
+    "latitude" : 51.521350860595703
+  },
+  "duration" : 0,
+  "creationDate" : "2024-03-25T20:05:59Z",
+  "tags" : [
+    "Ideas"
+  ],
+  "creationDevice" : "iPhone (10)",
+  "creationDeviceModel" : "iPhone13,2",
+  "modifiedDate" : "2024-03-25T22:45:17Z",
+  "creationDeviceType" : "iPhone",
+  "text" : "I think I’ve been a real shit to Susie recently, she’s got shingles and is feeling awful, I’ve been ratty about doing the housework and cooking because I’ve felt like I always do it, but now I feel guilty\\. \n\nI’ve changed all my systems again,  classic\\. To be fair, the way origins was originally setup was a bit too onerous and administrative, I’ve simplified, which can only be a good thing\\. Out of the set of things I was tracking and trying to do each day I’ve identified those that absolutely must be done each day, that I can quantify, and I’ve called these keystone habits\\. Things like doing an exercise routine, drinking 2L of water, or closing activity rings\\. They’re either done or they’re not, and ideally they’d be automatically tracked like the rings, some of them I have to tick off reminders but I’ve reduced that burden so it might be alright\\. For now that’s I’m all I’m doing, I’m simplifying\\. \n\nI’m reading Cal Newports new book Slow Productivity which is very timely, and I’ve restarted reading Instapaper articles and the first one I read was on a similar theme\\. So I’m all about the slowing down right now, creating space, and improving mental capacity\\. Although this isn’t a new concept to me \\(remember slack?\\) but it does seem to be something I haven’t managed to achieve\\. In aid of simplicity I’ve stopped tracking sleep and mood \\(seriously when do I ever reflect on it and change what I’m doing in retrospect?\\) I’m tracking progress via completion of keystones which is largely automated, and this journal right here\\. We’ll see how it goes\\.\n\nI hit 90 on the scales today, which I’m pleased with because it’s something I had thought should be simple but I hadn’t managed it\\. So I CAN lose 2\\.5kg\\.\\.\\. great, maybe I can do other things too\\.\\.\\. \/s\n\nOn the other hand I am nailing Grad Algorithms, unsure if I mentioned it but I got 92% in Exam 2\\. I’ve massively slowed the pace for Exam 3 but I’ve not switched off, I still do about two hours a day and that doesn’t account for Anki cards\\. That’s almost 15 hours a week and strangely it feels like nothing at all\\.\\. I look forward to redirect that effort towards my other chosen pursuits once it’s done\\. Actually I’m already doing most of those pursuits so it’ll translate directly into more free time\\.\n\nI’m reading Slow Productivity and the ideas are coming thick and fast\\. First, I should all write all ideas and notes here, hopefully I can tag this in some way to find it again\\. Second, I’m digging the idea of just working on one project a day, that’s NOT the same as one at a time, I might have multiple ongoing at once but I devote a days attention to each and make serious uninterrupted headway on it\\. The only exception is professional work which I sort of have to do at the same time, so I have two streams \\(three right now with the MSc but that’ll go soon\\), and both consist of a set of projects, one is professional, e other is everything outside of work, and I organise my activities by project\\. And I mean everything, even tidying or cleaning can be a mini project\\. I’ll try to do an amount of time on projects each day, tracked in A Tracker, and I’ll use Todoist to capture the things that need doing\\. I’ll use sections in Todoist to organise and separate the different projects\\. There, in a single paragraph I’ve explained my entire approach, which is as simple as I’ve managed to get it in a long time\\. \n\nOh, more, as I get into the swing and it starts to pay off, I want to focus on doing projects that compound, and bring the ideas of most valuable project in so that I’m not just iterating randomly, but working on higher and higher value projects that are pay off for a long time and propel me upwards\\. \n\nFor project prioritisation, I could use the five year proxy? If I did this now, how much benefit would it have in five years time\\.",
+  "editingTime" : 1039.6757571697235,
+  "creationOSVersion" : "17.3.1",
+  "uuid" : "5849207F101442EBA5B1CD7DB3CBF82B",
+  "isAllDay" : false,
+  "starred" : false,
+  "richText" : "{\"contents\":[{\"text\":\"I think I’ve been a real shit to Susie recently, she’s got shingles and is feeling awful, I’ve been ratty about doing the housework and cooking because I’ve felt like I always do it, but now I feel guilty. \\n\\nI’ve changed all my systems again,  classic. To be fair, the way origins was originally setup was a bit too onerous and administrative, I’ve simplified, which can only be a good thing. Out of the set of things I was tracking and trying to do each day I’ve identified those that absolutely must be done each day, that I can quantify, and I’ve called these keystone habits. Things like doing an exercise routine, drinking 2L of water, or closing activity rings. They’re either done or they’re not, and ideally they’d be automatically tracked like the rings, some of them I have to tick off reminders but I’ve reduced that burden so it might be alright. For now that’s I’m all I’m doing, I’m simplifying. \\n\\nI’m reading Cal Newports new book Slow Productivity which is very timely, and I’ve restarted reading Instapaper articles and the first one I read was on a similar theme. So I’m all about the slowing down right now, creating space, and improving mental capacity. Although this isn’t a new concept to me (remember slack?) but it does seem to be something I haven’t managed to achieve. In aid of simplicity I’ve stopped tracking sleep and mood (seriously when do I ever reflect on it and change what I’m doing in retrospect?) I’m tracking progress via completion of keystones which is largely automated, and this journal right here. We’ll see how it goes.\\n\\nI hit 90 on the scales today, which I’m pleased with because it’s something I had thought should be simple but I hadn’t managed it. So I CAN lose 2.5kg... great, maybe I can do other things too... \\\/s\\n\\nOn the other hand I am nailing Grad Algorithms, unsure if I mentioned it but I got 92% in Exam 2. I’ve massively slowed the pace for Exam 3 but I’ve not switched off, I still do about two hours a day and that doesn’t account for Anki cards. That’s almost 15 hours a week and strangely it feels like nothing at all.. I look forward to redirect that effort towards my other chosen pursuits once it’s done. Actually I’m already doing most of those pursuits so it’ll translate directly into more free time.\\n\"},{\"attributes\":{\"line\":{\"header\":0,\"identifier\":\"A293A611-2B20-4DC8-87DB-E181AD51B9C5\"}},\"text\":\"\\n\"},{\"text\":\"I’m reading Slow Productivity and the ideas are coming thick and fast. First, I should all write all ideas and notes here, hopefully I can tag this in some way to find it again. Second, I’m digging the idea of just working on one project a day, that’s NOT the same as one at a time, I might have multiple ongoing at once but I devote a days attention to each and make serious uninterrupted headway on it. The only exception is professional work which I sort of have to do at the same time, so I have two streams (three right now with the MSc but that’ll go soon), and both consist of a set of projects, one is professional, e other is everything outside of work, and I organise my activities by project. And I mean everything, even tidying or cleaning can be a mini project. I’ll try to do an amount of time on projects each day, tracked in A Tracker, and I’ll use Todoist to capture the things that need doing. I’ll use sections in Todoist to organise and separate the different projects. There, in a single paragraph I’ve explained my entire approach, which is as simple as I’ve managed to get it in a long time. \\n\\nOh, more, as I get into the swing and it starts to pay off, I want to focus on doing projects that compound, and bring the ideas of most valuable project in so that I’m not just iterating randomly, but working on higher and higher value projects that are pay off for a long time and propel me upwards. \\n\\nFor project prioritisation, I could use the five year proxy? If I did this now, how much benefit would it have in five years time. \"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2476},\"small-lines-removed\":true,\"version\":1}}",
+  "isPinned" : false,
+  "sourceString" : "visit-940B389E-07F9-46E4-ACDC-2675AF2D248F",
+  "weather" : {
+    "moonPhaseCode" : "full",
+    "weatherCode" : "cloudy",
+    "weatherServiceName" : "WeatherKit",
+    "temperatureCelsius" : 8.9099998474121094,
+    "windBearing" : 107,
+    "sunriseDate" : "2024-03-25T06:00:22Z",
+    "conditionsDescription" : "Cloudy",
+    "pressureMB" : 992.92999267578125,
+    "moonPhase" : 0.5,
+    "visibilityKM" : 24.221530914306641,
+    "relativeHumidity" : 72,
+    "windSpeedKPH" : 17.959999084472656,
+    "sunsetDate" : "2024-03-25T18:32:36Z"
+  },
+  "timeZone" : "Europe\/London",
+  "creationOSName" : "iOS"
+},
+{
+  "duration" : 0,
+  "creationDate" : "2024-03-28T11:39:08Z",
+  "creationDevice" : "Desktop",
+  "editingTime" : 130.89401495456696,
+  "text" : "# Importing Models to ClearML\nI've just started restoring the LDATs from archive\\. I'm doing that first so I can assume they are in a good state \\- it's easier than writing a script that handles all cases and attempts to perform the right action, that's how I got into a mess with the dataset curator\\.\n\nI am inspired to apply to the Monzo backend role, I think that would \\(mostly\\) fit the bill\\. Yeah okay not AI, but BE in a household tech company, in London, where I can grow and lead teams\\. Also very flexible working practices which is good\\. I have written my CV and Cover Letter, and I found a blog post from a BE engineer who started 6 months ago, I've actually reached out to her on LI to ask for an introduction\\. If I don't hear back I'll apply\\. Not sure if this is the best time to apply direct because of Easter break disruption\\. I'll add some more articles to my BE engineering series in the meantime\\.\n\nI’ve simplified Origins again, I’ve actually just condensed it back into one note\\. I think I have a tendency to over complicate things\\. \n\nI’ve had a rubbish few days, today has felt better though\\. I’ve had a tired and frazzled brain, low energy and will power and that led to having a drink both nights \\(but not tonight\\) and I just felt rotten, grumpy, depressed\\. Not good\\! But today I feel much better\\. These things happen\\.",
+  "creationDeviceType" : "WebApp",
+  "creationDeviceModel" : "Google Chrome 119",
+  "modifiedDate" : "2024-04-02T21:05:19Z",
+  "creationOSVersion" : "6.5.0",
+  "uuid" : "2CEAEC5E66B85A29941E23BAD5AF0E82",
+  "isAllDay" : false,
+  "starred" : false,
+  "richText" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"DF82FFCC-C606-411A-AC1E-96F304067A36\"}},\"text\":\"Importing Models to ClearML\\n\"},{\"text\":\"I've just started restoring the LDATs from archive. I'm doing that first so I can assume they are in a good state - it's easier than writing a script that handles all cases and attempts to perform the right action, that's how I got into a mess with the dataset curator.\\n\\nI am inspired to apply to the Monzo backend role, I think that would (mostly) fit the bill. Yeah okay not AI, but BE in a household tech company, in London, where I can grow and lead teams. Also very flexible working practices which is good. I have written my CV and Cover Letter, and I found a blog post from a BE engineer who started 6 months ago, I've actually reached out to her on LI to ask for an introduction. If I don't hear back I'll apply. Not sure if this is the best time to apply direct because of Easter break disruption. I'll add some more articles to my BE engineering series in the meantime.\\n\\nI’ve simplified Origins again, I’ve actually just condensed it back into one note. I think I have a tendency to over complicate things. \\n\\nI’ve had a rubbish few days, today has felt better though. I’ve had a tired and frazzled brain, low energy and will power and that led to having a drink both nights (but not tonight) and I just felt rotten, grumpy, depressed. Not good! But today I feel much better. These things happen.\"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2490},\"small-lines-removed\":true,\"version\":1}}",
+  "isPinned" : false,
+  "timeZone" : "Europe\/London",
+  "sourceString" : "visit-E4F6E8C9-7A70-423E-9DD7-3A48C61D3AF1",
+  "userActivity" : {
+
+  },
+  "creationOSName" : "Linux"
+},
+{
+  "location" : {
+    "region" : {
+      "center" : {
+        "longitude" : -2.50858473777771,
+        "latitude" : 51.521331787109375
+      },
+      "radius" : 75
+    },
+    "localityName" : "Bristol",
+    "country" : "United Kingdom",
+    "timeZoneName" : "Europe\/London",
+    "administrativeArea" : "England",
+    "longitude" : -2.50858473777771,
+    "placeName" : "Dragon Road",
+    "latitude" : 51.521331787109375
+  },
+  "duration" : 0,
+  "creationDate" : "2024-04-02T07:37:18Z",
+  "tags" : [
+    "Entrepreneurship",
+    "Ideas"
+  ],
+  "creationDevice" : "iPhone (10)",
+  "editingTime" : 949.24705994129181,
+  "creationDeviceModel" : "iPhone13,2",
+  "modifiedDate" : "2024-04-02T21:48:46Z",
+  "creationDeviceType" : "iPhone",
+  "text" : "Feeling slightly more relaxed this morning, I’m annoyed I let things slip over the weekend\\.\n\nSome days are better than others, I’m feeling positive today, and productive\\. I’m out for my daily walk and I’m glad it’s finally sunny, ish\\. The last few days have not been good, and I’m not sure why\\. It’s as if when I have those bad days I’m in a pit where I’ve lost perspective, it’s only in days like today where I feel calmer and happier that I can see the bigger picture\\. I need to get into the habit of writing even on days I feel bad, because I have a habit of skipping them when I’m feeling rotten but that means I don’t capture any insight into what is going on\\.\n\n\n### Copying Models\nWhilst copying models from Generics to ClearML buckets I hit an issue where some keys would give me AccessDenied\\. I have not figured out why those files are not copyable\\. I am able to Get them locally and then Put them to the new bucket\\. But the copy itself doesn't appear to work\\. As an alternative approach I am attempting to grant the ClearML user \\(the team user\\) direct access to the Generics bucket to copy files\\. Currently I am hitting an issue where I cannot edit the bucket policy because the current policies are no longer in a valid format and I don't know what to update them to without risking breaking something\\.\n\n\n## Idea\nI think I should come up with a set of universal tags that I can apply across a lot of different domains and tools, for example it would be nice to link blog posts saved in Instapaper to notes made here\\.\n\n\n## Entrepreneurship\nBusiness idea is possibly consulting on building AI chatbots\\. It’s something I’m very good at\\. What about looking to see if people are making requests for AI to be added to their business? Start by trying to find existing demand\\. \n\nRandom thought whilst I remember it, William likes books and is reading lots at the moment\\!\n\nI need to make sure I regularly read and reflect on what I’m writing here, especially if it’s a log book of all thoughts\\. Potentially so many great ideas\\!\n\nAnother idea, a journal that supports this advice idea jotting that I seem to be doing\\. Build app for it, a Frontend, then sprinkle on ai to discover trends and trains of thoughts spread out through the entries? I would certainly use it\\. What would the requirements be? I’d want to quickly and rapidly jot down notes in the daily entry, separated by paragraphs\\. Each paragraph would form a thought\\. A daily entry would contain multiple thoughts\\. Each thought could be tagged and everything would be text searchable\\. The usp though would be linking thoughts together in chains that can be examined and viewed separately\\. The key is keeping things chronological\\. AI can be used to extract chains and classify thoughts based on existing tags\\. It should be beautifully designed and a pleasure to use\\. Think Superhuman\\. The journal for ideas people\\. Now\\.\\.\\. does something like this exist already?\n\n\nI’m starting to feel a little stress thinking about it\\. It’s a complicated idea, it’s new and a distraction, I have lots of other stuff on my plate\\. Maybe for now I’ll leave it\\. But I still want to get my system sorted for writing all thoughts in Day One and reviewing them on the regular to see themes and collect ideas\\. Maybe\\.\\. I just practice that idea for a bit Nd get used to it, learn it, and eventually build a product around that system?\n\nFinal thought, the most value I’m getting here is getting thoughts of my head and decluttering my headspace\\. \n\nThis is a great resource that has reviewed an awful lot of note taking apps\\. https:\/\/www\\.noteapps\\.ca\/ \n\nPart of me wonders whether or how I’m going to ever search this brain dump? It’s very related to my other note taking systems, like Obsidian\\. Obsidian is a more curated one I suppose\\. Anki is curated and is for step I’m deliberately learning\\. I really do like this idea of just getting thoughts out of my head into a journal, jotting notes, capturing ideas, book recommendations etc\\.\\.\\. it can completely replace my iPhone notes app\\. The key is to recognise that this is not a curated, reference\\-able, or even searchable system, and I suppose that is the point\\. It’s not for storing my ideas, I have a system for that it’s Evernote, this is\\.\\.\\. literally a brain dump\\. Maybe I can call my app that? It gets stuff out of my head so I declutter my brain but also that allows me to potentially access it again in the future\\. For the moment I need a system where I just write all thoughts and notes here, but I go through on a regular basis and a\\) look for themes and common thoughts, b\\) extract ideas, evaluate, and add to airtable if appropriate\\. Maybe those two things are enough for now\\. Most of my iPhone notes are actually ideas anyway\\.",
+  "creationOSVersion" : "17.3.1",
+  "uuid" : "1A5C782B8E7344B183666B7BF47BEA1C",
+  "isAllDay" : false,
+  "starred" : false,
+  "richText" : "{\"contents\":[{\"text\":\"Feeling slightly more relaxed this morning, I’m annoyed I let things slip over the weekend.\\n\\nSome days are better than others, I’m feeling positive today, and productive. I’m out for my daily walk and I’m glad it’s finally sunny, ish. The last few days have not been good, and I’m not sure why. It’s as if when I have those bad days I’m in a pit where I’ve lost perspective, it’s only in days like today where I feel calmer and happier that I can see the bigger picture. I need to get into the habit of writing even on days I feel bad, because I have a habit of skipping them when I’m feeling rotten but that means I don’t capture any insight into what is going on.\\n\\n\"},{\"attributes\":{\"line\":{\"header\":3,\"identifier\":\"DD345B1D-04B3-4F20-8DDE-25B48CF138C4\"}},\"text\":\"Copying Models\\n\"},{\"text\":\"Whilst copying models from Generics to ClearML buckets I hit an issue where some keys would give me AccessDenied. I have not figured out why those files are not copyable. I am able to Get them locally and then Put them to the new bucket. But the copy itself doesn't appear to work. As an alternative approach I am attempting to grant the ClearML user (the team user) direct access to the Generics bucket to copy files. Currently I am hitting an issue where I cannot edit the bucket policy because the current policies are no longer in a valid format and I don't know what to update them to without risking breaking something.\\n\\n\"},{\"attributes\":{\"line\":{\"header\":2,\"identifier\":\"97370E38-BD7B-43F5-BA4B-EED1D87D6BEE\"}},\"text\":\"Idea\\n\"},{\"attributes\":{\"line\":{\"header\":0,\"identifier\":\"7B90A10C-9BCA-4E14-835E-8761C3C54C80\"}},\"text\":\"I think I should come up with a set of universal tags that I can apply across a lot of different domains and tools, for example it would be nice to link blog posts saved in Instapaper to notes made here.\\n\"},{\"attributes\":{\"line\":{\"header\":0,\"identifier\":\"9A75BF1E-9921-49B0-8AA2-0DE3262E124D\"}},\"text\":\"\\n\"},{\"attributes\":{\"line\":{\"header\":2,\"identifier\":\"02E9CFF4-142C-48A2-A851-B7E684F00A1F\"}},\"text\":\"Entrepreneurship\\n\"},{\"attributes\":{\"line\":{\"header\":0,\"identifier\":\"77BCA258-13D0-4EF9-BA2F-67E49A59D6C7\"}},\"text\":\"Business idea is possibly consulting on building AI chatbots. It’s something I’m very good at. What about looking to see if people are making requests for AI to be added to their business? Start by trying to find existing demand. \\n\"},{\"attributes\":{\"line\":{\"header\":0,\"identifier\":\"F506195D-87D7-4C37-9B47-D7C196CB26E4\"}},\"text\":\"\\n\"},{\"attributes\":{\"line\":{\"header\":0,\"identifier\":\"BDEE4A3D-8EBD-4463-BA3F-B51EA7FD4BEA\"}},\"text\":\"Random thought whilst I remember it, William likes books and is reading lots at the moment!\\n\"},{\"attributes\":{\"line\":{\"header\":0,\"identifier\":\"50E9B642-5EB6-499E-B9DB-968BF36BFBF9\"}},\"text\":\"\\n\"},{\"attributes\":{\"line\":{\"header\":0,\"identifier\":\"EA8C5812-476A-428C-B5F2-518106B18AB4\"}},\"text\":\"I need to make sure I regularly read and reflect on what I’m writing here, especially if it’s a log book of all thoughts. Potentially so many great ideas!\\n\"},{\"text\":\"\\nAnother idea, a journal that supports this advice idea jotting that I seem to be doing. Build app for it, a Frontend, then sprinkle on ai to discover trends and trains of thoughts spread out through the entries? I would certainly use it. What would the requirements be? I’d want to quickly and rapidly jot down notes in the daily entry, separated by paragraphs. Each paragraph would form a thought. A daily entry would contain multiple thoughts. Each thought could be tagged and everything would be text searchable. The usp though would be linking thoughts together in chains that can be examined and viewed separately. The key is keeping things chronological. AI can be used to extract chains and classify thoughts based on existing tags. It should be beautifully designed and a pleasure to use. Think Superhuman. The journal for ideas people. Now... does something like this exist already?\\n\\n\\nI’m starting to feel a little stress thinking about it. It’s a complicated idea, it’s new and a distraction, I have lots of other stuff on my plate. Maybe for now I’ll leave it. But I still want to get my system sorted for writing all thoughts in Day One and reviewing them on the regular to see themes and collect ideas. Maybe.. I just practice that idea for a bit Nd get used to it, learn it, and eventually build a product around that system?\\n\\nFinal thought, the most value I’m getting here is getting thoughts of my head and decluttering my headspace. \\n\\nThis is a great resource that has reviewed an awful lot of note taking apps. \"},{\"attributes\":{\"autolink\":true},\"text\":\"https:\\\/\\\/www.noteapps.ca\\\/\"},{\"text\":\" \\n\\nPart of me wonders whether or how I’m going to ever search this brain dump? It’s very related to my other note taking systems, like Obsidian. Obsidian is a more curated one I suppose. Anki is curated and is for step I’m deliberately learning. I really do like this idea of just getting thoughts out of my head into a journal, jotting notes, capturing ideas, book recommendations etc... it can completely replace my iPhone notes app. The key is to recognise that this is not a curated, reference-able, or even searchable system, and I suppose that is the point. It’s not for storing my ideas, I have a system for that it’s Evernote, this is... literally a brain dump. Maybe I can call my app that? It gets stuff out of my head so I declutter my brain but also that allows me to potentially access it again in the future. For the moment I need a system where I just write all thoughts and notes here, but I go through on a regular basis and a) look for themes and common thoughts, b) extract ideas, evaluate, and add to airtable if appropriate. Maybe those two things are enough for now. Most of my iPhone notes are actually ideas anyway.\"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2490},\"small-lines-removed\":true,\"version\":1}}",
+  "isPinned" : false,
+  "sourceString" : "visit-9184FE8F-9BC0-406B-8973-0ADA60D7C564",
+  "weather" : {
+    "moonPhaseCode" : "last-quarter",
+    "weatherCode" : "partly-cloudy",
+    "weatherServiceName" : "WeatherKit",
+    "temperatureCelsius" : 8.130000114440918,
+    "windBearing" : 244,
+    "sunriseDate" : "2024-04-02T05:42:20Z",
+    "conditionsDescription" : "Partly Cloudy",
+    "pressureMB" : 1001.6099853515625,
+    "moonPhase" : 0.75,
+    "visibilityKM" : 19.875040054321289,
+    "relativeHumidity" : 89,
+    "windSpeedKPH" : 11.529999732971191,
+    "sunsetDate" : "2024-04-02T18:46:00Z"
+  },
+  "timeZone" : "Europe\/London",
+  "userActivity" : {
+    "activityName" : "Stationary",
+    "stepCount" : 441
+  },
+  "creationOSName" : "iOS"
+},
+{
+  "creationDeviceType" : "iPhone",
+  "timeZone" : "Europe\/London",
+  "location" : {
+    "region" : {
+      "center" : {
+        "longitude" : -2.5227985382080078,
+        "latitude" : 51.521461486816406
+      },
+      "radius" : 75
+    },
+    "localityName" : "Bristol",
+    "country" : "United Kingdom",
+    "timeZoneName" : "Europe\/London",
+    "administrativeArea" : "England",
+    "longitude" : -2.5227985382080078,
+    "placeName" : "Vine Cottage, Beacon Lane",
+    "latitude" : 51.521461486816406
+  },
+  "uuid" : "5E94AF7B751F42BFBC56018627D91605",
+  "editingTime" : 526.7837438583374,
+  "creationDeviceModel" : "iPhone13,2",
+  "creationDate" : "2024-04-03T17:03:25Z",
+  "starred" : false,
+  "isPinned" : false,
+  "modifiedDate" : "2024-04-03T22:36:51Z",
+  "richText" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"7343FD71-79A0-4F86-AFF1-F9A2E6BF05D4\"}},\"text\":\"\\n\"},{\"text\":\"Quite brain tired today, I felt the slog at about 2, I did sleep less which probably explains it. Exam 3 in two days, I feel reasonably prepared, there’s not much more I can be bothered to do now. I’ll finish joves office hours and probably repeat it, and apart from that it’s get a good rest the night before.\\n\\nYakima Valley, the yellow one is my favourite beer from arbor I think. \\n\\nIt’s absolutely vital that I begin to focus on my five year goals fully. I’m allowed to relax and approach them sustainably as per slow productivity, and I’m allowed other projects to break things up, but this must be my absolute focus. My major missions for now are to secure a job in a prestigious tech company and to start a side hustle to make some cash. Anything not directed at those two goals is a distraction. I have a few years to achieve this, I need to believe in Origins. I have some success already, I’m in a good tech company in a decent role, do interesting and impressive work. I want to start to see results in the side hustle front as well. \\n\\nBeliefs to incorporate into origins.\\nYou are already living a successful life. You have already achieved everything you need to. You are already a somebody to the people that matter. \\n\"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2490},\"small-lines-removed\":true,\"version\":1}}",
+  "text" : "Quite brain tired today, I felt the slog at about 2, I did sleep less which probably explains it\\. Exam 3 in two days, I feel reasonably prepared, there’s not much more I can be bothered to do now\\. I’ll finish joves office hours and probably repeat it, and apart from that it’s get a good rest the night before\\.\n\nYakima Valley, the yellow one is my favourite beer from arbor I think\\. \n\nIt’s absolutely vital that I begin to focus on my five year goals fully\\. I’m allowed to relax and approach them sustainably as per slow productivity, and I’m allowed other projects to break things up, but this must be my absolute focus\\. My major missions for now are to secure a job in a prestigious tech company and to start a side hustle to make some cash\\. Anything not directed at those two goals is a distraction\\. I have a few years to achieve this, I need to believe in Origins\\. I have some success already, I’m in a good tech company in a decent role, do interesting and impressive work\\. I want to start to see results in the side hustle front as well\\. \n\nBeliefs to incorporate into origins\\.\nYou are already living a successful life\\. You have already achieved everything you need to\\. You are already a somebody to the people that matter\\. ",
+  "duration" : 0,
+  "creationOSName" : "iOS",
+  "creationOSVersion" : "17.3.1",
+  "sourceString" : "visit-2B9A25A5-488C-4867-8DD3-AC48C6CCA682",
+  "isAllDay" : false,
+  "weather" : {
+    "moonPhaseCode" : "waning-crescent",
+    "weatherCode" : "mostly-cloudy",
+    "weatherServiceName" : "WeatherKit",
+    "temperatureCelsius" : 11.180000305175781,
+    "windBearing" : 250,
+    "sunriseDate" : "2024-04-03T05:40:09Z",
+    "conditionsDescription" : "Mostly Cloudy",
+    "pressureMB" : 1003.1599731445312,
+    "moonPhase" : 0.87,
+    "visibilityKM" : 26.540000915527344,
+    "relativeHumidity" : 75,
+    "windSpeedKPH" : 22.069999694824219,
+    "sunsetDate" : "2024-04-03T18:47:44Z"
+  },
+  "creationDevice" : "iPhone (10)",
+  "userActivity" : {
+    "activityName" : "Walking",
+    "stepCount" : 13760
+  }
+},
+{
+  "location" : {
+    "region" : {
+      "center" : {
+        "longitude" : -2.5812923908233643,
+        "latitude" : 51.452178955078125
+      },
+      "radius" : 75
+    },
+    "localityName" : "Bristol",
+    "country" : "United Kingdom",
+    "timeZoneName" : "Europe\/London",
+    "administrativeArea" : "England",
+    "longitude" : -2.5812923908233643,
+    "placeName" : "46 The Eye, Glass Wharf",
+    "latitude" : 51.452178955078125
+  },
+  "duration" : 0,
+  "creationDate" : "2024-04-04T13:03:19Z",
+  "creationDevice" : "iPhone (10)",
+  "creationDeviceModel" : "iPhone13,2",
+  "modifiedDate" : "2024-04-05T21:10:08Z",
+  "creationDeviceType" : "iPhone",
+  "text" : "That chaotic feeling I get every now and again, where everything has to line up and make sense and be part of some organised system, I’m naming that Palia\\.\n\nI say that because I’m feeling at the moment whilst reading this palia article on software architecture\\. I’m thinking of how to best process and learn from case studies which is an important avenue for learning, it’s what Cedric chin recommends, study good examples of what good looks like\\. I got the system design interview book full of case studies to study\\.\\. but what do I do with all that knowledge? Where do I keep it? To me it makes most sense to put it in Obsidian as searchable material\\. I can’t commit to learning it all, it’ll be too much\\. Perhaps if I come across something obviously foundational, but most of this stuff is going to be contextual, why a company did it a particular way\\. So with that in mind I’ll follow my usual obsidian approach, heavily tagged, links, etc\\. I’ll read these articles\/case studies and create an entry for each one, I’ll create a paragraph for each choice, I’ll use the technique 1\\) what was the situation, problem, context, 2\\) what they did 3\\) why they did it\\. 4\\) caveats and notes\\.\n\nI am feeling mostly prepared for the exam tomorrow, im actually rather unmotivated and bored right now\\. I feel like I slipped today, but actually I don’t think I did, it’s just not been filled with relaxing highly positive feelings that I seek\\. I had a toastie and the remainder of my hash for dinner, that’s not too bad\\. \n\nOkay so I don’t think I want my side hustle to be about contracting\\. I had a look at upwork and Fiverr and basically I’d be working for other people, doing stressful 30\\+ hour week contracts with bosses asking for updates\\.\\. that’s\\.\\.\\. not what I want at all\\. So backtrack on that idea\\. What I want is to start my own SaaS product on my own terms\\. A quick google shows something called Micro SaaS is worth investigating\\. I have a project coming up for the side hustle mission for me to do a proper literature review so I’ll start there\\.\n\nAlso\\.\\.\\. seriously the amount of stress and negative feeling I’ve felt whilst thinking and reviewing these ideas\\.\\. fuck me it’s unpleasant\\. I’d really like to figure out a way to think about these things without this visceral emotional response I get in the pit of my stomach, it’s so nasty\\! I bet it’s something to do with feeling psychologically safe, maybe feeling secure because I’ve already got a good thing and I don’t need this side hustle, everything I do on it is a bonus\\. I might try that, I need to be able to read, think, and work on this without it feeling like my gut is being wrenched out because it’ll make it so much more effort than it already is\\!",
+  "editingTime" : 718.80831623077393,
+  "creationOSVersion" : "17.3.1",
+  "uuid" : "9A5B0070D763424998732678447BCBAE",
+  "isAllDay" : false,
+  "starred" : false,
+  "richText" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"2EA4EA6A-CBCC-4524-857B-6D177CD720AC\"}},\"text\":\"\\n\"},{\"text\":\"That chaotic feeling I get every now and again, where everything has to line up and make sense and be part of some organised system, I’m naming that Palia.\\n\\nI say that because I’m feeling at the moment whilst reading this palia article on software architecture. I’m thinking of how to best process and learn from case studies which is an important avenue for learning, it’s what Cedric chin recommends, study good examples of what good looks like. I got the system design interview book full of case studies to study.. but what do I do with all that knowledge? Where do I keep it? To me it makes most sense to put it in Obsidian as searchable material. I can’t commit to learning it all, it’ll be too much. Perhaps if I come across something obviously foundational, but most of this stuff is going to be contextual, why a company did it a particular way. So with that in mind I’ll follow my usual obsidian approach, heavily tagged, links, etc. I’ll read these articles\\\/case studies and create an entry for each one, I’ll create a paragraph for each choice, I’ll use the technique 1) what was the situation, problem, context, 2) what they did 3) why they did it. 4) caveats and notes.\\n\\nI am feeling mostly prepared for the exam tomorrow, im actually rather unmotivated and bored right now. I feel like I slipped today, but actually I don’t think I did, it’s just not been filled with relaxing highly positive feelings that I seek. I had a toastie and the remainder of my hash for dinner, that’s not too bad. \\n\\nOkay so I don’t think I want my side hustle to be about contracting. I had a look at upwork and Fiverr and basically I’d be working for other people, doing stressful 30+ hour week contracts with bosses asking for updates.. that’s... not what I want at all. So backtrack on that idea. What I want is to start my own SaaS product on my own terms. A quick google shows something called Micro SaaS is worth investigating. I have a project coming up for the side hustle mission for me to do a proper literature review so I’ll start there.\\n\\nAlso... seriously the amount of stress and negative feeling I’ve felt whilst thinking and reviewing these ideas.. fuck me it’s unpleasant. I’d really like to figure out a way to think about these things without this visceral emotional response I get in the pit of my stomach, it’s so nasty! I bet it’s something to do with feeling psychologically safe, maybe feeling secure because I’ve already got a good thing and I don’t need this side hustle, everything I do on it is a bonus. I might try that, I need to be able to read, think, and work on this without it feeling like my gut is being wrenched out because it’ll make it so much more effort than it already is!\"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2490},\"small-lines-removed\":true,\"version\":1}}",
+  "isPinned" : false,
+  "sourceString" : "visit-F0110C95-A391-4BCA-A335-79D5E09C87FC",
+  "weather" : {
+    "moonPhaseCode" : "waning-crescent",
+    "weatherCode" : "cloudy",
+    "weatherServiceName" : "WeatherKit",
+    "temperatureCelsius" : 13.140000343322754,
+    "windBearing" : 235,
+    "sunriseDate" : "2024-04-04T05:38:13Z",
+    "conditionsDescription" : "Cloudy",
+    "pressureMB" : 1003.6699829101562,
+    "moonPhase" : 0.87,
+    "visibilityKM" : 16.638349533081055,
+    "relativeHumidity" : 82,
+    "windSpeedKPH" : 19.860000610351562,
+    "sunsetDate" : "2024-04-04T18:49:32Z"
+  },
+  "timeZone" : "Europe\/London",
+  "userActivity" : {
+    "activityName" : "Stationary",
+    "stepCount" : 8329
+  },
+  "creationOSName" : "iOS"
+},
+{
+  "duration" : 0,
+  "creationDate" : "2024-04-05T12:07:08Z",
+  "creationDevice" : "Desktop",
+  "editingTime" : 0,
+  "text" : "\nAnd so my MSc is finished. I just finished Exam 3, I feel relief,\n",
+  "creationDeviceType" : "WebApp",
+  "creationDeviceModel" : "Google Chrome 119",
+  "modifiedDate" : "2024-04-05T12:07:27Z",
+  "creationOSVersion" : "6.5.0",
+  "uuid" : "D8CD97E807755611AFE6010709700D58",
+  "isAllDay" : false,
+  "starred" : false,
+  "richText" : "{\"contents\":[{\"attributes\":{},\"text\":\"And so my MSc is finished. I just finished Exam 3, I feel relief,\"}],\"meta\":{\"version\":1,\"created\":{\"version\":1,\"platform\":\"webapp\"},\"small-lines-removed\":true}}",
+  "isPinned" : false,
+  "timeZone" : "Europe\/London",
+  "sourceString" : "visit-61AF403D-7BCC-4BCB-8272-04E446036568",
+  "userActivity" : {
+
+  },
+  "creationOSName" : "Linux"
+},
+{
+  "location" : {
+    "region" : {
+      "center" : {
+        "longitude" : -2.508202075958252,
+        "latitude" : 51.52130126953125
+      },
+      "radius" : 75
+    },
+    "localityName" : "Bristol",
+    "country" : "United Kingdom",
+    "timeZoneName" : "Europe\/London",
+    "administrativeArea" : "England",
+    "longitude" : -2.508202075958252,
+    "placeName" : "41 Dragon Road",
+    "latitude" : 51.52130126953125
+  },
+  "duration" : 0,
+  "creationDate" : "2024-04-06T06:38:16Z",
+  "creationDevice" : "iPhone (10)",
+  "editingTime" : 160.18762791156769,
+  "text" : "I’m feeling like I need to improve the quality of the code in my projects and tidy up my GitHub\\. This is driven a little by the idea of freelancing if I want to\\. I said yesterday I won’t freelance but I just simply don’t like shutting doors\\. The attraction to freelancing is that you get good at your craft because you see lots of different projects\\. I still would prefer to have my own micro SaaS side hustle, but perhaps this is just something else my business could do?\n\nAnother business idea, stay up to date with LLMs, agents, building LLM products, and package into courses and sell them\\. Like test driven\\.io but for LLMs\\.",
+  "creationDeviceType" : "iPhone",
+  "creationDeviceModel" : "iPhone13,2",
+  "modifiedDate" : "2024-04-06T06:53:11Z",
+  "creationOSVersion" : "17.3.1",
+  "uuid" : "7B34088FD6FC43D9844BE5F72003C999",
+  "isAllDay" : false,
+  "starred" : false,
+  "richText" : "{\"contents\":[{\"attributes\":{\"line\":{\"header\":1,\"identifier\":\"DFB3C96D-06AC-4A5A-B420-746520ED6323\"}},\"text\":\"\\n\"},{\"text\":\"I’m feeling like I need to improve the quality of the code in my projects and tidy up my GitHub. This is driven a little by the idea of freelancing if I want to. I said yesterday I won’t freelance but I just simply don’t like shutting doors. The attraction to freelancing is that you get good at your craft because you see lots of different projects. I still would prefer to have my own micro SaaS side hustle, but perhaps this is just something else my business could do?\\n\\nAnother business idea, stay up to date with LLMs, agents, building LLM products, and package into courses and sell them. Like test driven.io but for LLMs.\"}],\"meta\":{\"created\":{\"platform\":\"com.bloombuilt.dayone-ios\",\"version\":2490},\"small-lines-removed\":true,\"version\":1}}",
+  "isPinned" : false,
+  "timeZone" : "Europe\/London",
+  "weather" : {
+    "moonPhaseCode" : "waning-crescent",
+    "weatherCode" : "wind",
+    "weatherServiceName" : "WeatherKit",
+    "temperatureCelsius" : 15.180000305175781,
+    "windBearing" : 178,
+    "sunriseDate" : "2024-04-06T05:33:22Z",
+    "conditionsDescription" : "Windy",
+    "pressureMB" : 996.510009765625,
+    "moonPhase" : 0.87,
+    "visibilityKM" : 25.838960647583008,
+    "relativeHumidity" : 73,
+    "windSpeedKPH" : 26.629999160766602,
+    "sunsetDate" : "2024-04-06T18:52:39Z"
+  },
+  "sourceString" : "visit-1FBDAE2E-A105-41AE-9EFD-8B1196EB2375",
+  "creationOSName" : "iOS"
+}
+]}

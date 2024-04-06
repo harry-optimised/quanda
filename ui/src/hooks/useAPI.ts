@@ -1,10 +1,10 @@
-import { DjangoBlobResponse, Item, Project, SetLink, Tag } from '../types';
+import { Thought, Tag, Entry } from '../types';
 import { useSelector } from 'react-redux';
 import { selectToken } from '../state/profile';
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const API_BASE_URL = 'http://localhost:8000/api'; //process.env.REACT_APP_API_BASE_URL;
 
-type Entity = Item | Project | Tag;
+type Entity = Thought | Tag | Entry;
 
 type DjangoListResponse = {
   count: number;
@@ -20,7 +20,7 @@ type DjangoUpdateResponse = Entity;
 const useAPI = () => {
   const token = useSelector(selectToken);
 
-  const callAPI = async (path: string, project: number, body?: unknown, method = 'GET'): Promise<Response | null> => {
+  const callAPI = async (path: string, body?: unknown, method = 'GET'): Promise<Response | null> => {
     if (!token) {
       console.error('No token found');
       return null;
@@ -34,11 +34,6 @@ const useAPI = () => {
     if (!isFormData) {
       headers.append('Content-Type', 'application/json');
       body = JSON.stringify(body);
-    }
-
-    const requiresProject = !path.includes('project');
-    if (requiresProject) {
-      headers.append('Quanda-Project', `${project}`);
     }
 
     const response = await fetch(url, {
@@ -59,92 +54,100 @@ const useAPI = () => {
     return response;
   };
 
-  // Item API
-  // ########
+  // Entries API
+  // ###########
 
-  interface CreateItem {
-    item: Omit<Item, 'id'>;
-    project: number;
+  interface CreateEntry {
+    entry: Entry;
   }
 
-  const createItem = async ({ item, project }: CreateItem): Promise<Item | null> => {
-    const response = await callAPI('items/', project, item, 'POST');
+  const createEntry = async ({ entry }: CreateEntry): Promise<Entry | null> => {
+    const response = await callAPI('entries/', entry, 'POST');
     if (!response) return null;
     const data: DjangoCreateResponse = await response.json();
-    return data as Item;
+    return data as Entry;
   };
 
-  interface RetrieveItem {
-    id: number;
-    project: number;
+  interface RetrieveEntry {
+    id: string;
   }
 
-  const retrieveItem = async ({ id, project }: RetrieveItem): Promise<Item | null> => {
-    const response = await callAPI(`items/${id}/`, project);
+  const retrieveEntry = async ({ id }: RetrieveEntry): Promise<Entry | null> => {
+    const response = await callAPI(`entries/${id}/`);
     if (!response) return null;
     const data: DjangoRetrieveResponse = await response.json();
-    return data as Item;
+    return data as Entry;
   };
 
-  interface ListItems {
+  interface ListEntries {
     searchTerm?: string;
-    project: number;
   }
 
-  const listItems = async ({ searchTerm, project }: ListItems): Promise<Item[] | null> => {
+  const listEntries = async ({ searchTerm }: ListEntries): Promise<Entry[] | null> => {
     const params = new URLSearchParams();
     if (searchTerm) params.append('search', searchTerm);
-    const response = await callAPI(`items/?${params.toString()}`, project);
+    const response = await callAPI(`entries/?${params.toString()}`);
     if (!response) return null;
     const data: DjangoListResponse = await response.json();
-    return data.results as Item[];
+    return data.results as Entry[];
   };
 
-  interface UpdateItem {
-    item: Item;
-    project: number;
+  interface UpdateEntry {
+    entry: Entry;
   }
 
-  const updateItem = async ({ item, project }: UpdateItem): Promise<Item | null> => {
-    const response = await callAPI(`items/${item.id}/`, project, item, 'PATCH');
+  const updateEntry = async ({ entry }: UpdateEntry): Promise<Entry | null> => {
+    const response = await callAPI(`entries/${entry.id}/`, entry, 'PATCH');
     if (!response) return null;
     const data: DjangoUpdateResponse = await response.json();
-    return data as Item;
+    return data as Entry;
   };
 
-  interface AddLink {
-    item: Item;
-    link: SetLink;
-    project: number;
+  interface DeleteEntry {
+    id: string;
   }
 
-  const addLink = async ({ item, link, project }: AddLink): Promise<Item | null> => {
-    const response = await callAPI(`items/${item.id}/add_link/`, project, link, 'POST');
+  const deleteEntry = async ({ id }: DeleteEntry): Promise<void | null> => {
+    const response = await callAPI(`entries/${id}/`, {}, 'DELETE');
     if (!response) return null;
-    const data: DjangoUpdateResponse = await response.json();
-    return data as Item;
+    return;
   };
 
-  interface RemoveLink {
-    item: Item;
-    link: SetLink;
-    project: number;
+  // Thought API
+  // ########
+
+  interface CreateThought {
+    entryId: string;
+    item: Omit<Thought, 'id' | 'entry'>;
   }
 
-  const removeLink = async ({ item, link, project }: RemoveLink): Promise<Item | null> => {
-    const response = await callAPI(`items/${item.id}/remove_link/`, project, link, 'POST');
+  const createThought = async ({ entryId, item }: CreateThought): Promise<Thought | null> => {
+    const response = await callAPI(`entries/${entryId}/add-thought/`, item, 'POST');
     if (!response) return null;
-    const data: DjangoUpdateResponse = await response.json();
-    return data as Item;
+    const data: Thought = await response.json();
+    return data;
   };
 
-  interface DeleteItem {
-    id: number;
-    project: number;
+  interface UpdateThought {
+    entryId: string;
+    thoughtId: string;
+    item: Partial<Thought>;
   }
 
-  const deleteItem = async ({ id, project }: DeleteItem): Promise<void | null> => {
-    const response = await callAPI(`items/${id}/`, project, {}, 'DELETE');
+  const updateThought = async ({ entryId, thoughtId, item }: UpdateThought): Promise<Thought | null> => {
+    const response = await callAPI(`entries/${entryId}/edit-thought/${thoughtId}/`, item, 'PUT');
+    if (!response) return null;
+    const data: Thought = await response.json();
+    return data;
+  };
+
+  interface DeleteThought {
+    entryId: string;
+    thoughtId: string;
+  }
+
+  const deleteThought = async ({ entryId, thoughtId }: DeleteThought): Promise<void | null> => {
+    const response = await callAPI(`entries/${entryId}/delete-thought/${thoughtId}/`, {}, 'DELETE');
     if (!response) return null;
     return;
   };
@@ -154,79 +157,41 @@ const useAPI = () => {
 
   interface CreateTag {
     tag: Omit<Tag, 'id'>;
-    project: number;
   }
 
-  const createTag = async ({ tag, project }: CreateTag): Promise<Tag | null> => {
-    const response = await callAPI('tags/', project, tag, 'POST');
+  const createTag = async ({ tag }: CreateTag): Promise<Tag | null> => {
+    const response = await callAPI('tags/', tag, 'POST');
     if (!response) return null;
     const data: DjangoCreateResponse = await response.json();
     return data as Tag;
   };
 
-  interface ListTags {
-    project: number;
-  }
-
-  const listTags = async ({ project }: ListTags): Promise<Tag[] | null> => {
-    const response = await callAPI('tags/', project);
+  const listTags = async (): Promise<Tag[] | null> => {
+    const response = await callAPI('tags/');
     if (!response) return null;
     const data: DjangoListResponse = await response.json();
     return data.results as Tag[];
   };
 
   interface DeleteTag {
-    id: number;
-    project: number;
+    id: string;
   }
 
-  const deleteTag = async ({ id, project }: DeleteTag): Promise<void | null> => {
-    const response = await callAPI(`tags/${id}/`, project, {}, 'DELETE');
+  const deleteTag = async ({ id }: DeleteTag): Promise<void | null> => {
+    const response = await callAPI(`tags/${id}/`, {}, 'DELETE');
     if (!response) return null;
     return;
   };
 
-  // Project API
-  // ###########
-
-  const listProjects = async (): Promise<Project[] | null> => {
-    const response = await callAPI('projects/', -1);
-    if (!response) return null;
-    const data: DjangoListResponse = await response.json();
-    return data.results as Project[];
-  };
-
-  const exportProject = async (project: number): Promise<DjangoBlobResponse | null> => {
-    const response = await callAPI(`projects/${project}/export/`, project);
-    if (!response) return null;
-
-    const contentDisposition = response.headers.get('Content-Disposition');
-    console.log(contentDisposition);
-    const filename = contentDisposition?.split('filename=')[1].replace(/"/g, '') || 'exported_data.pkl';
-    return {
-      blob: await response.blob(),
-      name: filename
-    };
-  };
-
-  const importProject = async (project: number, file: File): Promise<Project | null> => {
-    const formData = new FormData();
-    formData.append('file', file);
-    await callAPI(`projects/${project}/ingest/`, project, formData, 'POST');
-    return null;
-  };
-
   return {
-    createItem,
-    updateItem,
-    addLink,
-    removeLink,
-    retrieveItem,
-    deleteItem,
-    listProjects,
-    exportProject,
-    importProject,
-    listItems,
+    createEntry,
+    updateEntry,
+    retrieveEntry,
+    deleteEntry,
+    listEntries,
+    createThought,
+    updateThought,
+    deleteThought,
     createTag,
     listTags,
     deleteTag

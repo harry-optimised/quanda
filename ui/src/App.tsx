@@ -27,14 +27,10 @@ import ActiveItem from './components/ActiveItem';
 import Navigator from './components/Navigator';
 
 import { selectToken, selectUsername, setToken, setUsername } from './state/profile';
-import { selectCurrentProject, setCurrentProject } from './state/projects';
 import { Header } from './components/Header';
 import { LoadingScreen } from './components/LoadingScreen';
 
 // Fragments
-import ImportManager, { ImportManagerRef } from './fragments/ImportManager';
-import ExportManager, { ExportManagerRef } from './fragments/ExportManager';
-import ProjectManager, { ProjectManagerRef } from './fragments/ProjectManager';
 import TagManager, { TagManagerRef } from './fragments/TagManager/TagManagerRef';
 
 function AuthenticatedApp() {
@@ -42,17 +38,11 @@ function AuthenticatedApp() {
   const { getAccessTokenSilently, logout } = useAuth0();
   const token = useSelector(selectToken);
   const username = useSelector(selectUsername);
-  const project = useSelector(selectCurrentProject);
-  const projectManagerRef = React.useRef<ProjectManagerRef>(null);
   const tagManagerRef = React.useRef<TagManagerRef>(null);
-  const exportManagerRef = React.useRef<ExportManagerRef>(null);
-  const importManagerRef = React.useRef<ImportManagerRef>(null);
 
   useEffect(() => {
     getAccessTokenSilently().then((accessToken) => {
       dispatch(setToken(accessToken));
-      const _project = localStorage.getItem('activeProject');
-      if (_project) dispatch(setCurrentProject(JSON.parse(_project)));
       // TODO: If project does not exist, handle it.
 
       fetch('https://dev-czejtnrwqf2cuw1e.uk.auth0.com/userinfo', {
@@ -77,30 +67,7 @@ function AuthenticatedApp() {
           {
             name: 'Tags',
             icon: TagIcon,
-            disabled: !project,
             onClick: () => tagManagerRef.current?.open()
-          },
-          {
-            name: 'Project',
-            icon: ProjectsIcon,
-            onClick: () => null,
-            subHeadings: [
-              {
-                name: 'Change Project',
-                icon: ProjectsIcon,
-                onClick: () => projectManagerRef.current?.open()
-              },
-              {
-                name: 'Import Data',
-                icon: ImportIcon,
-                onClick: () => importManagerRef.current?.open()
-              },
-              {
-                name: 'Export Data',
-                icon: ExportIcon,
-                onClick: () => exportManagerRef.current?.open()
-              }
-            ]
           },
           {
             name: 'Account',
@@ -123,61 +90,22 @@ function AuthenticatedApp() {
         ]}
       />
 
-      <ImportManager ref={importManagerRef} />
-      <ExportManager ref={exportManagerRef} />
-      <ProjectManager ref={projectManagerRef} />
       <TagManager ref={tagManagerRef} />
-      {!project && (
-        <Pane
-          className="App"
-          width="100%"
-          height="calc(100vh - 48px)"
-          display="flex"
-          backgroundColor={theme.colors.tint3}
-          justifyContent="center"
-          alignItems="center"
-          userSelect="none"
-        >
-          <Pane width="50%" height="30%" display="flex" flexDirection="column" justifyContent="space-between">
-            <Pane display="flex" flexDirection="column" alignItems="center" justifyContent="center" opacity={0.7}>
-              <Icon icon={RocketSlantIcon} color={theme.colors.tint6} size={64} marginBottom={32} />
-              <Heading size={800} color={theme.colors.tint6} paddingLeft={16} marginBottom={16}>
-                Welcome to Quanda
-              </Heading>
-              <Heading size={600} color={theme.colors.tint6} paddingLeft={16} marginBottom={16}>
-                Open a Project to get started.
-              </Heading>
-            </Pane>
-            <Pane display="flex" flexDirection="row" alignItems="center" justifyContent="center" marginBottom={32}>
-              <Button
-                appearance="primary"
-                onClick={() => {
-                  projectManagerRef.current?.open();
-                }}
-              >
-                Open Project
-              </Button>
-            </Pane>
-          </Pane>
-        </Pane>
-      )}
 
-      {project && (
-        <Pane
-          className="App"
-          width="100%"
-          height="calc(100vh - 48px)"
-          display="flex"
-          backgroundColor={theme.colors.tint3}
-        >
-          <Pane width="25%" height="100%" display="flex" flexDirection="column" justifyContent="space-between">
-            <Navigator />
-          </Pane>
-          <Pane width="75%" padding={0}>
-            <ActiveItem />
-          </Pane>
+      <Pane
+        className="App"
+        width="100%"
+        height="calc(100vh - 48px)"
+        display="flex"
+        backgroundColor={theme.colors.tint3}
+      >
+        <Pane width="25%" height="100%" display="flex" flexDirection="column" justifyContent="space-between">
+          <Navigator />
         </Pane>
-      )}
+        <Pane width="75%" padding={0}>
+          <ActiveItem />
+        </Pane>
+      </Pane>
     </>
   );
 }

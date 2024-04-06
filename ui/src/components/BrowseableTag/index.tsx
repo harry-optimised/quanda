@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import theme from '../../theme';
-import { Project, Tag } from '../../types';
+import { Tag } from '../../types';
 import { Pane, Card, Text, Icon, Strong, TrashIcon } from 'evergreen-ui';
 import useAPI from '../../hooks/useAPI';
 import { useDispatch } from 'react-redux';
@@ -9,12 +9,11 @@ import { removeTag } from '../../state/tagsSlice';
 
 interface BrowseableTagProps {
   tag: Tag;
-  project: Project | null;
   selected: boolean;
   onSelect: (tag: Tag) => void;
 }
 
-function BrowseableTag({ tag, project, selected, onSelect }: BrowseableTagProps) {
+function BrowseableTag({ tag, selected, onSelect }: BrowseableTagProps) {
   const [hover, setHover] = React.useState<boolean>(false);
   const api = useAPI();
   const dispatch = useDispatch<AppDispatch>();
@@ -23,11 +22,10 @@ function BrowseableTag({ tag, project, selected, onSelect }: BrowseableTagProps)
   const opacity = hover && !selected ? 0.6 : 1;
 
   const onDelete = useCallback(() => {
-    if (!project) return;
-    api.deleteTag({ id: tag.id, project: project.id }).then(() => {
+    api.deleteTag({ id: tag.id }).then(() => {
       dispatch(removeTag(tag.id));
     });
-  }, [tag, project]);
+  }, [tag]);
 
   return (
     <Pane>

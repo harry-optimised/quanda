@@ -3,12 +3,12 @@ import React, { useState, useCallback, useEffect } from 'react';
 import MDEditor from '@uiw/react-md-editor';
 import { debounce } from 'lodash';
 
-interface SecondaryFieldProps {
+interface ThoughtEditorProps {
   onSave: (secondary: string) => void;
   secondary: string;
 }
 
-const SecondaryField: React.FC<SecondaryFieldProps> = ({ onSave, secondary }) => {
+const ThoughtEditor: React.FC<ThoughtEditorProps> = ({ onSave, secondary }) => {
   const [content, setContent] = useState<string | undefined>(secondary);
 
   useEffect(() => {
@@ -32,15 +32,15 @@ const SecondaryField: React.FC<SecondaryFieldProps> = ({ onSave, secondary }) =>
 
   return (
     <MDEditor
+      style={{ width: '100%', height: '100%', marginTop: 16 }}
       value={content}
       onChange={onChangeContent}
       preview="edit"
       autoFocus={true}
-      height="calc(100vh - 170px - 48px)"
       visibleDragbar={true}
       textareaProps={{ style: { overflowY: 'scroll' } }}
     />
   );
 };
 
-export default SecondaryField;
+export default ThoughtEditor;

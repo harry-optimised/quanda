@@ -4,8 +4,8 @@ from api import views
 
 router = DefaultRouter()
 router.register(r'tags', views.TagViewSet)
-router.register(r'items', views.ItemViewSet, basename='item')
-router.register(r'projects', views.ProjectViewSet)
+router.register(r'thoughts', views.ThoughtViewSet, basename='thought')
+router.register(r'entries', views.EntryViewSet, basename='entry')
 
 urlpatterns = [
     path('', include(router.urls)),

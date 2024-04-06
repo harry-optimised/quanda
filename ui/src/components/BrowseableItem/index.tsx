@@ -1,30 +1,24 @@
 import React, { useMemo } from 'react';
 import theme from '../../theme';
-import { Item, LightItem } from '../../types';
+import { Entry } from '../../types';
 import { Pane, Card, Text, Strong } from 'evergreen-ui';
 import TagBar from '../TagBar';
 
 interface BrowseableItemProps {
-  item: Item | LightItem;
+  entry: Entry;
   selected: boolean;
-  onSelect: (id: number) => void;
+  onSelect: (id: string) => void;
 }
 
-function BrowseableItem({ item, selected, onSelect }: BrowseableItemProps) {
+function BrowseableItem({ entry, selected, onSelect }: BrowseableItemProps) {
   const [hover, setHover] = React.useState<boolean>(false);
-  const secondary = useMemo(() => {
-    if (!item.secondary) return '';
-    return item.secondary.length > 70
-      ? item.secondary.slice(0, 70) + '...'
-      : item.secondary;
-  }, [item.secondary]);
 
   const backgroundColor = selected ? theme.colors.tint4 : `transparent`;
   const opacity = hover && !selected ? 0.6 : 1;
 
   return (
     <Card
-      key={item.id}
+      key={entry.id}
       display="flex"
       padding={8}
       flexDirection="column"
@@ -34,22 +28,22 @@ function BrowseableItem({ item, selected, onSelect }: BrowseableItemProps) {
       cursor="pointer"
       userSelect="none"
       opacity={opacity}
-      onClick={() => onSelect(item.id)}
+      onClick={() => onSelect(entry.id)}
       style={{ backgroundColor: backgroundColor, transition: 'opacity 0.1s' }}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      {item.tags && item.tags.length > 0 && (
+      {/* {entry.tags && entry.tags.length > 0 && (
         <Pane style={{ marginBottom: 4 }}>
-          <TagBar tags={item.tags} onSave={() => null} frozen={true} />
+          <TagBar tags={entry.tags} onSave={() => null} frozen={true} />
         </Pane>
-      )}
+      )} */}
       <Strong color={theme.colors.tint6} textAlign="left">
-        {item.primary}
+        {entry.id}
       </Strong>
-      <Text color={theme.colors.tint6} textAlign="left">
+      {/* <Text color={theme.colors.tint6} textAlign="left">
         {secondary}
-      </Text>
+      </Text> */}
     </Card>
   );
 }
