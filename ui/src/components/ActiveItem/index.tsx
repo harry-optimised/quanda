@@ -2,7 +2,7 @@ import '../../App.css';
 import React, { useCallback } from 'react';
 import theme from '../../theme';
 import { Button, CleanIcon, Heading, Icon, PlusIcon, TrashIcon } from 'evergreen-ui';
-import { Entry, Thought } from '../../types';
+import { Thought } from '../../types';
 import { Pane, Card } from 'evergreen-ui';
 import { AppDispatch, selectItem as selectEntry } from '../../state/store';
 import { useSelector, useDispatch } from 'react-redux';
@@ -10,7 +10,6 @@ import TagBar from '../../components/TagBar';
 
 import ThoughtEditor from '../ThoughtEditor';
 
-import { updateEntry } from '../../state/navigator';
 import useAPI from '../../hooks/useAPI';
 import { setEntry } from '../../state/item';
 

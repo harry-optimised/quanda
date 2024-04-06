@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dialog, Button, TrashIcon, Paragraph, Strong, Icon } from 'evergreen-ui';
+import { Dialog, TrashIcon, Paragraph, Strong, Icon } from 'evergreen-ui';
 import theme from '../../theme';
 
 interface DeleteButtonProps {

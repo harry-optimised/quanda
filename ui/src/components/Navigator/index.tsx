@@ -15,7 +15,6 @@ import BrowseableItem from '../../components/BrowseableItem';
 import { debounce } from 'lodash';
 import useAPI from '../../hooks/useAPI';
 import theme from '../../theme';
-import { on } from 'events';
 
 function Navigator() {
   const dispatch = useDispatch<AppDispatch>();

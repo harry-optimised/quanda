@@ -1,20 +1,7 @@
 import './App.css';
 import React, { useEffect } from 'react';
 import theme from './theme';
-import {
-  Button,
-  DatabaseIcon,
-  ExportIcon,
-  Heading,
-  Icon,
-  ImportIcon,
-  LogOutIcon,
-  PersonIcon,
-  ProjectsIcon,
-  RocketSlantIcon,
-  TagIcon,
-  ThemeProvider
-} from 'evergreen-ui';
+import { Button, LogOutIcon, PersonIcon, TagIcon, ThemeProvider } from 'evergreen-ui';
 
 //TODO: Do some of that sweet sweet bundle splitting.
 import { Pane } from 'evergreen-ui';

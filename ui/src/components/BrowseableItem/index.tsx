@@ -1,8 +1,7 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import theme from '../../theme';
 import { Entry } from '../../types';
-import { Pane, Card, Text, Strong } from 'evergreen-ui';
-import TagBar from '../TagBar';
+import { Card, Strong } from 'evergreen-ui';
 
 interface BrowseableItemProps {
   entry: Entry;
