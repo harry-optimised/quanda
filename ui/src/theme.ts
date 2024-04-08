@@ -1,11 +1,13 @@
 import { defaultTheme, mergeTheme } from 'evergreen-ui';
 
 const BACKGROUND = '#FFFFFF';
+const PRIMARY = '#394e5c';
+const SECONDARY = '#8ebdb5';
+
 const GRAY = '#C5C5C5';
 const TINT3 = '#D9E8E7';
 const TINT4 = '#8CBAB7';
-const TINT5 = '#4D807D';
-const TINT6 = '#26403E';
+
 const ACCENT = '#888888';
 const HIGHLIGHT = '#F2F2F2';
 const DANGER = '#F67E7D';
@@ -20,7 +22,25 @@ const theme = mergeTheme(defaultTheme, {
     Button: {
       appearances: {
         primary: {
-          backgroundColor: TINT5,
+          backgroundColor: SECONDARY,
+          color: BACKGROUND,
+          fontWeight: '600',
+          selectors: {
+            _disabled: {
+              backgroundColor: GRAY
+            },
+            _hover: {
+              opacity: 0.9,
+              transition: 'opacity 0.1s ease-in-out'
+            },
+            _active: {
+              boxShadow: `none`
+            }
+          }
+        },
+        secondary: {
+          backgroundColor: 'rgba(0, 0, 0, 0)',
+          border: `1px solid ${BACKGROUND}`,
           color: BACKGROUND,
           fontWeight: '600',
           selectors: {
@@ -55,7 +75,7 @@ const theme = mergeTheme(defaultTheme, {
           selectors: {
             _focus: {
               border: `1px solid ${GRAY}`,
-              boxShadow: `0 0 2px 2px ${TINT5}`
+              boxShadow: `0 0 2px 2px ${SECONDARY}`
             }
           }
         }
@@ -72,7 +92,7 @@ const theme = mergeTheme(defaultTheme, {
           selectors: {
             _focus: {
               border: `1px solid ${GRAY}`,
-              boxShadow: `0 0 2px 2px ${TINT5}`
+              boxShadow: `0 0 2px 2px ${SECONDARY}`
             }
           }
         }
@@ -85,7 +105,7 @@ const theme = mergeTheme(defaultTheme, {
     },
     Heading: {
       baseStyle: {
-        color: TINT6
+        color: PRIMARY
       }
     },
     TagInput: {
@@ -106,7 +126,7 @@ const theme = mergeTheme(defaultTheme, {
           selectors: {
             _focused: {
               border: `1px solid ${GRAY}`,
-              boxShadow: `0 0 2px 2px ${TINT5}`
+              boxShadow: `0 0 2px 2px ${SECONDARY}`
             }
           }
         }
@@ -125,7 +145,7 @@ const theme = mergeTheme(defaultTheme, {
         custom: {
           selectors: {
             _current: {
-              color: TINT6,
+              color: PRIMARY,
               backgroundColor: BACKGROUND,
               userSelect: 'none'
             },
@@ -141,8 +161,8 @@ const theme = mergeTheme(defaultTheme, {
     background: BACKGROUND,
     tint3: TINT3,
     tint4: TINT4,
-    tint5: TINT5,
-    tint6: TINT6,
+    secondary: SECONDARY,
+    primary: PRIMARY,
     accent: ACCENT,
     danger: DANGER,
     highlight: HIGHLIGHT

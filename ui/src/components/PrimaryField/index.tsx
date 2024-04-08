@@ -50,7 +50,7 @@ const PrimaryField: React.FC<PrimaryFieldProps> = ({ onSave: parentOnSave, prima
       onMouseLeave={() => setHover(false)}
       style={{ display: 'flex', alignItems: 'center' }}
     >
-      <Heading size={600} color={theme.colors.tint6}>
+      <Heading size={600} color={theme.colors.primary}>
         {primary}
       </Heading>
       <Icon
@@ -59,7 +59,7 @@ const PrimaryField: React.FC<PrimaryFieldProps> = ({ onSave: parentOnSave, prima
         style={{
           marginLeft: 16,
           transition: 'color 0.1s ease-in-out',
-          color: hover ? theme.colors.tint6 : theme.colors.tint5
+          color: hover ? theme.colors.primary : theme.colors.secondary
         }}
       />
       <Label
@@ -67,7 +67,7 @@ const PrimaryField: React.FC<PrimaryFieldProps> = ({ onSave: parentOnSave, prima
           marginLeft: 8,
           cursor: 'pointer',
           transition: 'color 0.1s ease-in-out',
-          color: hover ? theme.colors.tint5 : theme.colors.tint3
+          color: hover ? theme.colors.secondary : theme.colors.tint3
         }}
       >
         edit
@@ -82,7 +82,7 @@ const PrimaryField: React.FC<PrimaryFieldProps> = ({ onSave: parentOnSave, prima
       value={editablePrimary}
       fontSize={16}
       fontWeight={600}
-      color={theme.colors.tint6}
+      color={theme.colors.primary}
       onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChangePrimary(e.target.value)}
       onBlur={onSave}
       onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {

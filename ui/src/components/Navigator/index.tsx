@@ -161,10 +161,10 @@ function Navigator() {
             opacity={0.3}
             style={{ height: '100%' }}
           >
-            <Heading size={800} color={theme.colors.tint6} paddingLeft={16}>
+            <Heading size={800} color={theme.colors.primary} paddingLeft={16}>
               No items
             </Heading>
-            <Heading size={600} color={theme.colors.tint6} paddingLeft={16}>
+            <Heading size={600} color={theme.colors.primary} paddingLeft={16}>
               Add one below to get started.
             </Heading>
           </Pane>

@@ -15,7 +15,7 @@ export function LoadingScreen() {
       alignItems="center"
     >
       <Spinner size={48} marginBottom={32} />
-      <Paragraph color={theme.colors.tint6} marginLeft={16}>
+      <Paragraph color={theme.colors.primary} marginLeft={16}>
         Just setting up...
       </Paragraph>
     </Pane>

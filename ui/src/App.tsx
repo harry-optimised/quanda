@@ -115,6 +115,9 @@ function AuthenticatedApp() {
   );
 }
 
+const bgImage = `linear-gradient(45deg, rgba(57, 78, 92, 0.95), rgba(142, 189, 181, 0.47)), 
+url('https://images.pexels.com/photos/1287145/pexels-photo-1287145.jpeg')`;
+
 function LoginScreen() {
   const { isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
 
@@ -129,19 +132,24 @@ function LoginScreen() {
         flexDirection="column"
         justifyContent="center"
         alignItems="center"
-        backgroundColor={theme.colors.tint3}
+        style={{
+          backgroundImage: bgImage,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}
       >
-        <img src="logo512.png" alt="Quanda Logo" width={256} height={256} />
+        <img src="continuum_logo_white.png" alt="Continuum Logo" width={100} height={100} />
         <h1
           style={{
             fontSize: 72,
-            fontFamily: 'Lora',
-            color: theme.colors.tint6
+            fontWeight: 300,
+            fontFamily: 'Oxygen',
+            color: theme.colors.white
           }}
         >
-          Quanda
+          Continuum
         </h1>
-        <Button appearance="primary" onClick={() => loginWithRedirect()} size="large">
+        <Button appearance="secondary" onClick={() => loginWithRedirect()} size="large">
           Login
         </Button>
       </Pane>

@@ -82,19 +82,19 @@ export function Header({ links }: HeaderProps) {
     <Pane
       width="100%"
       height={48}
-      backgroundColor={theme.colors.tint6}
+      backgroundColor={theme.colors.primary}
       display="flex"
       justifyContent="space-between"
       alignItems="center"
       userSelect="none"
     >
       <Pane display="flex" flexDirection="row" paddingLeft={16} alignItems="center">
-        <img src="logo512white.png" alt="Quanda Logo" width={32} height={32} />
-        <Strong color={theme.colors.background} marginLeft={8} fontFamily="Lora" fontSize={20}>
-          Quanda
+        <img src="continuum_logo_white.png" alt="Logo" width={32} height={32} />
+        <Strong color={theme.colors.background} marginLeft={8} fontFamily="Oxygen" fontSize={20}>
+          Continuum
         </Strong>
       </Pane>
-      <Pane display="flex" flexDirection="row" backgroundColor={theme.colors.tint6} height={48} paddingRight={16}>
+      <Pane display="flex" flexDirection="row" backgroundColor={theme.colors.primary} height={48} paddingRight={16}>
         {_links}
       </Pane>
     </Pane>

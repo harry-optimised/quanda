@@ -37,7 +37,7 @@ function BrowseableItem({ entry, selected, onSelect }: BrowseableItemProps) {
           <TagBar tags={entry.tags} onSave={() => null} frozen={true} />
         </Pane>
       )} */}
-      <Strong color={theme.colors.tint6} textAlign="left">
+      <Strong color={theme.colors.primary} textAlign="left">
         {entry.date}
       </Strong>
       {/* <Text color={theme.colors.tint6} textAlign="left">
